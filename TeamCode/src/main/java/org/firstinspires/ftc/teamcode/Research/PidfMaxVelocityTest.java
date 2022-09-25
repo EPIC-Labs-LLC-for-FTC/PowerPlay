@@ -78,8 +78,8 @@ public class PidfMaxVelocityTest extends LinearOpMode {
 
         // wait for start button to be pressed
         waitForStart();
-
-        resetStartTime();
+        //FTC LAyer update
+        //resetStartTime();
         while (opModeIsActive() && getRuntime() < driveTimout) {  // stop after enough time to achieve max velocity, BUT BEFORE HITTING WALL !!!
 
             // motion will start here
