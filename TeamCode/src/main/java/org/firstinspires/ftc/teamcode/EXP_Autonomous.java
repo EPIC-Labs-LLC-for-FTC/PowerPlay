@@ -38,35 +38,34 @@ public class EXP_Autonomous extends LinearOpMode {
         double speed = 0.2;
         waitForStart();
 
-        while(opModeIsActive()) {
+        while(opModeIsActive()){
             telemetry.addData("Distance Left: ", distanceLeft.getDistance(DistanceUnit.INCH));
             telemetry.addData("Distance Right: ", distanceRight.getDistance(DistanceUnit.INCH));
             telemetry.update();
 
-            // go front 3 tiles then go left 2
-            frontRight.setPower(0.5);
-            frontLeft.setPower(0.5);
-            backLeft.setPower(-0.5);
-            backRight.setPower(-0.5);
-
-            sleep(4000);
-
-            frontRight.setPower(-0.5);
-            frontLeft.setPower(0.5);
-            backLeft.setPower(-0.5);
-            backRight.setPower(0.5);
-
-            sleep(2000);
-
-            frontRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
-
+            if (distanceLeft.getDistance(DistanceUnit.INCH) < 4.5){
+                frontRight.setPower(1);
+                frontLeft.setPower(1);
+                backLeft.setPower(-1);
+                backRight.setPower(-1);
+                telemetry.addData("Distance Left: ", distanceLeft.getDistance(DistanceUnit.INCH));
+                telemetry.addData("Distance Right: ", distanceRight.getDistance(DistanceUnit.INCH));
+                telemetry.update();
+            } else if (distanceRight.getDistance(DistanceUnit.INCH) < 4.5){
+              frontRight.setPower(-1);
+              frontLeft.setPower(-1);
+              backLeft.setPower(1);
+              backRight.setPower(1);
+              telemetry.addData("Distance Left: ", distanceLeft.getDistance(DistanceUnit.INCH));
+              telemetry.addData("Distance Right: ", distanceRight.getDistance(DistanceUnit.INCH));
+              telemetry.update();
+          } else {
+                frontRight.setPower(0);
+                frontLeft.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
+            }
         }
-
-
-
 
         telemetry.addData("Distance Left: ", distanceLeft.getDistance(DistanceUnit.INCH));
         telemetry.addData("Distance Right: ", distanceRight.getDistance(DistanceUnit.INCH));
