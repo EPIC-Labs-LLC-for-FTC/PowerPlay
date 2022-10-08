@@ -1,25 +1,48 @@
-package org.firstinspires.ftc.teamcode.Research;
+package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.R;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.RobotObjects.Mecanum_Wheels;
+import org.opencv.core.Algorithm;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 
-@Autonomous
-public class VuforiaStreamOpMode extends LinearOpMode {
 
+@Autonomous(name="EXP_ImageRec")
+
+
+public class EXP_ImageRec extends LinearOpMode {
+    //Configuration used: 4wheelConfig
+    private ElapsedTime runtime = new ElapsedTime();
     public static final String VUFORIA_LICENSE_KEY = "AV4DWg3/////AAABmQ6n5OzGwUYalTyB5uR46wxwDEO+PdJwv/KbeSDh+Frtn/FdN8pU2XERVvNAfgckS4NCo0L4YzGYhYUrTJfio23+zD2tl7J4NCF8IZ1hWtVmh1lx1p1+nv0cL/ZFOQb1k6O009NkKi/t+nLHTtZrswnCFC3Pasiw8IwoDPUjjnY08gU4IVRByn+DwgQL+1jrEo4/twIWe5UB65TztGdTXPOEcCzn5ZbjJqaCadFnYI0sMiWmMDoEfgFglWBoA55GOSuKrr1/fRuYXFuCqEqMBx7SzPYopF8vfM0qQ5h2EFEykKUSsre3OY3heH6ewwkpy7PRFE4MBaJoggv9dogm82m0dHu75KV2MbhRm75AkwB3";
-    WebcamName webcamName = null;
     VuforiaLocalizer vuforia = null;
+    WebcamName camera = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+
+        DcMotorEx frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+        DcMotorEx frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        DcMotorEx backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+        DcMotorEx backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
+        DistanceSensor distanceRight = hardwareMap.get(DistanceSensor.class, "distanceRight");
+        DistanceSensor distanceLeft = hardwareMap.get(DistanceSensor.class, "distanceLeft");
+
+
         VuforiaLocalizer.Parameters vuforiaParams = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
         vuforiaParams.vuforiaLicenseKey = VUFORIA_LICENSE_KEY;
         vuforiaParams.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
@@ -30,19 +53,18 @@ public class VuforiaStreamOpMode extends LinearOpMode {
         FtcDashboard.getInstance().startCameraStream(vuforia, 0);
         waitForStart();
 
-        // send telemetry to Driver Station using standard SDK interface
-        telemetry.addData("Mode", "waiting for start");
-        telemetry.update();
+        while(opModeIsActive()){
 
-        while (opModeIsActive()) {
 
         }
+
+
+
+
     }
-
-
     private void initVuforia() {
         // Retrieve the camera we are to use
-        webcamName = hardwareMap.get(WebcamName.class, "camera");
+        camera = hardwareMap.get(WebcamName.class, "camera");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -56,7 +78,7 @@ public class VuforiaStreamOpMode extends LinearOpMode {
         vparameters.vuforiaLicenseKey = VUFORIA_LICENSE_KEY;
 
         // We also indicate which camera on the RC we wish to use
-        vparameters.cameraName = webcamName;
+        vparameters.cameraName = camera;
 
         // Make sure extended tracking is disabled for this example.
         vparameters.useExtendedTracking = false;
@@ -64,4 +86,5 @@ public class VuforiaStreamOpMode extends LinearOpMode {
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(vparameters);
     }
+
 }
