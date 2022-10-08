@@ -42,7 +42,7 @@ public class VuforiaStreamOpMode extends LinearOpMode {
 
     private void initVuforia() {
         // Retrieve the camera we are to use
-        webcamName = hardwareMap.get(WebcamName.class, "camera");
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
