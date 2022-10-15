@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Research;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,13 +12,13 @@ import org.firstinspires.ftc.teamcode.tfrec.classification.Classifier;
 
 import java.util.List;
 
-@Autonomous(name="EPIC_RED_RIGHT_Autonomous", group="Robot19587")
-public class EPIC_RED_RIGHT_Autonomous extends LinearOpMode {
+@Autonomous(name="EPIC_Blue_LEFT_Autonomous", group="Robot19587")
+public class EPIC_BLUE_LEFT_Autonomous extends LinearOpMode {
     //Configuration used: 6wheelConfig
     private Detector tfDetector = null;
 
-    private static String MODEL_FILE_NAME = "EPIC_red_right_model.tflite";
-    private static String LABEL_FILE_NAME = "EPIC_red_right_labels.txt";
+    private static String MODEL_FILE_NAME = "EPIC_blue_left_model.tflite";
+    private static String LABEL_FILE_NAME = "EPIC_blue_left_labels.txt";
     private static Classifier.Model MODEl_TYPE = Classifier.Model.FLOAT_EFFICIENTNET;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -98,73 +98,72 @@ public class EPIC_RED_RIGHT_Autonomous extends LinearOpMode {
             int level = 3;
             distance = 27;
             //id is equivalent to the labels
-            if(id.contains("0 red_right_left")) {
+            if(id.contains("0 blue_left_right")) {
                 level = 1;
-                levelDistance = 13;
-                //back distance does not matter for RED RIGHT
-                backDistance = 4.75;
+                levelDistance = 10;
+                backDistance = 5.5;
             }
-            else if(id.contains("1 red_right_middle")) {
+            else if(id.contains("1 blue_left_middle")) {
                 level = 2;
                 levelDistance = 12;
-                //back distance does not matter for RED RIGHT
-                backDistance = 6.5;
+                backDistance = 7.5;
             }
-            else if(id.contains("2 red_right_right")) {
+            else if(id.contains("2 blue_left_left")) {
                 level = 3;
                 levelDistance = 14;
-                //back distance does not matter for RED RIGHT
                 backDistance = 8.25;
             }
             telemetry.addData("level", level);
             telemetry.update();
-            sleep(1000);
+            sleep(500);
             correctionFactor = 1.444;//.4;
-            distance = 13.5;
+            distance = 15;
             distance = distance * correctionFactor;
-            //Left
-            mecanum.encoderDrive(speed,-distance,distance,distance,-distance,2);
-            distance = levelDistance * correctionFactor;
             claw.lift(3);
-            //forward
-            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
-            sleep(1000);
-            claw.release();
-            sleep(1000);
-//                //sleep(2000);
+            //Right
+            mecanum.encoderDrive(0.6,distance,-distance,-distance,distance,2);
             distance = levelDistance * correctionFactor;
-//            //back
-            mecanum.encoderDrive(speed,-distance,-distance,-distance,-distance,2);
-            claw.lift(0);
-            distance = 11.23 * correctionFactor;
-            //Right turn
-            mecanum.encoderDrive(speed,distance,distance,-distance,-distance,2);
-            distance = 37 * correctionFactor;
+            distance = 17;
             //Forward
             mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
-            sleep(100);
-//            spinner.setPower(-spinnerPower);
-//            sleep(2000);
+            claw.release();
+            sleep(700);
+            //Backward
+            distance = 18;
+            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,1);
+            claw.lift(0);
+            //Left turn
+            distance = 17.3;
+            mecanum.encoderDrive(0.6,-distance,-distance,distance,distance,2);
+            //Left
+            distance = 3;
+            mecanum.encoderDrive(0.6,-distance,distance,distance,-distance,1);
+            //Forward
+            distance = 57;
+            mecanum.encoderDrive(0.6,distance,distance,distance,distance,4);
+           //Grab
+            claw.grab();
+//            //Backwards
+//            distance = 65;
+//            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,3);
+//            //Turn Right
+//            distance = 17.3;
+//            mecanum.encoderDrive(0.6,distance,distance,-distance,-distance,2);
+//            //Forward
+//            distance = 17;
+//            mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
+//            //Release
+//            claw.release();
+//            //Backwards
+//            distance = 17;
+//            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,2);
+//            //Turn Left
+//            distance = 17.3;
+//            mecanum.encoderDrive(0.6,-distance,-distance,distance,distance,2);
+//            //Forward
+//            distance = 55;
+//            mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
 
-            //spinner.setPower(0);
-            //9 inches is the distance between center of front and back wheels
-            //12.5 inches is the distance between end to end of the wheels
-            //distance = 9 * correctionFactor;
-            //right turn
-           //mecanum.encoderDrive(speed,distance,distance,-distance,-distance,2);
-
-            //distance = 13 * correctionFactor;
-            //right turn
-            //mecanum.encoderDrive(speed,distance,distance,distance,distance,2);
-//
-//            distance = 6 * correctionFactor;
-//            //left
-//            mecanum.encoderDrive(0.1,distance,distance,distance,distance,2);
-
-            //sleep(10000);
-
-            //}
-            //claw.lift(0);
         }
         catch (Exception ex){
             telemetry.addData("Init Error", ex.getMessage());

@@ -1,12 +1,13 @@
+/* This program makes it easier to control the robot by letting the left stick control
+forward and backward movement and letting the right stick x control the rotating of
+the robot just like an Rc Car.
+*/
+package org.firstinspires.ftc.teamcode.Research;
 
-package org.firstinspires.ftc.teamcode;
-
-import android.util.Range;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -18,8 +19,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 
-@TeleOp(name = "EPIC_TeleOp")
-public class EPIC_TeleOp extends LinearOpMode {
+@TeleOp(name = "EPIC_TeleOp_Testwheels")
+public class EPIC_TeleOp_TestWheels extends LinearOpMode {
     //Configuration used: EPIC4Wheel
     Mecanum_Wheels wheels;
     double lefty = 0.0;
@@ -69,10 +70,10 @@ public class EPIC_TeleOp extends LinearOpMode {
         Spinner spinner = new Spinner(hardwareMap);
         wheels.telemetry = telemetry;
         wheels.parent = this;
-        wheels.leftErrorAdjustment = 0.8;
-        wheels.rightErrorAdjustment = 0.72;
+        wheels.leftErrorAdjustment = 0.5;
+        wheels.rightErrorAdjustment = 0.5;
         double wheelPower = 0.6;
-        double carouselPower = 0.7;
+        double carouselPower = 0.58;
         claw.parent = this;
         claw.telemetry = this.telemetry;
         double clawPower = lefty/10;
@@ -133,16 +134,6 @@ public class EPIC_TeleOp extends LinearOpMode {
                 claw.release();
 
             }
-            else if(y) {
-
-                wheels.leftErrorAdjustment = 0.8;
-                wheels.rightErrorAdjustment = 0.72;
-            }
-            else if(a) {
-                wheels.leftErrorAdjustment = 0.5;//wheels.leftErrorAdjustment - 0.05;
-                wheels.rightErrorAdjustment = 0.45;//wheels.rightErrorAdjustment - 0.045;
-            }
-
             else if(x2)
             {
 
@@ -189,7 +180,9 @@ public class EPIC_TeleOp extends LinearOpMode {
                 spinner.setPower(-carouselPower);
             else {
                 //wheels.move(lefty,righty,-leftx,rightx);
-                wheels.move(lefty,righty,leftx,rightx);
+                //wheels.move(lefty,righty,leftx,rightx);
+                wheels.frontright.setPower(0.5);
+
                 spinner.setPower(0);
             }
 

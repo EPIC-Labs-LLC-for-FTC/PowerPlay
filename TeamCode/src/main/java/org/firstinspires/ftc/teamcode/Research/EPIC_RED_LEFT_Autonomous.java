@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Research;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,16 +9,18 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.Spinner;
 import org.firstinspires.ftc.teamcode.tfrec.Detector;
 import org.firstinspires.ftc.teamcode.tfrec.classification.Classifier;
+import org.openftc.easyopencv.OpenCvCamera;
 
 import java.util.List;
 
-@Autonomous(name="EPIC_BLUE_RIGHT_Autonomous", group="Robot19587")
-public class EPIC_BLUE_RIGHT_Autonomous extends LinearOpMode {
+@Autonomous(name="EPIC_RED_LEFT_Autonomous", group="Robot19587")
+public class EPIC_RED_LEFT_Autonomous extends LinearOpMode {
     //Configuration used: 6wheelConfig
     private Detector tfDetector = null;
+    OpenCvCamera webcam;
 
-    private static String MODEL_FILE_NAME = "EPIC_blue_right_model.tflite";
-    private static String LABEL_FILE_NAME = "EPIC_blue_right_labels.txt";
+    private static String MODEL_FILE_NAME = "EPIC_red_left_model.tflite";
+    private static String LABEL_FILE_NAME = "EPIC_red_left_labels.txt";
     private static Classifier.Model MODEl_TYPE = Classifier.Model.FLOAT_EFFICIENTNET;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -57,7 +59,7 @@ public class EPIC_BLUE_RIGHT_Autonomous extends LinearOpMode {
             mecanum.initialize();
             String id = "";
             runtime.reset();
-            telemetry.addData("Opmode Active", "No");
+            //telemetry.addData("Opmode Active", "Yes");
             telemetry.update();
             waitForStart();
             // run until the end of the match (driver presses STOP)
@@ -98,68 +100,58 @@ public class EPIC_BLUE_RIGHT_Autonomous extends LinearOpMode {
             int level = 3;
             distance = 27;
             //id is equivalent to the labels
-            if(id.contains("0 blue_right_right")) {
+            if(id.contains("0 red_left_left")) {
                 level = 1;
                 levelDistance = 10;
-                backDistance = 4.4;
+                backDistance = 5.5;
             }
-            else if(id.contains("1 blue_right_middle")) {
+            else if(id.contains("1 red_left_middle")) {
                 level = 2;
                 levelDistance = 12;
-                backDistance = 4.4;
+                backDistance = 7.5;
             }
-            else if(id.contains("2 blue_right_left")) {
+            else if(id.contains("2 red_left_right")) {
                 level = 3;
                 levelDistance = 14;
-                backDistance = 4.4;
+                backDistance = 8.25;
             }
             telemetry.addData("level", level);
             telemetry.update();
             claw.lift(3);
             sleep(500);
             correctionFactor = 1.444;//.4;
-            distance = 5;
             distance = distance * correctionFactor;
+            distance = 7.6;
             //Forward
             mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
             distance = levelDistance * correctionFactor;
-            distance = 35;
-            //Right
-            mecanum.encoderDrive(0.4,distance,-distance,-distance,distance,2);
-            distance = 11;
-            //Left turn
-            mecanum.encoderDrive(0.3,-distance,-distance,distance,distance,2);
-            //Backward
-            distance = 1;
-            mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
-            spinner.setPower(spinnerPower);
-            sleep(3700);
+            distance = 33;
+            //Left
+            mecanum.encoderDrive(0.4,-distance,distance,distance,-distance,2);
+            spinner.setPower(-spinnerPower);
+            sleep(3000);
             spinner.setPower(0);
+            //Right
+            distance = 1;
+            mecanum.encoderDrive(0.4,distance,distance,-distance,-distance,1);
             //Forward
-            distance = 5;
-            mecanum.encoderDrive(0.4,distance,distance,distance,distance,1);
+            distance = 35;
+            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
             //Right turn
-            distance = 10.1;
+            distance = 14.9;
             mecanum.encoderDrive(0.4,distance,distance,-distance,-distance,2);
             //Forward
-            distance = 32.4;
-            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
-            //Left turn
-            distance = 16;
-            mecanum.encoderDrive(0.4,-distance,-distance,distance,distance,2);
-            //Forward
-            distance = 23.6;
+            distance = 24.8;
             mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
             claw.release();
-            sleep(1000);
+            sleep(100);
             //Backwards
-            distance = 30;
+            distance = 31;
             mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
             claw.lift(0);
-            claw.grab();
             //Left
-            distance = 14.5;
-            mecanum.encoderDrive(0.4,-distance,distance,distance,-distance,2);
+            distance = 19.6;
+            mecanum.encoderDrive(0.4,distance,-distance,-distance,distance,2);
 
 //                //sleep(25000);
 //                claw.release();
@@ -193,7 +185,7 @@ public class EPIC_BLUE_RIGHT_Autonomous extends LinearOpMode {
 //            //left
 //            mecanum.encoderDrive(0.1,distance,distance,distance,distance,2);
 
-            //sleep(10000);
+                //sleep(10000);
 
             //}
             //claw.lift(0);

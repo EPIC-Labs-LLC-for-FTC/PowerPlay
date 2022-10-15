@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Research;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,13 +12,13 @@ import org.firstinspires.ftc.teamcode.tfrec.classification.Classifier;
 
 import java.util.List;
 
-@Autonomous(name="EPIC_Blue_LEFT_Autonomous", group="Robot19587")
-public class EPIC_BLUE_LEFT_Autonomous extends LinearOpMode {
+@Autonomous(name="EPIC_BLUE_RIGHT_Autonomous", group="Robot19587")
+public class EPIC_BLUE_RIGHT_Autonomous extends LinearOpMode {
     //Configuration used: 6wheelConfig
     private Detector tfDetector = null;
 
-    private static String MODEL_FILE_NAME = "EPIC_blue_left_model.tflite";
-    private static String LABEL_FILE_NAME = "EPIC_blue_left_labels.txt";
+    private static String MODEL_FILE_NAME = "EPIC_blue_right_model.tflite";
+    private static String LABEL_FILE_NAME = "EPIC_blue_right_labels.txt";
     private static Classifier.Model MODEl_TYPE = Classifier.Model.FLOAT_EFFICIENTNET;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -98,72 +98,105 @@ public class EPIC_BLUE_LEFT_Autonomous extends LinearOpMode {
             int level = 3;
             distance = 27;
             //id is equivalent to the labels
-            if(id.contains("0 blue_left_right")) {
+            if(id.contains("0 blue_right_right")) {
                 level = 1;
                 levelDistance = 10;
-                backDistance = 5.5;
+                backDistance = 4.4;
             }
-            else if(id.contains("1 blue_left_middle")) {
+            else if(id.contains("1 blue_right_middle")) {
                 level = 2;
                 levelDistance = 12;
-                backDistance = 7.5;
+                backDistance = 4.4;
             }
-            else if(id.contains("2 blue_left_left")) {
+            else if(id.contains("2 blue_right_left")) {
                 level = 3;
                 levelDistance = 14;
-                backDistance = 8.25;
+                backDistance = 4.4;
             }
             telemetry.addData("level", level);
             telemetry.update();
+            claw.lift(3);
             sleep(500);
             correctionFactor = 1.444;//.4;
-            distance = 15;
+            distance = 5;
             distance = distance * correctionFactor;
-            claw.lift(3);
-            //Right
-            mecanum.encoderDrive(0.6,distance,-distance,-distance,distance,2);
+            //Forward
+            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
             distance = levelDistance * correctionFactor;
-            distance = 17;
-            //Forward
-            mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
-            claw.release();
-            sleep(700);
-            //Backward
-            distance = 18;
-            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,1);
-            claw.lift(0);
+            distance = 35;
+            //Right
+            mecanum.encoderDrive(0.4,distance,-distance,-distance,distance,2);
+            distance = 11;
             //Left turn
-            distance = 17.3;
-            mecanum.encoderDrive(0.6,-distance,-distance,distance,distance,2);
-            //Left
-            distance = 3;
-            mecanum.encoderDrive(0.6,-distance,distance,distance,-distance,1);
+            mecanum.encoderDrive(0.3,-distance,-distance,distance,distance,2);
+            //Backward
+            distance = 1;
+            mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
+            spinner.setPower(spinnerPower);
+            sleep(3700);
+            spinner.setPower(0);
             //Forward
-            distance = 57;
-            mecanum.encoderDrive(0.6,distance,distance,distance,distance,4);
-           //Grab
+            distance = 5;
+            mecanum.encoderDrive(0.4,distance,distance,distance,distance,1);
+            //Right turn
+            distance = 10.1;
+            mecanum.encoderDrive(0.4,distance,distance,-distance,-distance,2);
+            //Forward
+            distance = 32.4;
+            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
+            //Left turn
+            distance = 16;
+            mecanum.encoderDrive(0.4,-distance,-distance,distance,distance,2);
+            //Forward
+            distance = 23.6;
+            mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
+            claw.release();
+            sleep(1000);
+            //Backwards
+            distance = 30;
+            mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
+            claw.lift(0);
             claw.grab();
-//            //Backwards
-//            distance = 65;
-//            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,3);
-//            //Turn Right
-//            distance = 17.3;
-//            mecanum.encoderDrive(0.6,distance,distance,-distance,-distance,2);
-//            //Forward
-//            distance = 17;
-//            mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
-//            //Release
-//            claw.release();
-//            //Backwards
-//            distance = 17;
-//            mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,2);
-//            //Turn Left
-//            distance = 17.3;
-//            mecanum.encoderDrive(0.6,-distance,-distance,distance,distance,2);
-//            //Forward
-//            distance = 55;
-//            mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
+            //Left
+            distance = 14.5;
+            mecanum.encoderDrive(0.4,-distance,distance,distance,-distance,2);
 
+//                //sleep(25000);
+//                claw.release();
+//                sleep(1000);
+////                //sleep(2000);
+//            distance = backDistance * correctionFactor;
+////            //back
+//            mecanum.encoderDrive(speed,-distance,-distance,-distance,-distance,2);
+//            claw.lift(0);
+//            distance = 30 * correctionFactor;
+//            //left
+//            mecanum.encoderDrive(speed,-distance,distance,distance,-distance,2);
+//            distance = 5 * correctionFactor;
+//            //left
+//            mecanum.encoderDrive(0.1,-distance,distance,distance,-distance,2);
+//            sleep(100);
+//            spinner.setPower(-spinnerPower);
+//            sleep(2000);
+//
+//            spinner.setPower(0);
+
+            //distance = 3 * correctionFactor;
+            //right turn
+            //mecanum.encoderDrive(speed,distance,distance,-distance,-distance,2);
+
+//            distance = 13 * correctionFactor;
+//            //right turn
+//            mecanum.encoderDrive(speed,distance,distance,distance,distance,2);
+//
+//            distance = 6 * correctionFactor;
+//            //left
+//            mecanum.encoderDrive(0.1,distance,distance,distance,distance,2);
+
+            //sleep(10000);
+
+            //}
+            //claw.lift(0);
         }
         catch (Exception ex){
             telemetry.addData("Init Error", ex.getMessage());
