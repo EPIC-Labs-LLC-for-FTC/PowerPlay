@@ -33,6 +33,8 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
 @TeleOp
 public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 {
@@ -180,7 +182,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         while (opModeIsActive()) {sleep(20);}
     }
 
-    void tagToTelemetry(AprilTagDetection detection)
+    void tagToTelemetry(@NonNull AprilTagDetection detection)
     {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
         telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));

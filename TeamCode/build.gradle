@@ -42,3 +42,7 @@ dependencies {
     implementation 'com.github.ftc17191:ftclayer:+'
     implementation 'org.openftc:easyopencv:1.5.2'
 }
+
+dependencies {
+    implementation 'org.openftc:easyopencv:1.5.2'
+}
