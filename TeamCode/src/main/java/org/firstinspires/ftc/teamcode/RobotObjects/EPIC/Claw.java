@@ -133,9 +133,11 @@ public class Claw {
             armRight.setPower(0.2);
             parent.sleep(200);
         }
-        else
+        else{
             armLeft.setPower(0.6);
             armRight.setPower(0.6);
+        }
+
         //}
         //else{
         //arm.setPower(0.0);
