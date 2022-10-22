@@ -13,8 +13,7 @@ public class EXP_RR extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(10)
-                .forward(5)
+                .forward(12)
                 .build();
 
         waitForStart();
