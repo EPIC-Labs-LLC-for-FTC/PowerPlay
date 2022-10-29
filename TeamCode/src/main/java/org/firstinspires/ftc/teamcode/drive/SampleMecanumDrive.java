@@ -69,7 +69,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx FrontLeft, FrontRight, BackLeft, BackRight;
+    private DcMotorEx leftFront, rightFront, leftRear, rightRear;
     private List<DcMotorEx> motors;
 
     private BNO055IMU imu;
@@ -99,12 +99,14 @@ public class SampleMecanumDrive extends MecanumDrive {
         // upward (normal to the floor) using a command like the following:
         // BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
-        FrontLeft = hardwareMap.get(DcMotorEx.class, "FrontLeft");
-        BackLeft = hardwareMap.get(DcMotorEx.class, "BackLeft");
-        BackRight = hardwareMap.get(DcMotorEx.class,  "BackRight");
-        FrontRight = hardwareMap.get(DcMotorEx.class, "FrontRight");
 
-        motors = Arrays.asList(FrontLeft, BackLeft, BackRight, FrontRight);
+        leftFront = hardwareMap.get(DcMotorEx.class, "FrontLeft");
+        leftRear = hardwareMap.get(DcMotorEx.class, "BackLeft");
+        rightRear = hardwareMap.get(DcMotorEx.class,  "BackRight");
+        rightFront = hardwareMap.get(DcMotorEx.class, "FrontRight");
+        
+
+        motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
         for (DcMotorEx motor : motors) {
             MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
@@ -123,9 +125,9 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
-
-        FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
@@ -271,10 +273,10 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public void setMotorPowers(double v, double v1, double v2, double v3) {
-        FrontLeft.setPower(v);
-        BackLeft.setPower(v1);
-        BackRight.setPower(v2);
-        FrontRight.setPower(v3);
+        leftFront.setPower(v);
+        leftRear.setPower(v1);
+        rightRear.setPower(v2);
+        rightFront.setPower(v3);
     }
 
     @Override

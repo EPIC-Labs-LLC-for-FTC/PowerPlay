@@ -50,7 +50,7 @@ public class DriveConstants {
     public static double TRACK_WIDTH = 15; // in
 
     /*
-     * These are the feedforward parameters used to model the drive motor behavior. If you are using
+     * These are the feedforward parameters used to m   m  odel the drive motor behavior. If you are using
      * the built-in velocity PID, *these values are fine as is*. However, if you do not have drive
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
