@@ -60,7 +60,7 @@ public class EXP_RR_Auto_Red_Left extends LinearOpMode {
                 //park
                 .back(5)
                 .waitSeconds(0.1)
-                .strafeRight(10)
+                .turn(Math.toRadians(-86))
                 .waitSeconds(0.1)
                 .splineTo(new Vector2d(23, 28), Math.toRadians(0))
                 .build();
