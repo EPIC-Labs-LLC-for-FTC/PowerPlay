@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous (name="EXP_RR")
 public class EXP_RR extends LinearOpMode {
@@ -12,14 +13,18 @@ public class EXP_RR extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .forward(12)
+        TrajectorySequence myTrajectory = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(72)
+                .waitSeconds(0.1)
+                .waitSeconds(1)
+                .turn(Math.toRadians(-30))
+                .waitSeconds(0.1)
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-        drive.followTrajectory(myTrajectory);
+        drive.followTrajectorySequence(myTrajectory);
     }
 }
