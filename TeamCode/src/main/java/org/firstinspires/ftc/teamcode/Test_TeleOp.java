@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -23,15 +24,31 @@ public class Test_TeleOp extends LinearOpMode {
     double righty;
     double rightx;
 
+    double armGround;
+    double armDropping;
+
+    double wristGround;
+
     public DcMotorEx slide1;
     public DcMotorEx slide2;
-    public DcMotorEx arm;
+    public Servo arm1;
+    public Servo arm2;
     public Servo outtakeArm;
     public Servo finger1;
     public Servo finger2;
     public Servo wrist1;
     public Servo wrist2;
 
+    private double outtakeArmPosition = 0.3;
+
+    private double finger1Position = 0.0;
+    private double finger2Position = 0.0;
+
+    private double wrist1postion = 0.3;
+    private double wrist2postion = 0.3;
+
+    private double arm1Position = 0.0;
+    private double arm2Position = 0.0;
 
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
@@ -50,38 +67,56 @@ public class Test_TeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
         finger1 = hardwareMap.get(Servo.class, "finger1");
         finger2 = hardwareMap.get(Servo.class, "finger2");
         wrist1 = hardwareMap.get(Servo.class, "wrist1");
         wrist2 = hardwareMap.get(Servo.class, "wrist2");
         outtakeArm= hardwareMap.get(Servo.class, "outtakeArm");
 
+        wheels.initialize();
+        wheels.telemetry = telemetry;
+        wheels.parent = this;
+        wheels.leftErrorAdjustment = 0.72;
+        wheels.rightErrorAdjustment = 0.72;
         wrist2.setDirection(Servo.Direction.REVERSE);
         //finger1.setDirection(Servo.Direction.REVERSE);
         finger2.setDirection(Servo.Direction.REVERSE);
 
+
         slide1 = hardwareMap.get(DcMotorEx.class, "slide1");
         slide2 = hardwareMap.get(DcMotorEx.class, "slide2");
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        arm1 = hardwareMap.get(Servo.class, "arm1");
+        arm2 = hardwareMap.get(Servo.class, "arm2");
 
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm2.setDirection(Servo.Direction.REVERSE);
+
+
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        arm1.setPosition(0.3);
+        arm2.setPosition(0.3);
 
+        wrist1.setPosition(0.3);
+        wrist2.setPosition(0.3);
 
 
         waitForStart();
         while (opModeIsActive()){
             int armposition = 0;
+            lefty = gamepad1.left_stick_y;
+            leftx = gamepad1.left_stick_x;
+            righty = gamepad1.right_stick_y;
+            rightx = -gamepad1.right_stick_x;
             boolean b = gamepad1.b;
             boolean x = gamepad1.x;
             boolean a = gamepad1.a;
@@ -96,8 +131,9 @@ public class Test_TeleOp extends LinearOpMode {
             boolean dpadUp2 = gamepad2.dpad_up;
             boolean dpadDown2 = gamepad2.dpad_down;
             boolean dpadRight2 = gamepad2.dpad_right;
-            wrist1.setPosition(0.29);
-            wrist2.setPosition(0.29);
+            boolean dpadLeft2 = gamepad1.dpad_left;
+            //wrist1.setPosition(0.29);
+            //wrist2.setPosition(0.29);
 
 
             if(b){
@@ -140,23 +176,25 @@ public class Test_TeleOp extends LinearOpMode {
                 slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
             if(dpadUp){
-                slide1.setPower(0.9);
+//              slide1.setPower(0.9);
                 slide2.setPower(0.9);
-                slide1.setTargetPosition(2100);
-                slide2.setTargetPosition(2100);
-                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                slide1.setTargetPosition(2100);
+//                slide2.setTargetPosition(2100);
+//                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 sleep(1000);
+                slide2.setPower(0.0);
 
             }
             if(dpadDown){
-                slide1.setPower(0.9);
-                slide2.setPower(0.9);
-                slide1.setTargetPosition(0);
-                slide2.setTargetPosition(0);
-                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                sleep(2000);
+                //slide1.setPower(0.9);
+                slide2.setPower(-0.9);
+//                slide1.setTargetPosition(0);
+//                slide2.setTargetPosition(0);
+//                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                sleep(1000);
+                slide2.setPower(0.0);
 
             }
             if(dpadRight){
@@ -169,54 +207,68 @@ public class Test_TeleOp extends LinearOpMode {
                 sleep(1000);
             }
             if(b2){
-                //outtakeArm.setPosition(0.425);
-                //sleep(100);
-                armposition += 100;
-                arm.setPower(0.4);
-                //int position = arm.getCurrentPosition();
-                arm.setTargetPosition(armposition);
-                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm1Position += 0.01;
+                arm2Position += 0.01;
+                arm1.setPosition(arm1Position);
+                arm2.setPosition(arm2Position);
                 sleep(200);
-
             }
             if(x2){
                 //outtakeArm.setPosition(1.0);
                 //sleep(100);
-                armposition -= 100;
-                arm.setPower(0.4);
-                int position = arm.getCurrentPosition();
-                arm.setTargetPosition(armposition);
-                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm1Position -= 0.01;
+                arm2Position -= 0.01;
+                arm1.setPosition(arm1Position);
+                arm2.setPosition(arm2Position);
                 sleep(200);
+
             }
             if(a2){
-                finger1.setPosition(0.15);
-                finger2.setPosition(0.15);
+                finger1Position += 0.08;
+                finger2Position += 0.08;
+                finger1.setPosition(finger1Position);
+                finger2.setPosition(finger2Position);
+                sleep(200);
 
 
             }
             if(y2){
-                finger1.setPosition(0.29);
-                finger2.setPosition(0.29);
-            }
-            if(dpadUp2){
-                wrist1.setPosition(0.29);
-                wrist2.setPosition(0.29);
-            }
-            if(dpadDown2){
-                wrist1.setPosition(wrist1.getPosition()-0.01);
-                wrist2.setPosition(wrist2.getPosition()-0.01);
+                finger1Position -= 0.08;
+                finger2Position -= 0.08;
+                finger1.setPosition(finger1Position);
+                finger2.setPosition(finger2Position);
+                sleep(200);
             }
             if(dpadRight2){
-                wrist1.setPosition(wrist1.getPosition()+0.01);
-                wrist2.setPosition(wrist2.getPosition()+0.01);
+                outtakeArmPosition += 0.1;
+                outtakeArm.setPosition(outtakeArmPosition);
+                sleep(200);
+            }
+            if(dpadLeft2){
+                outtakeArmPosition-=0.1;
+                outtakeArm.setPosition(outtakeArmPosition);
+                sleep(200);
+            }
+            if(dpadDown2){
+                wrist1postion -= 0.05;
+                wrist2postion -= 0.05;
+                wrist1.setPosition(wrist1postion);
+                wrist2.setPosition(wrist2postion);
+                sleep(200);
+            }
+            if(dpadUp2){
+                wrist1postion += 0.05;
+                wrist2postion += 0.05;
+                wrist1.setPosition(wrist1postion);
+                wrist2.setPosition(wrist2postion);
+                sleep(200);
 
             }
             else {
-                arm.setPower(0);
                 slide1.setPower(0);
                 slide2.setPower(0);
             }
+            wheels.move(lefty,righty,leftx,rightx);
             telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
             telemetry.addData("slide 2 current positon:", slide2.getCurrentPosition());
             telemetry.addData("outtake arm position: ", outtakeArm.getPosition());
@@ -224,7 +276,8 @@ public class Test_TeleOp extends LinearOpMode {
             telemetry.addData("finger2 position: ", finger2.getPosition());
             telemetry.addData("wrist1 position: ", wrist1.getPosition());
             telemetry.addData("wrist2 position: ", wrist2.getPosition());
-            telemetry.addData("arm position: ", arm.getCurrentPosition());
+            telemetry.addData("arm1 position: ", arm1.getPosition());
+            telemetry.addData("arm2 position: ", arm2.getPosition());
 
             telemetry.update();
         }

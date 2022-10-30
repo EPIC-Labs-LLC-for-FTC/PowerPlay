@@ -37,10 +37,10 @@ public class Mecanum_Wheels {
     public Telemetry telemetry;
 
     public Mecanum_Wheels(HardwareMap hardwareMap) {
-        frontright = hardwareMap.get(DcMotorEx.class,"frontRight");
-        frontleft = hardwareMap.get(DcMotorEx.class,"frontLeft");
-        backright = hardwareMap.get(DcMotorEx.class,"backRight");
-        backleft = hardwareMap.get(DcMotorEx.class,"backLeft");
+        frontright = hardwareMap.get(DcMotorEx.class,"rightFront");
+        frontleft = hardwareMap.get(DcMotorEx.class,"leftFront");
+        backright = hardwareMap.get(DcMotorEx.class,"rightRear");
+        backleft = hardwareMap.get(DcMotorEx.class,"leftRear");
 
         //xRail = hardwareMap.get(DcMotorEx.class, "xRail");
     }
@@ -57,7 +57,7 @@ public class Mecanum_Wheels {
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
 
         backleft.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontleft.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //middleright.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -166,10 +166,10 @@ public class Mecanum_Wheels {
 
     public void move(double lefty, double righty, double leftx, double rightx){
 
-           frontright.setPower((-lefty  +rightx - leftx)*rightErrorAdjustment); // should work same as above
+           frontright.setPower((lefty  -rightx + leftx)*rightErrorAdjustment); // should work same as above
              frontleft.setPower((lefty + rightx - leftx)*leftErrorAdjustment);
-             backright.setPower((-lefty + rightx + leftx)*rightErrorAdjustment);
-             backleft.setPower((lefty + rightx + leftx)*leftErrorAdjustment);
+             backright.setPower((lefty - rightx - leftx)*rightErrorAdjustment);
+             backleft.setPower((-lefty - rightx - leftx)*leftErrorAdjustment);
 
     }
 }
