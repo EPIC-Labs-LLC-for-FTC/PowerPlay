@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 
 @TeleOp(name = "PowerPlay_TELEOP")
@@ -41,6 +42,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
         finger1 = hardwareMap.get(Servo.class, "finger1");
         finger2 = hardwareMap.get(Servo.class, "finger2");
         wrist1 = hardwareMap.get(Servo.class, "wrist1");
@@ -48,6 +50,12 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         outtakeArm= hardwareMap.get(Servo.class, "outtakeArm");
         arm1 = hardwareMap.get(Servo.class,"arm1");
         arm2 = hardwareMap.get(Servo.class, "arm2");
+
+        wheels.initialize();
+        wheels.telemetry = telemetry;
+        wheels.parent = this;
+        wheels.leftErrorAdjustment = 0.72;
+        wheels.rightErrorAdjustment = 0.72;
 
         wrist2.setDirection(Servo.Direction.REVERSE);
         finger2.setDirection(Servo.Direction.REVERSE);
@@ -65,8 +73,20 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        arm1.setPosition(0.0);
+        arm2.setPosition(0.0);
+
+        wrist1.setPosition(0.50);
+        wrist2.setPosition(0.50);
+
+        outtakeArm.setPosition(0);
+
         waitForStart();
         while(opModeIsActive()){
+            lefty = gamepad1.left_stick_y;
+            leftx = gamepad1.left_stick_x;
+            righty = gamepad1.right_stick_y;
+            rightx = -gamepad1.right_stick_x;
             boolean b = gamepad1.b;
             boolean x = gamepad1.x;
             boolean a = gamepad1.a;
@@ -84,62 +104,80 @@ public class PowerPlay_TELEOP extends LinearOpMode {
             boolean dpadLeft2 = gamepad2.dpad_left;
 
             if(y2){
-                finger1.setPosition(0.15);
-                finger2.setPosition(0.15);
+                finger1.setPosition(0.16);
+                finger2.setPosition(0.16);
             }
             else if(x2){
-                finger1.setPosition(0.29);
-                finger2.setPosition(0.29);
+                finger1.setPosition(0.50);
+                finger2.setPosition(0.38);
             }
             if(a2){
-                outtakeArm.setPosition(0.35);
+                outtakeArm.setPosition(0);
             }
             if(b2){
-                outtakeArm.setPosition(1.0);
+                outtakeArm.setPosition(0.6);
             }
             if(dpadDown2){
-                arm1.setPosition(armDropping);
-                arm2.setPosition(armDropping);
-                wrist1.setPosition(wristDropping);
-                wrist2.setPosition(wristDropping);
-                finger1.setPosition(0.15);
-                finger2.setPosition(0.15);
-                arm1.setPosition(armGround);
-                arm2.setPosition(armGround);
-                wrist1.setPosition(wristGround);
-                wrist2.setPosition(wristGround);
+                arm1.setPosition(0.5);
+                arm2.setPosition(0.5);
+                wrist1.setPosition(0.66);
+                wrist2.setPosition(0.66);
+                sleep(1000);
+                finger1.setPosition(0.16);
+                finger2.setPosition(0.16);
+                sleep(200);
+                arm1.setPosition(0);
+                arm2.setPosition(0);
+                wrist1.setPosition(0.45);
+                wrist2.setPosition(0.45);
                 raiseSlide(1250);
 
             }
             if(dpadRight2){
-                arm1.setPosition(armDropping);
-                arm2.setPosition(armDropping);
-                wrist1.setPosition(wristDropping);
-                wrist2.setPosition(wristDropping);
-                finger1.setPosition(0.15);
-                finger2.setPosition(0.15);
-                arm1.setPosition(armGround);
-                arm2.setPosition(armGround);
-                wrist1.setPosition(wristGround);
-                wrist2.setPosition(wristGround);
-                raiseSlide(2100);
+                arm1.setPosition(0.5);
+                arm2.setPosition(0.5);
+                wrist1.setPosition(0.66);
+                wrist2.setPosition(0.66);
+                sleep(1000);
+                finger1.setPosition(0.16);
+                finger2.setPosition(0.16);
+                sleep(200);
+                arm1.setPosition(0);
+                arm2.setPosition(0);
+                wrist1.setPosition(0.45);
+                wrist2.setPosition(0.45);
+                raiseSlide(2350);
             }
             if(dpadUp2){
-                arm1.setPosition(armDropping);
-                arm2.setPosition(armDropping);
-                wrist1.setPosition(wristDropping);
-                wrist2.setPosition(wristDropping);
-                finger1.setPosition(0.15);
-                finger2.setPosition(0.15);
-                arm1.setPosition(armGround);
-                arm2.setPosition(armGround);
-                wrist1.setPosition(wristGround);
-                wrist2.setPosition(wristGround);
-                raiseSlide(2800);
+                arm1.setPosition(0.5);
+                arm2.setPosition(0.5);
+                wrist1.setPosition(0.66);
+                wrist2.setPosition(0.66);
+                sleep(1000);
+                finger1.setPosition(0.16);
+                finger2.setPosition(0.16);
+                sleep(200);
+                arm1.setPosition(0);
+                arm2.setPosition(0);
+                wrist1.setPosition(0.45);
+                wrist2.setPosition(0.45);
+                raiseSlide(3100);
             }
             if(dpadLeft2){
                 raiseSlide(0);
             }
+            wheels.move(lefty,righty,leftx,rightx);
+            telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
+            telemetry.addData("slide 2 current positon:", slide2.getCurrentPosition());
+            telemetry.addData("outtake arm position: ", outtakeArm.getPosition());
+            telemetry.addData("finger1 position: ", finger1.getPosition());
+            telemetry.addData("finger2 position: ", finger2.getPosition());
+            telemetry.addData("wrist1 position: ", wrist1.getPosition());
+            telemetry.addData("wrist2 position: ", wrist2.getPosition());
+            telemetry.addData("arm1 position: ", arm1.getPosition());
+            telemetry.addData("arm2 position: ", arm2.getPosition());
+
+            telemetry.update();
 
 
         }
