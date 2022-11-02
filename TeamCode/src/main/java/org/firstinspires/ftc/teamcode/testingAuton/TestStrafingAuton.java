@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name = "TestAuton")
+@Autonomous(name = "TestStrafinAuton")
 
 public class TestStrafingAuton extends LinearOpMode {
     @Override

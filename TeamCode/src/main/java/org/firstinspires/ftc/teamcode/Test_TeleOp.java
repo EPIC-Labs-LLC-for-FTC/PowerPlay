@@ -103,8 +103,8 @@ public class Test_TeleOp extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        arm1.setPosition(0.0);
-        arm2.setPosition(0.0);
+        arm1.setPosition(0.44);
+        arm2.setPosition(0.44);
 
         wrist1.setPosition(0.55);
         wrist2.setPosition(0.55);

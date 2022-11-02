@@ -110,12 +110,12 @@ public class Mecanum_Wheels {
 
             new_backLeftTarget = backleft.getCurrentPosition() + (int) (backLeftInches * ticksPerInchMecanum);
             new_backRightTarget = backright.getCurrentPosition() + (int) (backRightInches * ticksPerInchMecanum);
-            frontleft.setTargetPosition(new_frontLeftTarget);
-            frontright.setTargetPosition(new_frontRightTarget);
+            frontleft.setTargetPosition(-new_frontLeftTarget);
+            frontright.setTargetPosition(-new_frontRightTarget);
 
 
-            backleft.setTargetPosition(new_backLeftTarget);
-            backright.setTargetPosition(new_backRightTarget);
+            backleft.setTargetPosition(-new_backLeftTarget+20);
+            backright.setTargetPosition(-new_backRightTarget);
 
             // Turn On RUN_TO_POSITION
             frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -129,7 +129,7 @@ public class Mecanum_Wheels {
             frontleft.setPower(speed*leftErrorAdjustment);
             frontright.setPower(speed*rightErrorAdjustment);
 
-            backleft.setPower(speed*leftErrorAdjustment);
+            backleft.setPower(speed*0.7);
             backright.setPower(speed*rightErrorAdjustment);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
