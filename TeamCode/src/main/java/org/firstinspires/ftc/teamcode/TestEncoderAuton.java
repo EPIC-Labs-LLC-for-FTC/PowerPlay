@@ -62,52 +62,12 @@ public class TestEncoderAuton extends LinearOpMode {
 //        claw.lift(detector.correctlocation);
         sleep(700);
         correctionFactor = 1.444;//.4;
-        distance = 20;
-//        distance = distance * correctionFactor;
-        //Forward
+        distance = 25;
         mecanum.encoderDrive(0.8,distance,distance,distance,distance,2);
-//        distance = levelDistance * correctionFactor;
-//        distance = 35.5;
-//        sleep(200);
-//        //Right
-//        mecanum.encoderDrive(0.8,-distance,distance,distance,-distance,2);
-//        distance = 50;
-//        //Left turn
-//        mecanum.encoderDrive(0.3,-distance,-distance,distance,distance,2);
-//        //Backward
-//        distance = 50;
-//        mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
-////        spinner.setPower(spinnerPower);
-//        sleep(3700);
-////        spinner.setPower(0);
-//        //Forward
-//        distance = 50;
-//        mecanum.encoderDrive(0.4,distance,distance,distance,distance,1);
-//        //Right turn
-//        distance = 50;
-//        mecanum.encoderDrive(0.4,distance,distance,-distance,-distance,2);
-        //Forward
-//        distance = 29.4;
-//        mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
-//        //Left turn
-//        distance = 16;
-//        mecanum.encoderDrive(0.4,-distance,-distance,distance,distance,2);
-//        //Forward
-//        distance = 22.75;
-//        mecanum.encoderDrive(0.4,distance,distance,distance,distance,2);
-////        claw.release();
-//        sleep(1000);
-//        //Backwards
-//        distance = 30;
-//        mecanum.encoderDrive(0.3,-distance,-distance,-distance,-distance,2);
-////        claw.lift(0);
-////        claw.grab();
-//        //Left
-//        distance = 12;
-//        mecanum.encoderDrive(0.4,-distance,distance,distance,-distance,2);
-//        correctionFactor = 1.444;//.4;
-//        distance = 5;
-//        distance = distance * correctionFactor;
+
+        distance = 15;
+        mecanum.encoderDrive(0.5,-distance,distance,distance,-distance,2);
+
 
 
 

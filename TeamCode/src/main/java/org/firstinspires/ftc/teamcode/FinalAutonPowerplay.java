@@ -10,10 +10,14 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+
+@Autonomous(name = "POWERPLAY_Auton")
+
 public class FinalAutonPowerplay extends LinearOpMode {
     OpenCvCamera camera;
     AprilTagDetectionPipelineFinal aprilTagDetectionPipeline;
@@ -49,6 +53,7 @@ public class FinalAutonPowerplay extends LinearOpMode {
     AprilTagDetection tagOfInterest = null;
     @Override
     public void runOpMode() throws InterruptedException {
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipelineFinal(tagsize, fx, fy, cx, cy);
@@ -68,7 +73,9 @@ public class FinalAutonPowerplay extends LinearOpMode {
 
             }
         });
+        while (!isStarted() && !isStopRequested())
         {
+
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if(currentDetections.size() != 0)

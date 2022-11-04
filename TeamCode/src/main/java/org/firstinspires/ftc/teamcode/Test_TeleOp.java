@@ -103,13 +103,13 @@ public class Test_TeleOp extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        arm1.setPosition(0.44);
-        arm2.setPosition(0.44);
+        arm1.setPosition(0);
+        arm2.setPosition(0);
 
-        wrist1.setPosition(0.55);
-        wrist2.setPosition(0.55);
+        wrist1.setPosition(0.42);
+        wrist2.setPosition(0.42);
 
-        outtakeArm.setPosition(0);
+        outtakeArm.setPosition(0.08);
 
 
         waitForStart();
@@ -230,8 +230,8 @@ public class Test_TeleOp extends LinearOpMode {
             if(a2){
                 finger1Position += 0.08;
                 finger2Position += 0.08;
-                finger1.setPosition(0.50);
-                finger2.setPosition(0.38);
+                finger1.setPosition(0.2);
+                finger2.setPosition(0.2);
                 sleep(200);
 
 
@@ -239,8 +239,8 @@ public class Test_TeleOp extends LinearOpMode {
             if(y2){
                 finger1Position -= 0.08;
                 finger2Position -= 0.08;
-                finger1.setPosition(0.16);
-                finger2.setPosition(0.16);
+                finger1.setPosition(0.6);
+                finger2.setPosition(0.4);
                 sleep(200);
             }
             if(dpadRight2){
@@ -256,33 +256,33 @@ public class Test_TeleOp extends LinearOpMode {
                 sleep(200);
             }
             if(dpadDown2){
-//                wrist1postion -= 0.05;
-//                wrist2postion -= 0.05;
-//                wrist1.setPosition(wrist1postion);
-//                wrist2.setPosition(wrist2postion);
-//                sleep(200);
-                arm1.setPosition(0.5);
-                arm2.setPosition(0.5);
-                wrist1.setPosition(0.66);
-                wrist2.setPosition(0.66);
-                sleep(1000);
-                finger1.setPosition(0.16);
-                finger2.setPosition(0.16);
+                wrist1postion -= 0.05;
+                wrist2postion -= 0.05;
+                wrist1.setPosition(wrist1postion);
+                wrist2.setPosition(wrist2postion);
                 sleep(200);
-                arm1.setPosition(0);
-                arm2.setPosition(0);
-                wrist1.setPosition(0.45);
-                wrist2.setPosition(0.45);
+//                arm1.setPosition(0.5);
+//                arm2.setPosition(0.5);
+//                wrist1.setPosition(0.66);
+//                wrist2.setPosition(0.66);
+//                sleep(1000);
+//                finger1.setPosition(0.16);
+//                finger2.setPosition(0.16);
+//                sleep(200);
+//                arm1.setPosition(0);
+//                arm2.setPosition(0);
+//                wrist1.setPosition(0.45);
+//                wrist2.setPosition(0.45);
             }
             if(dpadUp2){
-//                wrist1postion += 0.05;
-//                wrist2postion += 0.05;
-//                wrist1.setPosition(wrist1postion);
-//                wrist2.setPosition(wrist2postion);
-//                sleep(200);
-                outtakeArmPosition -= 0.1;
-                outtakeArm.setPosition(outtakeArmPosition);
-                sleep(1000);
+                wrist1postion += 0.05;
+                wrist2postion += 0.05;
+                wrist1.setPosition(wrist1postion);
+                wrist2.setPosition(wrist2postion);
+                sleep(200);
+//                outtakeArmPosition -= 0.1;
+//                outtakeArm.setPosition(outtakeArmPosition);
+//                sleep(1000);
 
             }
             else {

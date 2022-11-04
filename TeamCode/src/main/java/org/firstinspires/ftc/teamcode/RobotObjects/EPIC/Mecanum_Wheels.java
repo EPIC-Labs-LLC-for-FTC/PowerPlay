@@ -53,12 +53,17 @@ public class Mecanum_Wheels {
         frontleft.setPower(reset);
         backleft.setPower(reset);
         backright.setPower(reset);
+
         backright.setDirection(DcMotorSimple.Direction.REVERSE);
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
 
         backleft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontleft.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //middleright.setDirection(DcMotorSimple.Direction.REVERSE);
 
         if(IsAutonomous)
@@ -114,7 +119,8 @@ public class Mecanum_Wheels {
             frontright.setTargetPosition(-new_frontRightTarget);
 
 
-            backleft.setTargetPosition(-new_backLeftTarget+20);
+            backleft.setTargetPosition(new_backLeftTarget);
+            backleft.setTargetPosition(new_backLeftTarget);
             backright.setTargetPosition(-new_backRightTarget);
 
             // Turn On RUN_TO_POSITION
@@ -129,7 +135,7 @@ public class Mecanum_Wheels {
             frontleft.setPower(speed*leftErrorAdjustment);
             frontright.setPower(speed*rightErrorAdjustment);
 
-            backleft.setPower(speed*0.7);
+            backleft.setPower(speed*leftErrorAdjustment);
             backright.setPower(speed*rightErrorAdjustment);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
@@ -162,14 +168,14 @@ public class Mecanum_Wheels {
         backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //  sleep(250);   // optional pause after each move
+
     }
 
     public void move(double lefty, double righty, double leftx, double rightx){
-
-           frontright.setPower((lefty  -rightx + leftx)*rightErrorAdjustment); // should work same as above
-             frontleft.setPower((lefty + rightx - leftx)*leftErrorAdjustment);
-             backright.setPower((lefty - rightx - leftx)*rightErrorAdjustment);
-             backleft.setPower((-lefty - rightx - leftx)*leftErrorAdjustment);
+        frontright.setPower((lefty  - rightx + leftx)*rightErrorAdjustment); // should work same as above
+        frontleft.setPower((lefty + rightx - leftx)*leftErrorAdjustment);
+        backright.setPower((lefty - rightx - leftx)*rightErrorAdjustment);
+        backleft.setPower((lefty + rightx + leftx)*leftErrorAdjustment);
 
     }
 }

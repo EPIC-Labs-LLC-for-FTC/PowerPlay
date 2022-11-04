@@ -55,26 +55,23 @@ public class TestAuton extends LinearOpMode {
         drive.setMotorPowers(0.8,0.7,0.8,0.8);
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                .forward(5.8)
+                .forward(5.92)
                 .strafeLeft(34)
-
+//                .addDisplacementMarker(() -> {
+//                    raiseSlide(2450);
+//                })
+                .back(4)
+//                .addDisplacementMarker(() -> {
+//                    outtakeArm.setPosition(0.55);
+//                })
 
 
 
 //                .splineTo(new Vector2d(-30,6),Math.toRadians(-35))
                 .build();
-        TrajectorySequence raiseSlide = drive.trajectorySequenceBuilder((new Pose2d(0,0,Math.toRadians(0))))
-                .turn(1)
-                .back(4)
-                .addDisplacementMarker(() -> {
-                    outtakeArm.setPosition(0.55);
-                })
-                .addDisplacementMarker(() -> {
-                    raiseSlide(2450);
-                })
-                .forward(1)
-
-                .build();
+//        TrajectorySequence raiseSlide = drive.trajectorySequenceBuilder((new Pose2d(0,0,Math.toRadians(0))))
+//
+//                .build();
 
         TrajectorySequence cycle =drive.trajectorySequenceBuilder(new Pose2d(-30,6,Math.toRadians(-35)))
                 .setReversed(true)
@@ -85,7 +82,6 @@ public class TestAuton extends LinearOpMode {
 
 
         drive.followTrajectorySequence(traj1);
-        drive.followTrajectorySequence(raiseSlide);
 
 //        for (int i = 0; i < 5; i++) {
 //            drive.followTrajectorySequence(cycle);
