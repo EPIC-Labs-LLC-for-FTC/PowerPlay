@@ -8,6 +8,11 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 @TeleOp(name="Test Motion", group="Research")
 public class TestMotion extends LinearOpMode {
+
+    double lefty;
+    double leftx;
+    double righty;
+    double rightx;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     double power = 0;
@@ -29,17 +34,31 @@ public class TestMotion extends LinearOpMode {
 //        frontRight.setDirection(DcMotor.Direction.REVERSE);
 //        backRight.setDirection(DcMotor.Direction.REVERSE);
         Mecanum_Wheels mw = new Mecanum_Wheels(hardwareMap);
+        mw.initialize();
+        mw.telemetry = telemetry;
+        mw.parent = this;
+
+        mw.leftErrorAdjustment = 0.8;
+        mw.rightErrorAdjustment = 0.8;
         waitForStart();
         runtime.reset();
 
-        mw.move(0.3,0,0,0);
-        sleep(1000);
 
 
-        //while(opModeIsActive()){
+        while(opModeIsActive()) {
 
-        //}
-        telemetry.addData("power", power);
-        telemetry.update();
+            lefty = gamepad1.left_stick_y;
+            leftx = gamepad1.left_stick_x;
+            righty = gamepad1.right_stick_y;
+            rightx = -gamepad1.right_stick_x;
+
+            mw.move(lefty, righty, leftx, rightx);
+
+            telemetry.addData("lefty", lefty);
+            telemetry.addData("righty", righty);
+            telemetry.addData("leftx", leftx);
+            telemetry.addData("rightx", rightx);
+            telemetry.update();
+        }
     }
 }
