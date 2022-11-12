@@ -155,14 +155,16 @@ else if(y2) {
 }
 if(a2) {
     arm.setPower(liftPower);
-    armPosition += 10;
+    armPosition += 100;
     arm.setTargetPosition(armPosition);
+    sleep(1000);
 
 }
 else if(b2){
     arm.setPower(liftPower);
     armPosition -=10;
     arm.setTargetPosition(armPosition);
+    sleep(1000);
 }
 else {
     arm.setPower(breakPower);
