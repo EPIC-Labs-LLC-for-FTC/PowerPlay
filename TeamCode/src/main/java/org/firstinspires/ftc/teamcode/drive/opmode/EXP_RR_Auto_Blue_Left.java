@@ -9,61 +9,24 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous (name="EXP_RR_Auto_Blue_Left")
+@Autonomous (name="EXP_RR_Auto_Blue_left")
 public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence EXP_Auto_Red_Left = drive.trajectorySequenceBuilder(new Pose2d())
-                //go to highest junction
-                .forward(59)
-                .waitSeconds(0.1)
-                .turn(Math.toRadians(-84))
-                //put cone
-                .waitSeconds(1)
-                //go to other cones
-                .turn(Math.toRadians(180))
-                .waitSeconds(0.1)
+        waitForStart();
+        TrajectorySequence EXP_Auto_Blue_left = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(20)
+                .turn(Math.toRadians(90))
                 .forward(10)
-                //get cone
-                .waitSeconds(1)
-                //go back to junction
-                .turn(Math.toRadians(180))
-                .waitSeconds(0.1)
-                .waitSeconds(1)
-                //repeat getting and placing cone
-/*
-                                //repeat 1
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-57, -12))
-                                //get cone
-                                .waitSeconds(1)
-                                //go back to junction
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-32, 0))
-                                .waitSeconds(1)
-
-                                //repeat 2
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-57, -12))
-                                //get cone
-                                .waitSeconds(1)
-                                //go back to junction
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-32, 0))
-                                .waitSeconds(1)*/
-
-                //park
-                .back(5)
-                .waitSeconds(0.1)
-                .splineTo(new Vector2d(0, 0), Math.toRadians(0))
+                .turn(Math.toRadians(90))
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-        drive.followTrajectorySequence(EXP_Auto_Red_Left);
+        drive.followTrajectorySequence(EXP_Auto_Blue_left);
     }
 }

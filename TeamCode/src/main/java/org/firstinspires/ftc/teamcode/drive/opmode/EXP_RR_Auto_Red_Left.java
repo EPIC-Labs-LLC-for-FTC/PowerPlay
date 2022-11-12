@@ -17,38 +17,10 @@ public class EXP_RR_Auto_Red_Left extends LinearOpMode {
 
         waitForStart();
         TrajectorySequence EXP_Auto_Red_Left = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(56)
-                .turn(Math.toRadians(-47))
-                //Place Cone
-                .turn(Math.toRadians(-39))
-                .back(20)
-                //Grab Cone
                 .forward(20)
-                .turn(Math.toRadians(54))
-                //place cone
-                .turn(Math.toRadians(-54))
-                .back(20)
-                //Grab Cone
-                .forward(20)
-                .turn(Math.toRadians(54))
-                //place cone
-                .turn(Math.toRadians(-54))
-                .back(20)
-                //Grab Cone
-                .forward(20)
-                .turn(Math.toRadians(54))
-                //place cone
-                .turn(Math.toRadians(-54))
-                .back(20)
-                //Grab Cone
-                .forward(20)
-                .turn(Math.toRadians(54))
-                //place cone
-                .turn(Math.toRadians(-54))
-                .back(20)
-                //Grab Cone
-                .forward(20)
-                .turn(Math.toRadians(54))
+                .turn(Math.toRadians(90))
+                .forward(10)
+                .turn(Math.toRadians(90))
                 .build();
 
         waitForStart();

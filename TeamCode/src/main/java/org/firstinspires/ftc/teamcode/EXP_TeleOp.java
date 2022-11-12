@@ -47,7 +47,7 @@ public class EXP_TeleOp extends LinearOpMode {
         }
     }
 
-    private void liftArm(int level){
+    private void liftArm(int level) {
 
     }
 
@@ -70,7 +70,6 @@ public class EXP_TeleOp extends LinearOpMode {
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setTargetPosition(0);
-        arm.setPower(breakPower);
 
 
         grab.setPosition(0);
@@ -81,15 +80,14 @@ public class EXP_TeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             lefty = -gamepad1.left_stick_y;
-            leftx =-gamepad1.left_stick_x;
+            leftx = -gamepad1.left_stick_x;
             righty = gamepad1.right_stick_y;
             rightx = -gamepad1.right_stick_x;
 
 
-
             //liftPower = gamepad2.right_stick_y;
 
-            lefty2 = -gamepad2.left_stick_y;
+            lefty2 = gamepad2.left_stick_y;
 
             boolean b = gamepad1.b;
             boolean x = gamepad1.x;
@@ -104,96 +102,123 @@ public class EXP_TeleOp extends LinearOpMode {
             boolean dpad_left2 = gamepad2.dpad_left;
             boolean dpad_up2 = gamepad2.dpad_up;
             boolean dpad_right2 = gamepad2.dpad_right;
-            if(a) {
+            if (a) {
                 if (slow == false) {
-                        speed = 0.4;
-                        slow = true;
-                        sleep(250);
-                    }
-                } else if (slow == true) {
-                        speed = 4;
-                        slow = false;
-                        sleep(250);
+                    speed = 0.6;
+                    slow = true;
+                    sleep(250);
+                } else if (slow) {
+                    speed = 1;
+                    slow = false;
+                    sleep(250);
                 }
+            }
 
 
-                    if (Math.abs(lefty) > Math.abs(leftx)) {
-                        frontRight.setPower(lefty*speed);
-                        frontLeft.setPower(-lefty * speed);
-                        backLeft.setPower(-lefty * speed);
-                        backRight.setPower(lefty*speed);
-                    } else {
-                        frontRight.setPower(leftx*speed);
-                        frontLeft.setPower(leftx * speed);
-                        backLeft.setPower(-leftx * speed);
-                        backRight.setPower(-leftx*speed);
+            if (Math.abs(lefty) > Math.abs(leftx)) {
+                frontRight.setPower(lefty * speed);
+                frontLeft.setPower(-lefty * speed);
+                backLeft.setPower(-lefty * speed);
+                backRight.setPower(lefty * speed);
+            } else {
+                frontRight.setPower(leftx * speed);
+                frontLeft.setPower(leftx * speed);
+                backLeft.setPower(-leftx * speed);
+                backRight.setPower(-leftx * speed);
 
-                        if (rightx > 0) {
-                            frontRight.setPower(rightx*speed);
-                            frontLeft.setPower(rightx*speed);
-                            backLeft.setPower(rightx*speed);
-                            backRight.setPower(rightx*speed);
-                        } else {
-                            frontRight.setPower(rightx*speed);
-                            frontLeft.setPower(rightx*speed);
-                            backLeft.setPower(rightx*speed);
-                            backRight.setPower(rightx*speed);
-                        }
-                    }
+                if (rightx > 0) {
+                    frontRight.setPower(rightx * speed);
+                    frontLeft.setPower(rightx * speed);
+                    backLeft.setPower(rightx * speed);
+                    backRight.setPower(rightx * speed);
+                } else {
+                    frontRight.setPower(rightx * speed);
+                    frontLeft.setPower(rightx * speed);
+                    backLeft.setPower(rightx * speed);
+                    backRight.setPower(rightx * speed);
+                }
+            }
+            if (lefty2 != 0) {
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                arm.setPower(lefty2 * 0.6);
+                armPosition = arm.getCurrentPosition();
+            } else if (lefty2 == 0){
+                arm.setPower(breakPower);
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 //                if (liftPower != 0){
 //                arm.setPower(liftPower);
 //            } else {
 //                    arm.setPower(0.02);
 //                }
 
-if(x2) {
-    grab.setPosition(0.5);
+            if (dpad_down2) {
 
-}
-else if(y2) {
-    grab.setPosition(0);
-}
-if(a2) {
+                armPosition = 100;
+                arm.setTargetPosition(armPosition);
+                arm.setPower(liftPower);
+                sleep(300);
+            }
+//            if (dpad_right2) {
+//                armPosition = 625;
+//                arm.setTargetPosition(armPosition);
+//                arm.setPower(liftPower);
+//                sleep(300);
+//            }
+            if (dpad_left2) {
+                armPosition = 360;
+                arm.setTargetPosition(armPosition);
+                arm.setPower(liftPower);
+                sleep(300);
+            }
+            if (x2) {
+                grab.setPosition(0.5);
 
-    armPosition += 100;
-    arm.setTargetPosition(armPosition);
-    arm.setPower(liftPower);
-    sleep(250);
+            } else if (y2) {
+                grab.setPosition(0);
+            }
+            if (a2) {
 
-}
-else if(b2){
-    armPosition -=10;
-    arm.setTargetPosition(armPosition);
-    arm.setPower(liftPower);
-    sleep(250);
-}
-else {
-    arm.setPower(breakPower);
-    arm.setTargetPosition(armPosition);
+                armPosition += 50;
+                if (armPosition > 800)
+                    armPosition = 800;
 
-}
+                arm.setTargetPosition(armPosition);
 
+                arm.setPower(liftPower);
+                sleep(250);
 
+            } else if (b2) {
+                armPosition -= 10;
 
+                if (armPosition < 0)
+                    armPosition = 0;
+                arm.setTargetPosition(armPosition);
+                arm.setPower(liftPower);
+            }  else {
 
+                    arm.setPower(breakPower);
+                    arm.setTargetPosition(armPosition);
 
-
-
-         //   telemetry.addData("lefty", "%.2f", lefty);
-            // telemetry.addData("lefty2", "%.2f", lefty2);
-            //telemetry.addData("leftx", "%.2f", leftx);
-
-            // telemetry.addData("rightx", "%.2f", gamepad1.right_stick_x);
-            // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
-
-             telemetry.addData("armPosition: ", arm.getCurrentPosition());
-            telemetry.addData("motor position: ", armPosition);
-            telemetry.addData("speed: ", speed);
+                }
 
 
-            telemetry.update();
+                //   telemetry.addData("lefty", "%.2f", lefty);
+                // telemetry.addData("lefty2", "%.2f", lefty2);
+                //telemetry.addData("leftx", "%.2f", leftx);
 
-            telemetry.update();
+                // telemetry.addData("rightx", "%.2f", gamepad1.right_stick_x);
+                // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
+
+                telemetry.addData("armPosition: ", arm.getCurrentPosition());
+                telemetry.addData("player 2 left y: ", lefty2);
+                telemetry.addData("motor position: ", armPosition);
+                telemetry.addData("speed: ", speed);
+
+
+                telemetry.update();
+
+                telemetry.update();
         }
     }
 }
