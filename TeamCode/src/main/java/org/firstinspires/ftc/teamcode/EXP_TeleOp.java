@@ -26,12 +26,13 @@ public class EXP_TeleOp extends LinearOpMode {
     double leftx = 0.0;
     double righty = 0.0;
     double rightx = 0.0;
-    double drift = 1.0;
+    double speed = 1.0;
 
     double pos = 0.0;
     double liftPower = 0.6;
     double breakPower = 0.1;
     int armPosition = 0;
+    boolean slow = false;
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
         telemetry.addData(prefix + "Synthetic",
@@ -79,19 +80,12 @@ public class EXP_TeleOp extends LinearOpMode {
         //claw.initiateLift();
         while (opModeIsActive()) {
 
-            lefty = gamepad1.left_stick_y;
-            leftx = gamepad1.left_stick_x;
+            lefty = -gamepad1.left_stick_y;
+            leftx =-gamepad1.left_stick_x;
             righty = gamepad1.right_stick_y;
-            rightx = gamepad1.right_stick_x;
-            if (gamepad1.right_bumper) {
-                if (drift < 1) {
-                    drift = drift + 0.01;
-                }
-            } else if (gamepad1.left_bumper) {
-                if (drift > 0) {
-                    drift = drift - 0.01;
-                }
-            }
+            rightx = -gamepad1.right_stick_x;
+
+
 
             //liftPower = gamepad2.right_stick_y;
 
@@ -110,28 +104,40 @@ public class EXP_TeleOp extends LinearOpMode {
             boolean dpad_left2 = gamepad2.dpad_left;
             boolean dpad_up2 = gamepad2.dpad_up;
             boolean dpad_right2 = gamepad2.dpad_right;
+            if(a) {
+                if (slow == false) {
+                        speed = 0.6;
+                        slow = true;
+                        sleep(250);
+                    }
+                } else if (slow == true) {
+                        speed = 1;
+                        slow = false;
+                        sleep(250);
+                }
+
 
                     if (Math.abs(lefty) > Math.abs(leftx)) {
-                        frontRight.setPower(lefty);
-                        frontLeft.setPower(-lefty * drift);
-                        backLeft.setPower(-lefty * drift);
-                        backRight.setPower(lefty);
+                        frontRight.setPower(lefty*speed);
+                        frontLeft.setPower(-lefty * speed);
+                        backLeft.setPower(-lefty * speed);
+                        backRight.setPower(lefty*speed);
                     } else {
-                        frontRight.setPower(leftx);
-                        frontLeft.setPower(leftx * drift);
-                        backLeft.setPower(-leftx * drift);
-                        backRight.setPower(-leftx);
+                        frontRight.setPower(leftx*speed);
+                        frontLeft.setPower(leftx * speed);
+                        backLeft.setPower(-leftx * speed);
+                        backRight.setPower(-leftx*speed);
 
                         if (rightx > 0) {
-                            frontRight.setPower(rightx);
-                            frontLeft.setPower(rightx);
-                            backLeft.setPower(rightx);
-                            backRight.setPower(rightx);
+                            frontRight.setPower(rightx*speed);
+                            frontLeft.setPower(rightx*speed);
+                            backLeft.setPower(rightx*speed);
+                            backRight.setPower(rightx*speed);
                         } else {
-                            frontRight.setPower(rightx);
-                            frontLeft.setPower(rightx);
-                            backLeft.setPower(rightx);
-                            backRight.setPower(rightx);
+                            frontRight.setPower(rightx*speed);
+                            frontLeft.setPower(rightx*speed);
+                            backLeft.setPower(rightx*speed);
+                            backRight.setPower(rightx*speed);
                         }
                     }
 //                if (liftPower != 0){
@@ -139,6 +145,14 @@ public class EXP_TeleOp extends LinearOpMode {
 //            } else {
 //                    arm.setPower(0.02);
 //                }
+
+if(x2) {
+    grab.setPosition(0.5);
+
+}
+else if(y2) {
+    grab.setPosition(0);
+}
 if(a2) {
     arm.setPower(liftPower);
     armPosition += 10;
@@ -152,6 +166,7 @@ else if(b2){
 }
 else {
     arm.setPower(breakPower);
+    arm.setTargetPosition(armPosition);
 
 }
 
