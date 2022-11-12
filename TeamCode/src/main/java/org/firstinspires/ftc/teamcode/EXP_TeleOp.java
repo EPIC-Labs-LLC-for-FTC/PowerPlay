@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,6 +30,8 @@ public class EXP_TeleOp extends LinearOpMode {
 
     double pos = 0.0;
     double liftPower = 0.0;
+    double breakPower = 0.2;
+    double armPosition = 0.0;
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
         telemetry.addData(prefix + "Synthetic",
@@ -41,6 +44,10 @@ public class EXP_TeleOp extends LinearOpMode {
             } catch (IllegalAccessException e) {
             }
         }
+    }
+
+    private void liftArm(int level){
+
     }
 
     @Override
@@ -56,6 +63,15 @@ public class EXP_TeleOp extends LinearOpMode {
         DcMotorEx backLeft = hardwareMap.get(DcMotorEx.class, "BackLeft");
         Servo grab = hardwareMap.get(Servo.class, "Grab");
         DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "Arm");
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setTargetPosition(0);
+        arm.setPower(breakPower);
+
+
         grab.setPosition(0);
 
         waitForStart();
@@ -77,7 +93,7 @@ public class EXP_TeleOp extends LinearOpMode {
                 }
             }
 
-            liftPower = gamepad2.right_stick_y;
+            //liftPower = gamepad2.right_stick_y;
 
             lefty2 = -gamepad2.left_stick_y;
 
@@ -118,12 +134,20 @@ public class EXP_TeleOp extends LinearOpMode {
                             backRight.setPower(rightx);
                         }
                     }
-                if (liftPower != 0){
-                arm.setPower(liftPower);
-            } else {
-                    arm.setPower(0.02);
-                }
+//                if (liftPower != 0){
+//                arm.setPower(liftPower);
+//            } else {
+//                    arm.setPower(0.02);
+//                }
+if(a2) {
+    armPosition += 100;
+    arm.setTargetPosition((int)armPosition);
 
+}
+else if(b2){
+    armPosition -=10;
+    arm.setTargetPosition((int)armPosition);
+}
 
 
 
@@ -139,7 +163,8 @@ public class EXP_TeleOp extends LinearOpMode {
             // telemetry.addData("rightx", "%.2f", gamepad1.right_stick_x);
             // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
 
-             telemetry.addData("liftPower: ", "%.2f", arm.getCurrentPosition());
+             telemetry.addData("armPosition: ", "%.2f", arm.getCurrentPosition());
+            telemetry.addData("motor position: ", "%.2f", armPosition);
 
 
             telemetry.update();
