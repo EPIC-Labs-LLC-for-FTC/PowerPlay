@@ -29,7 +29,7 @@ public class EXP_TeleOp extends LinearOpMode {
     double drift = 1.0;
 
     double pos = 0.0;
-    double liftPower = 0.0;
+    double liftPower = 0.6;
     double breakPower = 0.2;
     double armPosition = 0.0;
 
@@ -140,15 +140,19 @@ public class EXP_TeleOp extends LinearOpMode {
 //                    arm.setPower(0.02);
 //                }
 if(a2) {
+    arm.setPower(liftPower);
     armPosition += 100;
     arm.setTargetPosition((int)armPosition);
 
 }
 else if(b2){
+    arm.setPower(liftPower);
     armPosition -=10;
     arm.setTargetPosition((int)armPosition);
 }
-
+else {
+    arm.setPower(breakPower);
+}
 
 
 
