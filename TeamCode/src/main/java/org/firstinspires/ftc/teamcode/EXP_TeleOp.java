@@ -154,17 +154,18 @@ else if(y2) {
     grab.setPosition(0);
 }
 if(a2) {
-    arm.setPower(liftPower);
-    armPosition += 10;
+
+    armPosition += 100;
     arm.setTargetPosition(armPosition);
-    sleep(100);
+    arm.setPower(liftPower);
+    sleep(250);
 
 }
 else if(b2){
-    arm.setPower(liftPower);
     armPosition -=10;
     arm.setTargetPosition(armPosition);
-    sleep(100);
+    arm.setPower(liftPower);
+    sleep(250);
 }
 else {
     arm.setPower(breakPower);
