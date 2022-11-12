@@ -15,54 +15,40 @@ public class EXP_RR_Auto_Red_Left extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        waitForStart();
         TrajectorySequence EXP_Auto_Red_Left = drive.trajectorySequenceBuilder(new Pose2d())
-                //go to highest junction
-                .forward(58)
-                .waitSeconds(0.1)
-                .turn(Math.toRadians(-80))
-                //put cone
-                .waitSeconds(1)
-                //go to other cones
-                .turn(Math.toRadians(174))
-                .waitSeconds(0.1)
-                .strafeTo(new Vector2d(49, 29))
-                //get cone
-                .waitSeconds(1)
-                //go back to junction
-                .turn(Math.toRadians(180))
-                .waitSeconds(0.1)
-                .strafeTo(new Vector2d(60, 0))
-                .waitSeconds(0.1)
-                .turn(Math.toRadians(10))
-                .waitSeconds(1)
-                //repeat getting and placing cone
-/*
-                                //repeat 1
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-57, -12))
-                                //get cone
-                                .waitSeconds(1)
-                                //go back to junction
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-32, 0))
-                                .waitSeconds(1)
-
-                                //repeat 2
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-57, -12))
-                                //get cone
-                                .waitSeconds(1)
-                                //go back to junction
-                                .turn(Math.toRadians(180))
-                                .strafeTo(new Vector2d(-32, 0))
-                                .waitSeconds(1)*/
-
-                //park
-                .back(5)
-                .waitSeconds(0.1)
-                .turn(Math.toRadians(-86))
-                .waitSeconds(0.1)
-                .splineTo(new Vector2d(23, 28), Math.toRadians(0))
+                .forward(56)
+                .turn(Math.toRadians(-47))
+                //Place Cone
+                .turn(Math.toRadians(-39))
+                .back(20)
+                //Grab Cone
+                .forward(20)
+                .turn(Math.toRadians(54))
+                //place cone
+                .turn(Math.toRadians(-54))
+                .back(20)
+                //Grab Cone
+                .forward(20)
+                .turn(Math.toRadians(54))
+                //place cone
+                .turn(Math.toRadians(-54))
+                .back(20)
+                //Grab Cone
+                .forward(20)
+                .turn(Math.toRadians(54))
+                //place cone
+                .turn(Math.toRadians(-54))
+                .back(20)
+                //Grab Cone
+                .forward(20)
+                .turn(Math.toRadians(54))
+                //place cone
+                .turn(Math.toRadians(-54))
+                .back(20)
+                //Grab Cone
+                .forward(20)
+                .turn(Math.toRadians(54))
                 .build();
 
         waitForStart();

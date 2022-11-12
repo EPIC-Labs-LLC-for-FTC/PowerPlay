@@ -221,28 +221,6 @@ public class Claw {
         armRight.setPower(power);
     }
 
-//    public void swing(double position){
-//        pos = position;
-//        arm.setPosition(pos);
-//        parent.sleep(750);
-//    }
-
-//    public void rotate(double power)
-//    {
-//        //arm.setPosition(power);
-//        if(power<0) {
-//            pos = pos - 0.1;
-//            if (pos < -1.5)
-//                pos = -1.5;
-//        }
-//        else if (power > 0){
-//        pos = pos + 0.1;
-//        if (pos >1.5)
-//            pos = 1.5;
-//        }
-//        arm.setPosition(pos);
-//
-//    }
 
     public void rest()
     {
