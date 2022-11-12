@@ -30,8 +30,8 @@ public class EXP_TeleOp extends LinearOpMode {
 
     double pos = 0.0;
     double liftPower = 0.6;
-    double breakPower = 0.2;
-    double armPosition = 0.0;
+    double breakPower = 0.1;
+    int armPosition = 0;
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
         telemetry.addData(prefix + "Synthetic",
@@ -141,17 +141,18 @@ public class EXP_TeleOp extends LinearOpMode {
 //                }
 if(a2) {
     arm.setPower(liftPower);
-    armPosition += 100;
-    arm.setTargetPosition((int)armPosition);
+    armPosition += 10;
+    arm.setTargetPosition(armPosition);
 
 }
 else if(b2){
     arm.setPower(liftPower);
     armPosition -=10;
-    arm.setTargetPosition((int)armPosition);
+    arm.setTargetPosition(armPosition);
 }
 else {
     arm.setPower(breakPower);
+
 }
 
 
@@ -167,8 +168,8 @@ else {
             // telemetry.addData("rightx", "%.2f", gamepad1.right_stick_x);
             // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
 
-             telemetry.addData("armPosition: ", "%.2f", arm.getCurrentPosition());
-            telemetry.addData("motor position: ", "%.2f", armPosition);
+             telemetry.addData("armPosition: ", arm.getCurrentPosition());
+            telemetry.addData("motor position: ", armPosition);
 
 
             telemetry.update();
