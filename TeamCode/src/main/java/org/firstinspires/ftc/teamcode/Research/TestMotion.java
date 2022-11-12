@@ -13,9 +13,11 @@ public class TestMotion extends LinearOpMode {
     double leftx;
     double righty;
     double rightx;
+    boolean x1 = false;
+    boolean b1 = false;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    double power = 0;
+    double power = 1;
 
 //    private DcMotor frontLeft = null;
 //    private DcMotor frontRight = null;
@@ -47,10 +49,32 @@ public class TestMotion extends LinearOpMode {
 
         while(opModeIsActive()) {
 
+            x1 = gamepad1.x;
+            b1 = gamepad1.b;
+            if(x1) {
+                mw.leftErrorAdjustment-=0.025;
+                if(mw.leftErrorAdjustment<0.0)
+                    mw.leftErrorAdjustment = 0;
+                mw.rightErrorAdjustment-=0.025;
+                if(mw.rightErrorAdjustment<0.0)
+                    mw.rightErrorAdjustment = 0;
+            }
+            if(b1) {
+
+                mw.leftErrorAdjustment+=0.025;
+                if(mw.leftErrorAdjustment>1.0)
+                    mw.leftErrorAdjustment = 1;
+                mw.rightErrorAdjustment+=0.025;
+                if(mw.rightErrorAdjustment>1.0)
+                    mw.rightErrorAdjustment = 1;
+            }
+
             lefty = gamepad1.left_stick_y;
             leftx = gamepad1.left_stick_x;
             righty = gamepad1.right_stick_y;
             rightx = -gamepad1.right_stick_x;
+
+
 
             mw.move(lefty, righty, leftx, rightx);
 
@@ -58,6 +82,8 @@ public class TestMotion extends LinearOpMode {
             telemetry.addData("righty", righty);
             telemetry.addData("leftx", leftx);
             telemetry.addData("rightx", rightx);
+            telemetry.addData("lefterroradjustments", mw.leftErrorAdjustment);
+            telemetry.addData("righterroradjustments", mw.rightErrorAdjustment);
             telemetry.update();
         }
     }
