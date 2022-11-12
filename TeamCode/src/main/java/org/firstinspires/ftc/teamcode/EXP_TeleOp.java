@@ -106,12 +106,12 @@ public class EXP_TeleOp extends LinearOpMode {
             boolean dpad_right2 = gamepad2.dpad_right;
             if(a) {
                 if (slow == false) {
-                        speed = 0.6;
+                        speed = 0.4;
                         slow = true;
                         sleep(250);
                     }
                 } else if (slow == true) {
-                        speed = 1;
+                        speed = 4;
                         slow = false;
                         sleep(250);
                 }
@@ -155,16 +155,16 @@ else if(y2) {
 }
 if(a2) {
     arm.setPower(liftPower);
-    armPosition += 100;
+    armPosition += 10;
     arm.setTargetPosition(armPosition);
-    sleep(1000);
+    sleep(100);
 
 }
 else if(b2){
     arm.setPower(liftPower);
     armPosition -=10;
     arm.setTargetPosition(armPosition);
-    sleep(1000);
+    sleep(100);
 }
 else {
     arm.setPower(breakPower);
@@ -187,6 +187,7 @@ else {
 
              telemetry.addData("armPosition: ", arm.getCurrentPosition());
             telemetry.addData("motor position: ", armPosition);
+            telemetry.addData("speed: ", speed);
 
 
             telemetry.update();
