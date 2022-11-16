@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Research;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -16,6 +18,8 @@ public class AprilTagTestClass extends LinearOpMode
 {
     OpenCvCamera camera;
     AprilTagPipe aprilTagDetectionPipeline;
+    private ElapsedTime runtime = new ElapsedTime();
+    Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -153,9 +157,25 @@ public class AprilTagTestClass extends LinearOpMode
             //trajectory
         }
 
+        mecanum = new Mecanum_Wheels(hardwareMap);
+        mecanum.IsAutonomous = true;
+        mecanum.velocity = 400;
+        mecanum.telemetry = this.telemetry;
+        mecanum.parent = this;
+        mecanum.initialize();
+        mecanum.rightErrorAdjustment=0.95;//0.973*0.973;
+        mecanum.ticksAdjustment = 0.97561*0.976220382;
+        waitForStart();
+
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
-        while (opModeIsActive()) {sleep(20);}
+        while (opModeIsActive()) {
+            double distance = 36;
+            mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
+            //distance = -28;
+            //sleep(500);
+            //mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
+        }
     }
 
     void tagToTelemetry(AprilTagDetection detection)

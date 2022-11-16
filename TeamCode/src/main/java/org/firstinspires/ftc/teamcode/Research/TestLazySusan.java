@@ -22,7 +22,7 @@ public class TestLazySusan extends LinearOpMode {
         runtime.reset();
 
 
-int direction = 1;
+        int direction = 1;
         while(opModeIsActive()){
             position +=0.05*direction;
             servo.setPosition(position);

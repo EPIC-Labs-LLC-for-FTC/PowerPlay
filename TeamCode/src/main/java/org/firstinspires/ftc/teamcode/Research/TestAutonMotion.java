@@ -25,18 +25,27 @@ public class TestAutonMotion extends LinearOpMode  {
     //mecanum.encoderDrive(speed,6,0,6,-6,0,-6, 1.0);
     @Override
     public void runOpMode() throws InterruptedException {
+
         mecanum = new Mecanum_Wheels(hardwareMap);
         mecanum.IsAutonomous = true;
         mecanum.velocity = 400;
         mecanum.telemetry = this.telemetry;
         mecanum.parent = this;
         mecanum.initialize();
+        mecanum.rightErrorAdjustment=0.95;//0.973*0.973;
+        mecanum.ticksAdjustment = 0.97561*0.976220382;
         waitForStart();
-        double distance = 20.0;
-        mecanum.rightErrorAdjustment=0.973*0.973;
-        mecanum.ticksAdjustment = 0.97561*0.976220382
-        ;
+        double distance = 56;
+        mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
+        distance = -28;
+        sleep(500);
         mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
 
+        int parkingSpot = 3;
+        distance = 28;
+        //right
+        //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
+
     }
+
 }
