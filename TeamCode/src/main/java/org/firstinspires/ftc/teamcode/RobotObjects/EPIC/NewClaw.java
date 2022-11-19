@@ -21,20 +21,24 @@ public class NewClaw {
     public NewClaw(HardwareMap hardwareMap) {
 
 
-        servo = hardwareMap.get(Servo.class, "lazySusan");
+        servo = hardwareMap.get(Servo.class, "claw");
     }
 
-    public void initialize() {
+    public void initialize(double position) {
 
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("ClawStatus", "Initialized");
         telemetry.update();
-        servo.setPosition(servoPosition);
+        servo.setPosition(position);
+        telemetry.addData("clawPosition", servoPosition);
+        telemetry.addData("clawServoPosition", servo.getPosition());
+        telemetry.update();
     }
 
     public void grab (){
         servoPosition =0.4;
         servo.setPosition(servoPosition);
         telemetry.addData("clawPosition", servoPosition);
+        telemetry.addData("clawServoPosition", servo.getPosition());
         telemetry.update();
     }
 
@@ -42,6 +46,7 @@ public class NewClaw {
         servoPosition =0.0;
         servo.setPosition(servoPosition);
         telemetry.addData("clawPosition", servoPosition);
+        telemetry.addData("clawServoPosition", servo.getPosition());
         telemetry.update();
     }
 }

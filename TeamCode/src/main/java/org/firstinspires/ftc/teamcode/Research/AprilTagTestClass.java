@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Research;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,6 +18,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.ArrayList;
 
 @TeleOp(name = "AprilTagTestClass")
+@Disabled
 public class AprilTagTestClass extends LinearOpMode
 {
     OpenCvCamera camera;
@@ -181,8 +183,8 @@ public class AprilTagTestClass extends LinearOpMode
         claw = new NewClaw(hardwareMap);
         claw.telemetry = this.telemetry;
         claw.parent = this;
-        claw.initialize();
-        claw.grab();
+        claw.initialize(0.4);
+        //claw.grab();
         waitForStart();
 
 
@@ -191,7 +193,7 @@ public class AprilTagTestClass extends LinearOpMode
             double distance = 36;
             mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
             lazy.rotate(0.3);
-            arm.lift(0.3,500);
+            arm.lift(0.3,500,1);
             claw.release();
             //distance = -28;
             //sleep(500);

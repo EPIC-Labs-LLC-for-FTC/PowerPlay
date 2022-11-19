@@ -1,22 +1,25 @@
-package org.firstinspires.ftc.teamcode.Research;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.ScanSleeve;
 
-@Autonomous(name="TestAutonomous", group="Research")
-public class TestAutonMotion extends LinearOpMode  {
+@Autonomous(name="Right Auton", group="Competition")
+public class RightAutonMotion extends LinearOpMode  {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);
     LazySusan lazy = null;
     Arm arm = null;
     NewClaw claw = null;
+    ScanSleeve scanner = null;
     //forward
     //mecanum.encoderDrive(speed,15,15,15,15,15,15, 2.0);
     //backward
@@ -32,6 +35,10 @@ public class TestAutonMotion extends LinearOpMode  {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        scanner = new ScanSleeve(hardwareMap);
+        scanner.telemetry = this.telemetry;
+        scanner.parent = this;
+        scanner.initialize();
         lazy = new LazySusan(hardwareMap);
         lazy.telemetry = this.telemetry;
         lazy.parent = this;
@@ -44,15 +51,24 @@ public class TestAutonMotion extends LinearOpMode  {
         mecanum.initialize();
         mecanum.rightErrorAdjustment=0.95;//0.973*0.973;
         mecanum.ticksAdjustment = 0.97561*0.976220382;
+        claw = new NewClaw(hardwareMap);
+        claw.telemetry = this.telemetry;
+        claw.parent = this;
+        claw.initialize(0.4);
         arm = new Arm(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
         arm.initialize();
-        claw = new NewClaw(hardwareMap);
-        claw.telemetry = this.telemetry;
-        claw.parent = this;
-        claw.initialize();
-        claw.grab();
+        //claw.grab();
+        int parkingSpot = 0;
+        int i = 0;
+        //while (!isStarted() && !isStopRequested()) {
+            parkingSpot = scanner.getParkingSpot();
+//            if(parkingSpot!=0 || i>20)
+//                break;
+//            i++;
+//            sleep(50);
+//        }
         waitForStart();
 //        double distance = 56;
 //        mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
@@ -63,14 +79,22 @@ public class TestAutonMotion extends LinearOpMode  {
 //        int parkingSpot = 3;
        // distance = 28;
 
-        double distance = 36;
-        mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
-        lazy.rotate(0.3);
-        arm.lift(0.3,500);
+        //while(opModeIsActive()) {
+            arm.liftEncoder(0.3, 1);
+            double distance = 43;
+            mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
+            lazy.rotate(0.275);
+            sleep(1000);
+            claw.release();
+            if(parkingSpot ==2){
+                distance = -7;
+                mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
+            }
+            //right
+            //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
+        //}
         claw.release();
-        //right
-        //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
-
+        //arm.initialize();
     }
 
 }

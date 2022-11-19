@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Research;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 @TeleOp(name="Test Motion", group="Research")
+@Disabled
 public class TestMotion extends LinearOpMode {
 
     double lefty;
