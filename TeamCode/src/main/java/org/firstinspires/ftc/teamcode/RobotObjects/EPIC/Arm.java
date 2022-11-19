@@ -74,6 +74,19 @@ public class Arm {
         return arm.getCurrentPosition();
     }
 
+    public void liftTicks(double power, int encoderTicks) {
+        int targetPosition = encoderTicks;
+        arm.setPower(power);
+        arm.setTargetPosition(targetPosition);
+        currentPosition = targetPosition;
+
+
+        telemetry.addData("armPosition", arm.getCurrentPosition());
+        telemetry.addData("armtargetPosition", targetPosition);
+
+        telemetry.update();
+    }
+
     public void liftEncoder(double power, int level) {
         int targetPosition = 0;
         //arm.setDirection(direction);

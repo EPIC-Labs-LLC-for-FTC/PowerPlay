@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
@@ -12,8 +10,8 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.ScanSleeve;
 
-@Autonomous(name="Right Auton", group="Competition")
-public class RightAutonMotion extends LinearOpMode  {
+@Autonomous(name="Left Auton", group="Competition")
+public class LeftAutonMotion extends LinearOpMode  {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);
     LazySusan lazy = null;
@@ -82,7 +80,7 @@ public class RightAutonMotion extends LinearOpMode  {
 
         //while(opModeIsActive()) {
             arm.liftEncoder(0.3, 2);
-            double distance = 40;
+            double distance = 15;
             mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
             lazy.rotate(0.275);
             sleep(1000);
@@ -91,14 +89,13 @@ public class RightAutonMotion extends LinearOpMode  {
             mecanum.encoderDrive(0.4, distance, -distance, -distance, distance, 5);
         sleep(3000);
             claw.release();
-
-        sleep(500);
+            sleep(500);
             //left
         mecanum.encoderDrive(0.4, -distance, distance, distance, -distance, 5);
         sleep(1000);
             //mecanum.encoderDrive(speed,-40,0,40,40,0,-40, 4.0);
             //if(parkingSpot ==2){
-                distance = -12.0;
+                distance = 12.0;
                 mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
                 if (parkingSpot==3)
                 {
@@ -118,6 +115,7 @@ public class RightAutonMotion extends LinearOpMode  {
         lazy.initialize2();
                 arm.liftEncoder(0.3,1);
         claw.release();
+
         scanner.releaseCamera();
         //arm.initialize();
     }

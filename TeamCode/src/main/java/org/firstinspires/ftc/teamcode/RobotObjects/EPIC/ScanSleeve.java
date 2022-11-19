@@ -164,7 +164,7 @@ public class ScanSleeve {
 
 
 
-        return 0;
+        return tagOfInterest.id;
     }
 
 
@@ -178,6 +178,14 @@ public class ScanSleeve {
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+    }
+
+    public void releaseCamera(){
+        if(null!=camera) {
+            camera.stopStreaming();
+            camera.closeCameraDevice();
+            camera = null;
+        }
     }
 
 }
