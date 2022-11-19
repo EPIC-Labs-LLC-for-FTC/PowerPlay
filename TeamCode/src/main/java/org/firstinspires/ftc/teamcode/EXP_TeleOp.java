@@ -29,9 +29,9 @@ public class EXP_TeleOp extends LinearOpMode {
     double speed = 1.0;
 
     double pos = 0.0;
-    double liftPower = 0.6;
+    double liftPower = 0.75;
     double breakPower = 0.1;
-    int armPosition = 0;
+    int armPosition = -205;
     boolean slow = false;
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
@@ -154,19 +154,14 @@ public class EXP_TeleOp extends LinearOpMode {
 
             if (dpad_down2) {
 
-                armPosition = 100;
+                armPosition = 200;
                 arm.setTargetPosition(armPosition);
                 arm.setPower(liftPower);
                 sleep(300);
             }
-//            if (dpad_right2) {
-//                armPosition = 625;
-//                arm.setTargetPosition(armPosition);
-//                arm.setPower(liftPower);
-//                sleep(300);
-//            }
+
             if (dpad_left2) {
-                armPosition = 360;
+                armPosition = 465;
                 arm.setTargetPosition(armPosition);
                 arm.setPower(liftPower);
                 sleep(300);
