@@ -113,7 +113,9 @@ public class LeftAutonMotion extends LinearOpMode  {
             //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
         //}
         lazy.initialize2();
-                arm.liftEncoder(0.3,1);
+        sleep(500);
+        arm.liftEncoder(0.3,1);
+        sleep(500);
         claw.release();
 
         scanner.releaseCamera();
