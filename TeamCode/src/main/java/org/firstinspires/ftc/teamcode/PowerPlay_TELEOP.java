@@ -43,13 +43,13 @@ public class PowerPlay_TELEOP extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
-        finger1 = hardwareMap.get(Servo.class, "finger1");
-        finger2 = hardwareMap.get(Servo.class, "finger2");
-        wrist1 = hardwareMap.get(Servo.class, "wrist1");
-        wrist2 = hardwareMap.get(Servo.class, "wrist2");
+        finger1 = hardwareMap.get(Servo.class, "fingerRight");
+        finger2 = hardwareMap.get(Servo.class, "fingerLeft");
+        wrist1 = hardwareMap.get(Servo.class, "wristRight");
+        wrist2 = hardwareMap.get(Servo.class, "wristLeft");
         outtakeArm= hardwareMap.get(Servo.class, "outtakeArm");
-        arm1 = hardwareMap.get(Servo.class,"arm1");
-        arm2 = hardwareMap.get(Servo.class, "arm2");
+        arm1 = hardwareMap.get(Servo.class,"armRight");
+        arm2 = hardwareMap.get(Servo.class, "armLeft");
 
         wheels.initialize();
         wheels.telemetry = telemetry;
@@ -76,10 +76,10 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         arm1.setPosition(0.0);
         arm2.setPosition(0.0);
 
-        wrist1.setPosition(0.50);
-        wrist2.setPosition(0.50);
+        wrist1.setPosition(0.3);
+        wrist2.setPosition(0.3);
 
-        outtakeArm.setPosition(0);
+        outtakeArm.setPosition(0.05);
         arm1.setPosition(0.44);
         arm2.setPosition(0.44);
 
@@ -111,11 +111,11 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.16);
             }
             else if(x2){
-                finger1.setPosition(0.50);
-                finger2.setPosition(0.38);
+                finger1.setPosition(0.56);
+                finger2.setPosition(0.41);
             }
             if(a2){
-                outtakeArm.setPosition(0);
+                outtakeArm.setPosition(0.05);
             }
             if(b2){
                 outtakeArm.setPosition(0.55);
@@ -137,8 +137,8 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(200);
                 arm1.setPosition(0.44);
                 arm2.setPosition(0.44);
-                wrist1.setPosition(0.45);
-                wrist2.setPosition(0.45);
+                wrist1.setPosition(0.3);
+                wrist2.setPosition(0.3);
                 raiseSlide(1250);
             }
             if(dpadUp2){
@@ -152,8 +152,8 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(200);
                 arm1.setPosition(0.44);
                 arm2.setPosition(0.44);
-                wrist1.setPosition(0.45);
-                wrist2.setPosition(0.45);
+                wrist1.setPosition(0.3);
+                wrist2.setPosition(0.3);
                 raiseSlide(2350);
             }
             if(dpadLeft2){
