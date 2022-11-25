@@ -1,3 +1,0 @@
-0 red_right_left
-1 red_right_middle
-2 red_right_right

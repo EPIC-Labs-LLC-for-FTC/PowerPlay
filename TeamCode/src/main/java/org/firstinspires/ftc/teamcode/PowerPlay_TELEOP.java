@@ -104,8 +104,17 @@ public class PowerPlay_TELEOP extends LinearOpMode {
             boolean dpadDown2 = gamepad2.dpad_down;
             boolean dpadRight2 = gamepad2.dpad_right;
             boolean dpadLeft2 = gamepad2.dpad_left;
+            boolean leftBumper2 = gamepad2.left_bumper;
+            boolean rightBumper2 = gamepad2.right_bumper;
 
-
+            if(a){
+                wheels.leftErrorAdjustment = 0.5;
+                wheels.rightErrorAdjustment = 0.5;
+            }
+            if(y){
+                wheels.leftErrorAdjustment = 0.72;
+                wheels.rightErrorAdjustment = 0.72;
+            }
             if(y2){
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
@@ -115,14 +124,28 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.41);
             }
             if(a2){
-                outtakeArm.setPosition(0.05);
+                outtakeArm.setPosition(0.04);
             }
             if(b2){
                 outtakeArm.setPosition(0.55);
             }
-            if(dpadDown2){
+            if(leftBumper2){
                 arm1.setPosition(0.0);
                 arm2.setPosition(0.0);
+                wrist1.setPosition(0.3);
+                wrist2.setPosition(0.3);
+
+            }
+            if(rightBumper2){
+                arm1.setPosition(0.5);
+                arm2.setPosition(0.5);
+                wrist1.setPosition(0.66);
+                wrist2.setPosition(0.66);
+                sleep(1000);
+            }
+            if(dpadDown2){
+                raiseSlide(0);
+
 
             }
             if(dpadRight2){
@@ -135,11 +158,8 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
                 sleep(200);
-                arm1.setPosition(0.44);
-                arm2.setPosition(0.44);
-                wrist1.setPosition(0.3);
-                wrist2.setPosition(0.3);
-                raiseSlide(1250);
+                raiseSlide(2350);
+
             }
             if(dpadUp2){
                 arm1.setPosition(0.5);
@@ -150,14 +170,17 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
                 sleep(200);
-                arm1.setPosition(0.44);
-                arm2.setPosition(0.44);
-                wrist1.setPosition(0.3);
-                wrist2.setPosition(0.3);
-                raiseSlide(2350);
+                raiseSlide(1250);
             }
             if(dpadLeft2){
-                raiseSlide(0);
+                arm1.setPosition(0.5);
+                arm2.setPosition(0.5);
+                wrist1.setPosition(0.66);
+                wrist2.setPosition(0.66);
+                sleep(1000);
+                finger1.setPosition(0.16);
+                finger2.setPosition(0.16);
+                sleep(200);
             }
             wheels.move(lefty,righty,leftx,rightx);
             telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
