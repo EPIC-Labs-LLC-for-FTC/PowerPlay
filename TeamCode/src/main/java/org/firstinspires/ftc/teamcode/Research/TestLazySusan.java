@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
 
 @TeleOp(name="Test LazySu", group="Research")
-@Disabled
+
 public class TestLazySusan extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -22,7 +22,7 @@ public class TestLazySusan extends LinearOpMode {
         lazy = new LazySusan(hardwareMap);
         lazy.parent = this;
         lazy.telemetry = telemetry;
-        lazy.initialize2();
+        lazy.initialize();
 
         telemetry.addData("position", lazy.getPosition());
         telemetry.update();
