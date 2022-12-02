@@ -124,7 +124,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.41);
             }
             if(a2){
-                outtakeArm.setPosition(0.04);
+                outtakeArm.setPosition(0.03);
             }
             if(b2){
                 outtakeArm.setPosition(0.55);

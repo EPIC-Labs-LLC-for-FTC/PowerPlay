@@ -54,29 +54,20 @@ public class Mecanum_Wheels {
         backleft.setPower(reset);
         backright.setPower(reset);
 
-        backright.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
+        backright.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontright.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        backleft.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontleft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //middleright.setDirection(DcMotorSimple.Direction.REVERSE);
 
         if(IsAutonomous)
         {
-//            frontright.setDirection(DcMotorSimple.Direction.REVERSE);
-//            middleright.setDirection(DcMotorSimple.Direction.REVERSE);
-//            backright.setDirection(DcMotorSimple.Direction.REVERSE);
 
-            frontleft.setDirection(DcMotor.Direction.FORWARD);
-            frontright.setDirection(DcMotor.Direction.REVERSE);
-
-            backright.setDirection(DcMotor.Direction.REVERSE);
-            backleft.setDirection(DcMotor.Direction.REVERSE);
 
             frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -101,8 +92,6 @@ public class Mecanum_Wheels {
                              double backRightInches, double timeoutS) {
         int new_frontLeftTarget;
         int new_frontRightTarget;
-        int new_middleLeftTarget=0;
-        int new_middleRightTarget=0;
         int new_backLeftTarget;
         int new_backRightTarget;
         double ticksPerInchMecanum = (537.7 / mecanumWheelCircumference);
@@ -115,13 +104,12 @@ public class Mecanum_Wheels {
 
             new_backLeftTarget = backleft.getCurrentPosition() + (int) (backLeftInches * ticksPerInchMecanum);
             new_backRightTarget = backright.getCurrentPosition() + (int) (backRightInches * ticksPerInchMecanum);
-            frontleft.setTargetPosition(-new_frontLeftTarget);
-            frontright.setTargetPosition(-new_frontRightTarget);
+            frontleft.setTargetPosition(new_frontLeftTarget);
+            frontright.setTargetPosition(new_frontRightTarget);
 
 
             backleft.setTargetPosition(new_backLeftTarget);
-            backleft.setTargetPosition(new_backLeftTarget);
-            backright.setTargetPosition(-new_backRightTarget);
+            backright.setTargetPosition(new_backRightTarget);
 
             // Turn On RUN_TO_POSITION
             frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);

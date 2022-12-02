@@ -37,18 +37,9 @@ public class FinalAutonPowerplay extends LinearOpMode {
     double tagsize = 0.166;
 
     // Tag ID 18 from the 36h11 family
-    int BR_1 = 1;
-    int BR_2 = 2;
-    int BR_3 = 3;
-    int BL_1 = 4;
-    int BL_2 = 5;
-    int BL_3 = 6;
-    int RR_1 = 7;
-    int RR_2 = 8;
-    int RR_3 = 9;
-    int RL_1 = 10;
-    int RL_2 = 11;
-    int RL_3 = 12;
+    int tag1 = 1;
+    int tag2 = 2;
+    int tag3 = 3;
 
     AprilTagDetection tagOfInterest = null;
     @Override
@@ -84,7 +75,7 @@ public class FinalAutonPowerplay extends LinearOpMode {
 
                 for(AprilTagDetection tag : currentDetections)
                 {
-                    if(tag.id == BR_1 || tag.id == BR_2 || tag.id == BR_3 ||tag.id == BL_1 || tag.id == BL_2 || tag.id == BL_3 ||tag.id == RR_1 || tag.id == RR_2 || tag.id == RR_3 ||tag.id == RL_1 || tag.id == RL_2 || tag.id == RL_3)
+                    if(tag.id == tag1 || tag.id == tag2 || tag.id == tag3)
                     {
                         tagOfInterest = tag;
                         tagFound = true;
@@ -144,29 +135,13 @@ public class FinalAutonPowerplay extends LinearOpMode {
             telemetry.update();
         }
         /* Actually do something useful */
-        if(tagOfInterest == null || tagOfInterest.id == BR_1){
+        if(tagOfInterest.id == tag1){
             //trajectory
-        }else if (tagOfInterest.id == BR_2){
+        }else if (tagOfInterest.id == tag2){
             //trajectory
-        }else if (tagOfInterest.id == BR_3){
+        }else if (tagOfInterest.id == tag3){
             //trajectory
-        }else if (tagOfInterest.id == BL_1){
-            //trajectory
-        }else if (tagOfInterest.id == BL_2){
-            //trajectory
-        }else if (tagOfInterest.id == BL_3){
-            //trajectory
-        }else if (tagOfInterest.id == RR_1){
-            //trajectory
-        }else if (tagOfInterest.id == RR_2){
-            //trajectory
-        }else if (tagOfInterest.id == RR_3){
-            //trajectory
-        }else if (tagOfInterest.id == RL_1){
-            //trajectory
-        }else if (tagOfInterest.id == RL_2){
-            //trajectory
-        }else if (tagOfInterest.id == RL_3){
+        }else if (tagOfInterest == null){
             //trajectory
         }
 
