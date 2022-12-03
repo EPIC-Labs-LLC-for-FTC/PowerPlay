@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Scanner;
 
+@Autonomous(name = "PowerPlayRightAuton")
 public class POWERPLAY_Right_Auton extends LinearOpMode {
     OpenCvCamera webcam;
     Scanner scanner;
