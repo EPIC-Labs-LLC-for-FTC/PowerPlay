@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="Test Claw", group="Research")
 //@Disabled
+
 public class TestClaw extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
