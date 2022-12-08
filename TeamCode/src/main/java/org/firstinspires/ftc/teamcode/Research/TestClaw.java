@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="Test Claw", group="Research")
-@Disabled
+//@Disabled
 public class TestClaw extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -32,13 +32,13 @@ public class TestClaw extends LinearOpMode {
 
 
         while(opModeIsActive()){
-            servoPosition =0.4;
+            servoPosition =0.0;
             servo.setPosition(servoPosition);
             telemetry.addData("servoPosition", servoPosition);
             telemetry.update();
             sleep(3000);
 
-            servoPosition =0;
+            servoPosition =0.4;
             servo.setPosition(servoPosition);
             telemetry.addData("servoPosition", servoPosition);
             telemetry.update();

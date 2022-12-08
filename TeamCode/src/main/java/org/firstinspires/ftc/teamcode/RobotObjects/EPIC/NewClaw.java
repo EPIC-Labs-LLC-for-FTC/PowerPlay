@@ -33,9 +33,9 @@ public class NewClaw {
         telemetry.addData("clawServoPosition", servo.getPosition());
         telemetry.update();
     }
-
+    
     public void grab (){
-        servoPosition =0.4;
+        servoPosition =0.0;
         servo.setPosition(servoPosition);
         telemetry.addData("clawPosition", servoPosition);
         telemetry.addData("clawServoPosition", servo.getPosition());
@@ -43,7 +43,7 @@ public class NewClaw {
     }
 
     public void release (){
-        servoPosition =0.0;
+        servoPosition =0.4;
         servo.setPosition(servoPosition);
         telemetry.addData("clawPosition", servoPosition);
         telemetry.addData("clawServoPosition", servo.getPosition());

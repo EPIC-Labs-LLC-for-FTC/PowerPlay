@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 @TeleOp(name="Test Motion", group="Research")
-@Disabled
+//@Disabled
 public class TestMotion extends LinearOpMode {
 
     double lefty;

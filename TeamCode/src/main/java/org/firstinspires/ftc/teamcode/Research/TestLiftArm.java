@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode.Research;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftArm;
 
-@TeleOp(name="Test LazySu", group="Research")
+@TeleOp(name="Test Lift Arm", group="Research")
 //@Disabled
-public class TestLazySusan extends LinearOpMode {
+public class TestLiftArm extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    LazySusan lazy = null;
+
+    LiftArm liftArm = null;
 
     boolean x2;
     boolean b2;
@@ -23,20 +23,22 @@ public class TestLazySusan extends LinearOpMode {
     boolean dpadLeft = false;
     boolean dpadUp = false;
     boolean dpadRight = false;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        lazy = new LazySusan(hardwareMap);
-        lazy.parent = this;
-        lazy.telemetry = telemetry;
-        lazy.initialize2();
+        liftArm = new LiftArm(hardwareMap);
+        liftArm.parent = this;
+        liftArm.telemetry = telemetry;
+        liftArm.initialize2();
 
 
-        telemetry.addData("position", lazy.getPosition());
+        telemetry.addData("position", liftArm.getPosition());
         telemetry.update();
         waitForStart();
+
         double position = 0.27;
         while(opModeIsActive()){
 
@@ -72,14 +74,12 @@ public class TestLazySusan extends LinearOpMode {
             else if(a2){
                 position -=0.01;
             }
-//            lazy.rotate(0.15);
-//            sleep(1000);
-//            telemetry.addData("position", lazy.getPosition());
-//            telemetry.update();
-            lazy.rotate(position);
-            telemetry.addData("position", lazy.getPosition());
+
+            liftArm.lift(position);
+            telemetry.addData("position", liftArm.getPosition());
             telemetry.update();
             sleep(1000);
+
         }
 
     }
