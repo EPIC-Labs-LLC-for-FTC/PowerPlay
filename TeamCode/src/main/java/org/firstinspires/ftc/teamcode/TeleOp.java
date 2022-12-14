@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftArmMotor;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 
@@ -36,7 +37,7 @@ public class TeleOp extends LinearOpMode {
 
     LazySusan lazy = null;
     NewClaw claw = null;
-    Arm arm = null;
+    LiftArmMotor arm = null;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     double power = 1;
@@ -70,7 +71,7 @@ public class TeleOp extends LinearOpMode {
         claw.telemetry = this.telemetry;
         claw.parent = this;
         claw.initialize(0.0);
-        arm = new Arm(hardwareMap);
+        arm = new LiftArmMotor(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
         arm.initialize2();
