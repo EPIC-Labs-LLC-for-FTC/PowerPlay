@@ -5,6 +5,9 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -17,6 +20,9 @@ public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
 
         waitForStart();
         TrajectorySequence EXP_Auto_Blue_left = drive.trajectorySequenceBuilder(new Pose2d())
+                .addDisplacementMarker(() -> {
+                    
+                })
                 .forward(20)
                 .turn(Math.toRadians(90))
                 .forward(10)

@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 import java.net.PortUnreachableException;
 
+@Disabled
 @Autonomous(name="EXP_Autonomous")
-
 
 public class EXP_Autonomous extends LinearOpMode {
     //Configuration used: 4wheelConfig

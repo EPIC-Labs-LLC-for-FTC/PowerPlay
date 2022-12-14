@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
+import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Claw;
+import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -32,6 +34,7 @@ public class EXP_TeleOp extends LinearOpMode {
     double liftPower = 0.6;
     double breakPower = 0.1;
     int armPosition = 0;
+    int sliderPosition = 0;
     boolean slow = false;
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {
@@ -62,17 +65,13 @@ public class EXP_TeleOp extends LinearOpMode {
         DcMotorEx frontLeft = hardwareMap.get(DcMotorEx.class, "FrontLeft");
         DcMotorEx backRight = hardwareMap.get(DcMotorEx.class, "BackRight");
         DcMotorEx backLeft = hardwareMap.get(DcMotorEx.class, "BackLeft");
-        Servo grab = hardwareMap.get(Servo.class, "Grab");
-        DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "Arm");
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        
+        Claw armClaw = new Claw(hardwareMap);
+        Slide_Control slider = new Slide_Control(hardwareMap);
 
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm.setTargetPosition(0);
+        slider.initialize();
+        armClaw.initialize();
 
-
-        grab.setPosition(0);
 
         waitForStart();
 
@@ -102,6 +101,8 @@ public class EXP_TeleOp extends LinearOpMode {
             boolean dpad_left2 = gamepad2.dpad_left;
             boolean dpad_up2 = gamepad2.dpad_up;
             boolean dpad_right2 = gamepad2.dpad_right;
+
+
             if (a) {
                 if (slow == false) {
                     speed = 0.6;
@@ -124,8 +125,7 @@ public class EXP_TeleOp extends LinearOpMode {
                 frontRight.setPower(leftx * speed);
                 frontLeft.setPower(leftx * speed);
                 backLeft.setPower(-leftx * speed);
-                backRight.setPower(-leftx * speed);
-
+                
                 if (rightx > 0) {
                     frontRight.setPower(rightx * speed);
                     frontLeft.setPower(rightx * speed);
@@ -138,69 +138,59 @@ public class EXP_TeleOp extends LinearOpMode {
                     backRight.setPower(rightx * speed);
                 }
             }
-            if (lefty2 != 0) {
-                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                arm.setPower(lefty2 * 0.6);
-                armPosition = arm.getCurrentPosition();
-            } else if (lefty2 == 0){
-                arm.setPower(breakPower);
-                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            if (lefty2 != 0 && gamepad2.right_bumper){
+                armClaw.specificLift(lefty2);
             }
+
 //                if (liftPower != 0){
 //                arm.setPower(liftPower);
 //            } else {
 //                    arm.setPower(0.02);
 //                }
 
-            if (dpad_down2) {
 
-                armPosition = 100;
-                arm.setTargetPosition(armPosition);
-                arm.setPower(liftPower);
-                sleep(300);
+            if (a2) {
+                armPosition = 1;
+                armClaw.lift(1);
+
             }
-//            if (dpad_right2) {
-//                armPosition = 625;
-//                arm.setTargetPosition(armPosition);
-//                arm.setPower(liftPower);
-//                sleep(300);
-//            }
-            if (dpad_left2) {
-                armPosition = 360;
-                arm.setTargetPosition(armPosition);
-                arm.setPower(liftPower);
-                sleep(300);
+
+
+            if (b2) {
+                armPosition = 2;
+                armClaw.lift(3);
             }
+
+
+            if (dpad_right2) {
+                sliderPosition = 1;
+                slider.lift(sliderPosition);
+            }
+
+            if (dpad_up2) {
+                sliderPosition = 2;
+                slider.lift(sliderPosition);
+            }
+
+            if (dpad_down2){
+                sliderPosition = 3;
+                slider.lift(sliderPosition);
+            }
+
+            if (dpad_left2){
+                slider.retract();
+            }
+
+
             if (x2) {
-                grab.setPosition(0.5);
+                armClaw.close();
 
             } else if (y2) {
-                grab.setPosition(0);
+                armClaw.open();
             }
-            if (a2) {
 
-                armPosition += 50;
-                if (armPosition > 800)
-                    armPosition = 800;
 
-                arm.setTargetPosition(armPosition);
-
-                arm.setPower(liftPower);
-                sleep(250);
-
-            } else if (b2) {
-                armPosition -= 10;
-
-                if (armPosition < 0)
-                    armPosition = 0;
-                arm.setTargetPosition(armPosition);
-                arm.setPower(liftPower);
-            }  else {
-
-                    arm.setPower(breakPower);
-                    arm.setTargetPosition(armPosition);
-
-                }
 
 
                 //   telemetry.addData("lefty", "%.2f", lefty);
@@ -209,10 +199,9 @@ public class EXP_TeleOp extends LinearOpMode {
 
                 // telemetry.addData("rightx", "%.2f", gamepad1.right_stick_x);
                 // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
-
-                telemetry.addData("armPosition: ", arm.getCurrentPosition());
+                telemetry.addData("slider position: ", slider.sliderPosition());
+                telemetry.addData("arm position: ", armClaw.armPosition());
                 telemetry.addData("player 2 left y: ", lefty2);
-                telemetry.addData("motor position: ", armPosition);
                 telemetry.addData("speed: ", speed);
 
 
