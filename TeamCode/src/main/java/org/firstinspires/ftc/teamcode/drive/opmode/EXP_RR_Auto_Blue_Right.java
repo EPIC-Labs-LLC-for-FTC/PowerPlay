@@ -7,10 +7,12 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+
 
 
 
@@ -28,7 +30,18 @@ public class EXP_RR_Auto_Blue_Right extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        double liftPower = 0.6;
+        int armPosition = 0;
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "Arm");
+        Servo grab = hardwareMap.get(Servo.class, "Grab");
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setTargetPosition(0);
+        grab.setPosition(0);
 
         Slide_Control slideControl = new Slide_Control(hardwareMap);
         Claw armClaw = new Claw(hardwareMap);
@@ -73,6 +86,7 @@ public class EXP_RR_Auto_Blue_Right extends LinearOpMode {
                 .waitSeconds(0.5)
                 .forward(20)
                 .build();
+
 
         waitForStart();
 

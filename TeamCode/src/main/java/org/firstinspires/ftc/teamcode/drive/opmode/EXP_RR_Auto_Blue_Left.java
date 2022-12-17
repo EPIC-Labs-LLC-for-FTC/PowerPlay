@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.ScanSleeve;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -27,7 +26,18 @@ public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        double liftPower = 0.6;
+        int armPosition = 0;
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "Arm");
+        Servo grab = hardwareMap.get(Servo.class, "Grab");
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setTargetPosition(0);
+        grab.setPosition(0);
 
         Slide_Control slideControl = new Slide_Control(hardwareMap);
         Claw armClaw = new Claw(hardwareMap);
@@ -69,11 +79,13 @@ public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
                 .strafeLeft(20)
                 .waitSeconds(0.5)
                 .forward(20)
+
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
+
 
 
         drive.followTrajectorySequence(turnAndStrafe);

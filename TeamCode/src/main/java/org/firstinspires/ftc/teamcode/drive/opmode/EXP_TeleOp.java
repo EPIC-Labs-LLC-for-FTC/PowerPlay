@@ -30,7 +30,7 @@ public class EXP_TeleOp extends LinearOpMode {
     double speed = 1.0;
 
     double pos = 0.0;
-    double liftPower = 0.6;
+    double liftPower = 0.75;
     double breakPower = 0.1;
     int armPosition = 0;
     int sliderPosition = 0;
@@ -155,6 +155,7 @@ public class EXP_TeleOp extends LinearOpMode {
 //            } else {
 //                    arm.setPower(0.02);
 //                }
+
 
 
             if (a2) {
