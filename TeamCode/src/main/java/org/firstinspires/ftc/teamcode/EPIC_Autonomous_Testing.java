@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RobotObjects.Mecanum_Wheels;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.Mecanum_Wheels;
 
 @Autonomous(name="EPIC_Autonomous_Testing")
 

@@ -4,13 +4,11 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Claw;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
 
@@ -28,6 +26,7 @@ public class EXP_TeleOp extends LinearOpMode {
     double leftx = 0.0;
     double righty = 0.0;
     double rightx = 0.0;
+    double righty2 = 0.0;
     double speed = 1.0;
 
     double pos = 0.0;
@@ -65,7 +64,7 @@ public class EXP_TeleOp extends LinearOpMode {
         DcMotorEx frontLeft = hardwareMap.get(DcMotorEx.class, "FrontLeft");
         DcMotorEx backRight = hardwareMap.get(DcMotorEx.class, "BackRight");
         DcMotorEx backLeft = hardwareMap.get(DcMotorEx.class, "BackLeft");
-        
+
         Claw armClaw = new Claw(hardwareMap);
         Slide_Control slider = new Slide_Control(hardwareMap);
 
@@ -84,7 +83,7 @@ public class EXP_TeleOp extends LinearOpMode {
             rightx = -gamepad1.right_stick_x;
 
 
-            //liftPower = gamepad2.right_stick_y;
+            righty2 = gamepad2.right_stick_y;
 
             lefty2 = gamepad2.left_stick_y;
 
@@ -102,17 +101,21 @@ public class EXP_TeleOp extends LinearOpMode {
             boolean dpad_up2 = gamepad2.dpad_up;
             boolean dpad_right2 = gamepad2.dpad_right;
 
+            if (x2) {
+                armClaw.close();
+
+            } else if (y2) {
+                armClaw.open();
+            }
 
             if (a) {
-                if (slow == false) {
-                    speed = 0.6;
-                    slow = true;
-                    sleep(250);
-                } else if (slow) {
-                    speed = 1;
-                    slow = false;
-                    sleep(250);
-                }
+                speed = 0.6;
+            } else if (b) {
+                speed = 0.25;
+            } else if (x){
+                speed = 0.1;
+            } else if (y){
+                speed = 1.0; 
             }
 
 
@@ -125,7 +128,8 @@ public class EXP_TeleOp extends LinearOpMode {
                 frontRight.setPower(leftx * speed);
                 frontLeft.setPower(leftx * speed);
                 backLeft.setPower(-leftx * speed);
-                
+                backRight.setPower(-leftx * speed);
+
                 if (rightx > 0) {
                     frontRight.setPower(rightx * speed);
                     frontLeft.setPower(rightx * speed);
@@ -139,8 +143,11 @@ public class EXP_TeleOp extends LinearOpMode {
                 }
             }
 
-            if (lefty2 != 0 && gamepad2.right_bumper){
+            if (gamepad2.right_bumper){
                 armClaw.specificLift(lefty2);
+                slider.specificLift(righty2);
+            } else if (gamepad2.left_bumper){
+                armClaw.clawControl(lefty2);
             }
 
 //                if (liftPower != 0){
@@ -152,14 +159,14 @@ public class EXP_TeleOp extends LinearOpMode {
 
             if (a2) {
                 armPosition = 1;
-                armClaw.lift(1);
+                armClaw.lift(armPosition);
 
             }
 
 
             if (b2) {
                 armPosition = 2;
-                armClaw.lift(3);
+                armClaw.lift(armPosition);
             }
 
 
@@ -183,12 +190,7 @@ public class EXP_TeleOp extends LinearOpMode {
             }
 
 
-            if (x2) {
-                armClaw.close();
 
-            } else if (y2) {
-                armClaw.open();
-            }
 
 
 

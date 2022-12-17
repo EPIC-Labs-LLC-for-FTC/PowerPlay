@@ -5,9 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
-import org.firstinspires.ftc.teamcode.RobotObjects.Spinner;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.Mecanum_Wheels;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.Claw;
 
 @Autonomous(name="EPIC_Autonomous")
 

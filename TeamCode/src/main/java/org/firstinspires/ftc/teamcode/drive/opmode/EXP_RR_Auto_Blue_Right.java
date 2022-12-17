@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -14,36 +15,98 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.ScanSleeve;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Claw;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
 
 @Autonomous (name="EXP_RR_Auto_Blue_Right")
 public class EXP_RR_Auto_Blue_Right extends LinearOpMode {
+
+    ScanSleeve scanner;
+
+
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        
+
         Slide_Control slideControl = new Slide_Control(hardwareMap);
+        Claw armClaw = new Claw(hardwareMap);
+
         slideControl.initialize();
+        armClaw.initialize();
+
+        scanner = new ScanSleeve(hardwareMap);
+        scanner.telemetry = this.telemetry;
+        scanner.parent = this;
+        scanner.initialize();
+
+        int parkingSpot = 0;
+        parkingSpot = scanner.getParkingSpot();
+
+        scanner.releaseCamera();
+
 
         waitForStart();
-        TrajectorySequence EXP_Auto_Blue_Right = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(36)
-                .turn(Math.toRadians(-60))
-                .forward(10)
-                .addDisplacementMarker(46,() -> {
-                    slideControl.lift(2);
-                })
-                .turn(Math.toRadians(-90))
+        TrajectorySequence turnAndStrafe = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(5)
+                .turn(Math.toRadians(100))
+                .waitSeconds(0.5)
+                .strafeRight(40)
+                .waitSeconds(0.5)
+                .build();
+
+
+        TrajectorySequence parking1 = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeRight(20)
+                .waitSeconds(0.5)
+                .back(20)
+                .build();
+
+        TrajectorySequence parking2 = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeRight(20)
+                .waitSeconds(0.5)
+                .build();
+
+        TrajectorySequence parking3 = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeRight(20)
+                .waitSeconds(0.5)
+                .forward(20)
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-        slideControl.retract();
-        drive.followTrajectorySequence(EXP_Auto_Blue_Right);
+
+        drive.followTrajectorySequence(turnAndStrafe);
+
+        sleep(500);
+
+        int i = 0;
+        while(i<5){
+            armClaw.specificLift(-1);
+            sleep(500);
+            i++;
+        }
+
+        armClaw.stop();
+        sleep(100);
+        armClaw.open();
+        sleep(500);
+        armClaw.close();
+        sleep(100);
+
+        if (parkingSpot == 1){
+            drive.followTrajectorySequence(parking1);
+        } else if (parkingSpot == 2) {
+            drive.followTrajectorySequence(parking2);
+        } else {
+            drive.followTrajectorySequence(parking3);
+        }
+
+        scanner.releaseCamera();
+
 
     }
 }

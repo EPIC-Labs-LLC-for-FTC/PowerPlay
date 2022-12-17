@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
-import org.firstinspires.ftc.teamcode.RobotObjects.Spinner;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.Claw;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.Mecanum_Wheels;
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.Spinner;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

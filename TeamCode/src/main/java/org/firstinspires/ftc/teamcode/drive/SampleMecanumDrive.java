@@ -163,6 +163,13 @@ public class SampleMecanumDrive extends MecanumDrive {
         );
     }
 
+    public void setAllPower(double speed){
+        leftFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightFront.setPower(speed);
+        rightRear.setPower(speed);
+    }
+
     public void turn(double angle) {
         turnAsync(angle);
         waitForIdle();
