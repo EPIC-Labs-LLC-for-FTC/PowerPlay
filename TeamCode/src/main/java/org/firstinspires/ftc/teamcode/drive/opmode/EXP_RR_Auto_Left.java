@@ -1,47 +1,27 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
-import android.transition.Slide;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
-
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.ScanSleeve;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Claw;
 import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
-@Disabled
-@Autonomous (name="EXP_RR_Auto_Blue_Left")
-public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.drive.opmode.RobotObjects.EPIC.ScanSleeve;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+
+@Autonomous (name="EXP_RR_Auto_Left")
+public class EXP_RR_Auto_Left extends LinearOpMode {
 
     ScanSleeve scanner;
 
 
     @Override
     public void runOpMode() {
-        double liftPower = 0.6;
-        int armPosition = 0;
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "Arm");
-        Servo grab = hardwareMap.get(Servo.class, "Grab");
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm.setTargetPosition(0);
-        grab.setPosition(0);
-
         Slide_Control slideControl = new Slide_Control(hardwareMap);
         Claw armClaw = new Claw(hardwareMap);
+
         slideControl.initialize();
         armClaw.initialize();
 
@@ -58,48 +38,70 @@ public class EXP_RR_Auto_Blue_Left extends LinearOpMode {
 
         waitForStart();
         TrajectorySequence turnAndStrafe = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(4)
-                .turn(Math.toRadians(-90))
+                .forward(8)
+                .turn(Math.toRadians(-106))
                 .waitSeconds(0.5)
-                .strafeLeft(20)
+                .strafeLeft(70)
+                .waitSeconds(0.5)
+                .strafeRight(13)
                 .waitSeconds(0.5)
                 .build();
 
+        TrajectorySequence moveForward = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(9.5)
+                .build();
+
+        TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(10.5)
+                .build();
+
+
         TrajectorySequence parking1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeLeft(20)
+                .strafeRight(25)
                 .waitSeconds(0.5)
-                .back(20)
+                .back(28)
                 .build();
 
         TrajectorySequence parking2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeLeft(20)
+                .strafeLeft(50)
+                .waitSeconds(0.5)
+                .strafeRight(30)
                 .waitSeconds(0.5)
                 .build();
 
         TrajectorySequence parking3 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeLeft(20)
+                .strafeLeft(50)
                 .waitSeconds(0.5)
-                .forward(20)
-
+                .strafeRight(25)
+                .waitSeconds(0.5)
+                .forward(28)
                 .build();
+
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-
+        sleep(500);
+        armClaw.specificLift(-0.5);
+        sleep(5400);
+        armClaw.stop();
+        sleep(100);
 
         drive.followTrajectorySequence(turnAndStrafe);
 
-        sleep(500);
-        armClaw.specificLift(1);
-        sleep(1000);
-        armClaw.stop();
         sleep(100);
+
+        drive.followTrajectorySequence(moveForward);
+
+        sleep(2500);
         armClaw.open();
         sleep(500);
         armClaw.close();
         sleep(100);
+
+        drive.followTrajectorySequence(moveBackward);
+        sleep(500);
 
         if (parkingSpot == 1){
             drive.followTrajectorySequence(parking1);

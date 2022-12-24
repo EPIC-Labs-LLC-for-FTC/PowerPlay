@@ -158,37 +158,37 @@ public class EXP_TeleOp extends LinearOpMode {
 
 
 
-            if (a2) {
-                armPosition = 1;
-                armClaw.lift(armPosition);
-
-            }
-
-
-            if (b2) {
-                armPosition = 2;
-                armClaw.lift(armPosition);
-            }
-
-
-            if (dpad_right2) {
-                sliderPosition = 1;
-                slider.lift(sliderPosition);
-            }
-
-            if (dpad_up2) {
-                sliderPosition = 2;
-                slider.lift(sliderPosition);
-            }
-
-            if (dpad_down2){
-                sliderPosition = 3;
-                slider.lift(sliderPosition);
-            }
-
-            if (dpad_left2){
-                slider.retract();
-            }
+//            if (a2) {
+//                armPosition = 1;
+//                armClaw.lift(armPosition);
+//
+//            }
+//
+//
+//            if (b2) {
+//                armPosition = 2;
+//                armClaw.lift(armPosition);
+//            }
+//
+//
+//            if (dpad_right2) {
+//                sliderPosition = 1;
+//                slider.lift(sliderPosition);
+//            }
+//
+//            if (dpad_up2) {
+//                sliderPosition = 2;
+//                slider.lift(sliderPosition);
+//            }
+//
+//            if (dpad_down2){
+//                sliderPosition = 3;
+//                slider.lift(sliderPosition);
+//            }
+//
+//            if (dpad_left2){
+//                slider.retract();
+//            }
 
 
 
@@ -204,7 +204,7 @@ public class EXP_TeleOp extends LinearOpMode {
                 // telemetry.addData("righty", "%.2f", gamepad1.right_stick_y);
                 telemetry.addData("slider position: ", slider.sliderPosition());
                 telemetry.addData("arm position: ", armClaw.armPosition());
-                telemetry.addData("player 2 left y: ", lefty2);
+//                telemetry.addData("player 2 left y: ", lefty2);
                 telemetry.addData("speed: ", speed);
 
 
