@@ -15,6 +15,13 @@ import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
 public class EXP_RR_Auto_Right extends LinearOpMode {
 
     ScanSleeve scanner;
+    Claw arm = new Claw((hardwareMap));
+
+    public void raiseArm(){
+        arm.specificLift(-0.5);
+        sleep(5400);
+        arm.stop();
+    }
 
 
     @Override
@@ -25,6 +32,7 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
         slideControl.initialize();
         armClaw.initialize();
+        arm.initialize();
 
         scanner = new ScanSleeve(hardwareMap);
         scanner.telemetry = this.telemetry;
@@ -41,39 +49,39 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         TrajectorySequence turnAndStrafe = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(8)
                 .turn(Math.toRadians(106))
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
                 .strafeRight(70)
-                .waitSeconds(0.5)
-                .strafeLeft(13)
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
+                .strafeLeft(14)
+                .waitSeconds(0.01)
                 .build();
 
         TrajectorySequence moveForward = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(9.5)
+                .forward(8)
                 .build();
 
         TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(10.5)
+                .back(9)
                 .build();
 
 
         TrajectorySequence parking1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .strafeRight(50)
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
                 .strafeLeft(30)
                 .forward(28)
                 .build();
 
         TrajectorySequence parking2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .strafeRight(50)
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
                 .strafeLeft(30)
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
                 .build();
 
         TrajectorySequence parking3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .strafeLeft(25)
-                .waitSeconds(0.5)
+                .waitSeconds(0.01)
                 .back(28)
                 .build();
 
@@ -82,15 +90,11 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
         if(isStopRequested()) return;
 
-        sleep(500);
-        armClaw.specificLift(-0.5);
-        sleep(5400);
-        armClaw.stop();
-        sleep(100);
+        sleep(1);
 
         drive.followTrajectorySequence(turnAndStrafe);
 
-        sleep(100);
+        sleep(1);
 
         drive.followTrajectorySequence(moveForward);
 
@@ -98,10 +102,10 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         armClaw.open();
         sleep(500);
         armClaw.close();
-        sleep(100);
+        sleep(1);
 
         drive.followTrajectorySequence(moveBackward);
-        sleep(500);
+        sleep(1);
 
         if (parkingSpot == 1){
             drive.followTrajectorySequence(parking1);
@@ -115,4 +119,5 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
 
     }
+
 }

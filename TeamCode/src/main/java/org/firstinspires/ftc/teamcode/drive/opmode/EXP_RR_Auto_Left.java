@@ -43,16 +43,16 @@ public class EXP_RR_Auto_Left extends LinearOpMode {
                 .waitSeconds(0.5)
                 .strafeLeft(70)
                 .waitSeconds(0.5)
-                .strafeRight(13)
+                .strafeRight(16)
                 .waitSeconds(0.5)
                 .build();
 
         TrajectorySequence moveForward = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(9.5)
+                .forward(8)
                 .build();
 
         TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(10.5)
+                .back(9)
                 .build();
 
 
@@ -63,14 +63,14 @@ public class EXP_RR_Auto_Left extends LinearOpMode {
                 .build();
 
         TrajectorySequence parking2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeLeft(50)
+                .strafeLeft(47)
                 .waitSeconds(0.5)
                 .strafeRight(30)
                 .waitSeconds(0.5)
                 .build();
 
         TrajectorySequence parking3 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeLeft(50)
+                .strafeLeft(46)
                 .waitSeconds(0.5)
                 .strafeRight(25)
                 .waitSeconds(0.5)
