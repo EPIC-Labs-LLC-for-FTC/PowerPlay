@@ -11,11 +11,12 @@ public class Claw {
 
     public Servo claw;
 
-    public CRServo arm;
+    public CRServo arm, align;
 
     public Claw(HardwareMap hardwareMap){
         claw = hardwareMap.get(Servo.class, "claw");
         arm = hardwareMap.get(CRServo.class, "arm");
+        align = hardwareMap.get(CRServo.class, "clawalign");
 
     }
 
@@ -23,14 +24,15 @@ public class Claw {
         claw.setPosition(0);
 //        arm.setPosition(0);
         arm.setPower(0);
+        align.setPower(0);
     }
 
     public void open(){
-        claw.setPosition(0.5);
+        claw.setPosition(1);
     }
 
     public void close(){
-        claw.setPosition(0);
+        claw.setPosition(0.5);
     }
 
     public void lift(int target){
@@ -51,6 +53,8 @@ public class Claw {
     }
 
     public void clawControl(double amount) { claw.setPosition(amount);}
+
+    public void alignment(double amount) {align.setPower(amount);}
 
     public double armPosition(){
 //        return arm.setPosition(0);

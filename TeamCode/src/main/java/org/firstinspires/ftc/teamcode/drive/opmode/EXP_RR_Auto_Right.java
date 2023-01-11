@@ -15,13 +15,7 @@ import org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses.Slide_Control;
 public class EXP_RR_Auto_Right extends LinearOpMode {
 
     ScanSleeve scanner;
-    Claw arm = new Claw((hardwareMap));
 
-    public void raiseArm(){
-        arm.specificLift(-0.5);
-        sleep(5400);
-        arm.stop();
-    }
 
 
     @Override
@@ -32,7 +26,6 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
         slideControl.initialize();
         armClaw.initialize();
-        arm.initialize();
 
         scanner = new ScanSleeve(hardwareMap);
         scanner.telemetry = this.telemetry;
@@ -48,7 +41,7 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         waitForStart();
         TrajectorySequence turnAndStrafe = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(8)
-                .turn(Math.toRadians(106))
+                .turn(Math.toRadians(105.25))
                 .waitSeconds(0.01)
                 .strafeRight(70)
                 .waitSeconds(0.01)
@@ -57,11 +50,11 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
                 .build();
 
         TrajectorySequence moveForward = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(8)
+                .forward(6.5)
                 .build();
 
         TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(9)
+                .back(7.5)
                 .build();
 
 
@@ -90,22 +83,29 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
         if(isStopRequested()) return;
 
-        sleep(1);
+        sleep(500);
+        armClaw.specificLift(-0.5);
+        sleep(4400);
+        armClaw.stop();
+        sleep(100);
+        armClaw.alignment(0.5);
+        sleep(1200);
+        armClaw.alignment(0);
 
         drive.followTrajectorySequence(turnAndStrafe);
 
         sleep(1);
 
-        drive.followTrajectorySequence(moveForward);
-
-        sleep(2500);
+//        drive.followTrajectorySequence(moveForward);
+//
+//        sleep(2500);
         armClaw.open();
         sleep(500);
         armClaw.close();
         sleep(1);
 
-        drive.followTrajectorySequence(moveBackward);
-        sleep(1);
+//        drive.followTrajectorySequence(moveBackward);
+//        sleep(1);
 
         if (parkingSpot == 1){
             drive.followTrajectorySequence(parking1);
@@ -114,6 +114,10 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         } else {
             drive.followTrajectorySequence(parking3);
         }
+
+        armClaw.specificLift(-0.5);
+        sleep(1200);
+        armClaw.specificLift(0);
 
         scanner.releaseCamera();
 

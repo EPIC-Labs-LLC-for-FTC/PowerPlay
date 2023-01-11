@@ -150,6 +150,14 @@ public class EXP_TeleOp extends LinearOpMode {
                 armClaw.clawControl(lefty2);
             }
 
+            if (gamepad1.dpad_up){
+                armClaw.alignment(-0.8);
+            } else if (gamepad1.dpad_down){
+                armClaw.alignment(0.8);
+            } else {
+                armClaw.alignment(0);
+            }
+
 //                if (liftPower != 0){
 //                arm.setPower(liftPower);
 //            } else {
