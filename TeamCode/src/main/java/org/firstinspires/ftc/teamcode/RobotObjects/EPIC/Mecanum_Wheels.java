@@ -15,6 +15,7 @@ public class Mecanum_Wheels {
     public DcMotorEx frontleft;
     public DcMotorEx backright;
     public DcMotorEx backleft;
+    double backcorrection = 1.5;
 
     //public DcMotorEx xRail;
 
