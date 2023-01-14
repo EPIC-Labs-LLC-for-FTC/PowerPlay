@@ -59,10 +59,10 @@ public class Mecanum_Wheels {
 //
 //        backleft.setDirection(DcMotorSimple.Direction.FORWARD);
 //        frontleft.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontleft.setDirection(DcMotor.Direction.FORWARD);
-        frontright.setDirection(DcMotor.Direction.FORWARD);
+        frontleft.setDirection(DcMotor.Direction.REVERSE);
+        frontright.setDirection(DcMotor.Direction.REVERSE);
 
-        backright.setDirection(DcMotor.Direction.FORWARD);
+        backright.setDirection(DcMotor.Direction.REVERSE);
         backleft.setDirection(DcMotor.Direction.FORWARD);
 
         //middleright.setDirection(DcMotorSimple.Direction.REVERSE);

@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -29,6 +30,7 @@ import java.util.Objects;
 @Disabled
 public class MaxVelocityTuner extends LinearOpMode {
     public static double RUNTIME = 2.0;
+    Telemetry telemetry1;
 
     private ElapsedTime timer;
     private double maxVelocity = 0.0;
@@ -43,18 +45,18 @@ public class MaxVelocityTuner extends LinearOpMode {
 
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        telemetry1 = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        telemetry.addLine("Your bot will go at full speed for " + RUNTIME + " seconds.");
-        telemetry.addLine("Please ensure you have enough space cleared.");
-        telemetry.addLine("");
-        telemetry.addLine("Press start when ready.");
-        telemetry.update();
+        telemetry1.addLine("Your bot will go at full speed for " + RUNTIME + " seconds.");
+        telemetry1.addLine("Please ensure you have enough space cleared.");
+        telemetry1.addLine("");
+        telemetry1.addLine("Press start when ready.");
+        telemetry1.update();
 
         waitForStart();
 
-        telemetry.clearAll();
-        telemetry.update();
+        telemetry1.clearAll();
+        telemetry1.update();
 
         drive.setDrivePower(new Pose2d(1, 0, 0));
         timer = new ElapsedTime();
@@ -71,9 +73,9 @@ public class MaxVelocityTuner extends LinearOpMode {
 
         double effectiveKf = DriveConstants.getMotorVelocityF(veloInchesToTicks(maxVelocity));
 
-        telemetry.addData("Max Velocity", maxVelocity);
-        telemetry.addData("Voltage Compensated kF", effectiveKf * batteryVoltageSensor.getVoltage() / 12);
-        telemetry.update();
+        telemetry1.addData("Max Velocity", maxVelocity);
+        telemetry1.addData("Voltage Compensated kF", effectiveKf * batteryVoltageSensor.getVoltage() / 12);
+        telemetry1.update();
 
         while (!isStopRequested() && opModeIsActive()) idle();
     }
