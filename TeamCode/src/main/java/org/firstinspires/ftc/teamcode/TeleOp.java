@@ -156,19 +156,19 @@ public class TeleOp extends LinearOpMode {
                 wheelpower = 0.2;
             }
             if(dpadDown2) {
-                arm.liftEncoder(0.2, 0);
-                sleep(500);
-            }
-            else if(dpadRight2) {
                 arm.liftEncoder(0.2, 1);
                 sleep(500);
             }
+            else if(dpadRight2) {
+                arm.liftEncoder(0.2, 4);
+                sleep(500);
+            }
             else if(dpadUp2) {
-                arm.liftEncoder(0.2, 2);
+                arm.liftEncoder(0.2, 3);
                 sleep(500);
             }
             else if(dpadLeft2) {
-                arm.liftEncoder(0.2, 3);
+                arm.liftEncoder(0.2, 2);
                 sleep(500);
             }
             if(x2)
