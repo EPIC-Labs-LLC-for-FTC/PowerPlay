@@ -6,8 +6,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftArmMotor;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftSlider;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.TiltSlider;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Competition")
 public class TeleOp extends LinearOpMode {
@@ -35,9 +37,15 @@ public class TeleOp extends LinearOpMode {
     boolean dpadRight1 = false;
     boolean dpadLeft1 = false;
 
+    boolean lbumper2 = false;
+    boolean rbumper2 = false;
+    boolean rtrigger2 = false;
+    boolean ltrigger2 = false;
+
     LazySusan lazy = null;
     NewClaw claw = null;
-    LiftArmMotor arm = null;
+    LiftSlider arm = null;
+    TiltSlider pankit = null;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     double power = 1;
@@ -61,7 +69,7 @@ public class TeleOp extends LinearOpMode {
         lazy = new LazySusan(hardwareMap);
         lazy.telemetry = this.telemetry;
         lazy.parent = this;
-        lazy.initialize2();
+        lazy.initialize();
 
         Mecanum_Wheels mw = new Mecanum_Wheels(hardwareMap);
         mw.initialize();
@@ -71,10 +79,17 @@ public class TeleOp extends LinearOpMode {
         claw.telemetry = this.telemetry;
         claw.parent = this;
         claw.initialize(0.0);
-        arm = new LiftArmMotor(hardwareMap);
+        arm = new LiftSlider(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
         arm.initialize2();
+
+
+
+        pankit = new TiltSlider(hardwareMap);
+        pankit.parent = this;
+        pankit.telemetry = telemetry;
+        pankit.initialize();
 
         mw.leftErrorAdjustment = wheelpower;
         mw.rightErrorAdjustment = wheelpower;
@@ -106,7 +121,8 @@ public class TeleOp extends LinearOpMode {
             dpadRight2 = gamepad2.dpad_right;
             dpadLeft2 = gamepad2.dpad_left;
 
-
+            lbumper2 = gamepad2.left_bumper;
+            rbumper2 = gamepad2.right_bumper;
 //            if(x1) {
 //                mw.leftErrorAdjustment-=0.025;
 //                if(mw.leftErrorAdjustment<0.0)
@@ -140,30 +156,57 @@ public class TeleOp extends LinearOpMode {
                 wheelpower = 0.2;
             }
             if(dpadDown2) {
-                arm.liftEncoder(0.2, 1);
+                arm.liftEncoder(0.2, 0);
                 sleep(500);
             }
             else if(dpadRight2) {
-                arm.liftEncoder(0.2, 2);
+                arm.liftEncoder(0.2, 1);
                 sleep(500);
             }
             else if(dpadUp2) {
-                arm.liftEncoder(0.2, 3);
+                arm.liftEncoder(0.2, 2);
                 sleep(500);
             }
             else if(dpadLeft2) {
-                arm.liftEncoder(0.2, 4);
+                arm.liftEncoder(0.2, 3);
                 sleep(500);
             }
-            else if(x2)
+            if(x2)
                 claw.grab();
             else if(b2)
                 claw.release();
             else if(y2) {
-                arm.lift(0.3,500,1);
+                //arm.lift(0.3,500,1);
+                int sliderposition = (int)arm.getCurrentPosition() + 100;
+                arm.extendTicks(0.3,sliderposition);
             }
             else if(a2) {
-                arm.lift(0.3,500,-1);
+                //arm.lift(0.3,500,-1);
+
+                int sliderposition = (int)arm.getCurrentPosition() - 100;
+                arm.extendTicks(0.3,sliderposition);
+            }
+            if(lbumper2){
+
+                lazy.rotate(0.85);
+            }
+            else if(rbumper2){
+
+                lazy.rotate(0.0);
+            }
+
+            if(x1){
+
+
+                int panPosition = (int)pankit.getCurrentPosition() -100;
+                pankit.extendTicks(0.3,panPosition);
+            }
+            else if(y1){
+
+
+
+                int panPosition = (int)pankit.getCurrentPosition() +100;
+                pankit.extendTicks(0.3,panPosition);
             }
 
             mw.leftErrorAdjustment = wheelpower;

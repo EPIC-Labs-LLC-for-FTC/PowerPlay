@@ -22,6 +22,7 @@ public class TestNewComponents extends LinearOpMode {
     LiftSlider slider = null;
     TiltSlider pankit = null;
     int sliderPosition = 4300;
+    int panPosition = 0;
     boolean x2;
     boolean b2;
     boolean a2;
@@ -30,6 +31,7 @@ public class TestNewComponents extends LinearOpMode {
     boolean dpadLeft = false;
     boolean dpadUp = false;
     boolean dpadRight = false;
+    boolean leftbumber2 = false;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -62,9 +64,9 @@ public class TestNewComponents extends LinearOpMode {
         telemetry.addData("position", lazy.getPosition());
         telemetry.update();
         waitForStart();
-        double position = 0.27;
+        double position = 0.0;
         while(opModeIsActive()){
-
+            leftbumber2 = gamepad2.left_bumper;
             x2 = gamepad2.x;
             y2 = gamepad2.y;
             b2 = gamepad2.b;
@@ -75,18 +77,31 @@ public class TestNewComponents extends LinearOpMode {
             dpadRight = gamepad2.dpad_right;
             if(dpadLeft){
                 position = 0.25;
+
+                lazy.rotate(position);
             }
             else if (dpadRight){
-                position = 0.75;
+                position = 0.85;
+                lazy.rotate(position);
             }
             else if(dpadUp){
-                position =0.5;
+//                position =0.5;
+//                lazy.rotate(position);
+                panPosition-=100;
+                pankit.extendTicks(0.3,panPosition);
+            }
+            else if(leftbumber2){
+
+                panPosition+=100;
+                pankit.extendTicks(0.3,panPosition);
             }
             else if(dpadDown){
                 position = 0;
+                lazy.rotate(position);
             }
             else if(x2){
                 position -= 0.1;
+                lazy.rotate(position);
             }
             else if (y2){
                 //position += 0.05;
@@ -99,12 +114,12 @@ public class TestNewComponents extends LinearOpMode {
             }
             else if(a2){
                 //position -=0.01;
+                slider.extendTicks(0.4,sliderPosition);
             }
 //            lazy.rotate(0.15);
 //            sleep(1000);
 //            telemetry.addData("position", lazy.getPosition());
 //            telemetry.update();
-            lazy.rotate(position);
             telemetry.addData("position", lazy.getPosition());
             telemetry.update();
             sleep(1000);
