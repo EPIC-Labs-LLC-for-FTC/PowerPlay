@@ -161,10 +161,10 @@ public class Mecanum_Wheels {
     }
 
     public void move(double lefty, double righty, double leftx, double rightx){
-        frontright.setPower((lefty  - rightx + leftx)*rightErrorAdjustment); // should work same as above
-        frontleft.setPower((lefty + rightx - leftx)*leftErrorAdjustment);
-        backright.setPower((lefty - rightx - leftx)*rightErrorAdjustment);
-        backleft.setPower((lefty + rightx + leftx)*leftErrorAdjustment);
+        frontright.setPower((-lefty  + rightx - leftx)*rightErrorAdjustment); // should work same as above
+        frontleft.setPower((-lefty - rightx + leftx)*leftErrorAdjustment);
+        backright.setPower((-lefty + rightx + leftx)*rightErrorAdjustment);
+        backleft.setPower((-lefty - rightx - leftx)*leftErrorAdjustment);
 
     }
 }

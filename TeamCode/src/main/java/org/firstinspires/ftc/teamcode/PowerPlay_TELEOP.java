@@ -22,14 +22,13 @@ public class PowerPlay_TELEOP extends LinearOpMode {
     double rightx;
 
     double armGround = 0;
-    double armDropping = 0.50;
+    double armDropping = 0.38;
 
-    double wristGround = 0.34;
-    double wristDropping = 0.47;
+    double wristGround = 0.4;
+    double wristDropping = 0.6;
 
 
     public DcMotorEx slide1;
-    public DcMotorEx slide2;
 
     public Servo arm1;
     public Servo arm2;
@@ -60,28 +59,21 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         wrist2.setDirection(Servo.Direction.REVERSE);
         finger2.setDirection(Servo.Direction.REVERSE);
         arm2.setDirection(Servo.Direction.REVERSE);
+//        outtakeArm.setDirection(Servo.Direction.REVERSE);
 
         slide1 = hardwareMap.get(DcMotorEx.class, "slideRight");
-        slide2 = hardwareMap.get(DcMotorEx.class, "slideLeft");
-
-        slide2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        arm1.setPosition(armGround);
-        arm2.setPosition(armGround);
 
         wrist1.setPosition(wristDropping);
         wrist2.setPosition(wristDropping);
 
-        outtakeArm.setPosition(0.06);
+//        outtakeArm.setPosition(0.079);
         arm1.setPosition(armDropping);
         arm2.setPosition(armDropping);
 
@@ -126,10 +118,10 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.41);
             }
             if(a2){
-                outtakeArm.setPosition(0.06);
+                outtakeArm.setPosition(0.5);
             }
             if(b2){
-                outtakeArm.setPosition(0.55);
+                outtakeArm.setPosition(1);
             }
             if(leftBumper2){
                 arm1.setPosition(armGround);
@@ -146,7 +138,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(1000);
             }
             if(dpadDown2){
-                raiseSlide(0);
+//                slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
             }
@@ -160,7 +152,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
                 sleep(200);
-                raiseSlide(3300);
+                raiseSlide(-1750);
 
             }
             if(dpadUp2){
@@ -172,7 +164,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
                 sleep(200);
-                raiseSlide(1900);
+                raiseSlide(-700);
             }
             if(dpadLeft2){
                 arm1.setPosition(armDropping);
@@ -184,9 +176,9 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.16);
                 sleep(200);
             }
-            wheels.move(lefty,righty,leftx,rightx);
+            else
+                wheels.move(lefty,righty,leftx,rightx);
             telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
-            telemetry.addData("slide 2 current positon:", slide2.getCurrentPosition());
             telemetry.addData("outtake arm position: ", outtakeArm.getPosition());
             telemetry.addData("finger1 position: ", finger1.getPosition());
             telemetry.addData("finger2 position: ", finger2.getPosition());
@@ -205,12 +197,10 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
     }
     private void raiseSlide(int index){
+        slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide1.setPower(0.8);
-        slide2.setPower(0.8);
         slide1.setTargetPosition(index);
-        slide2.setTargetPosition(index);
         slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 }
