@@ -68,6 +68,11 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         arm2.setDirection(Servo.Direction.REVERSE);
 //        outtakeArm.setDirection(Servo.Direction.REVERSE);
 
+        //init position for outtake arm
+        outtakeArm.setPosition(0.5);
+
+        //
+
         slide1 = hardwareMap.get(DcMotorEx.class, "slideRight");
 
 //        slide2 = hardwareMap.get(DcMotorEx.class, "slideLeft");
@@ -165,22 +170,27 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(1000);
             }
             if(dpadDown2){
+                arm1.setPosition(armGround);
+                arm2.setPosition(armGround);
+                outtakeArm.setPosition(0.5);
+
                 distance = distanceSensor.getDistance(DistanceUnit.INCH);
                 raiseSlide(0);
                 slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 //slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                while (distance > 0.5){
+                while (distance > 0.6){
                     distance = distanceSensor.getDistance(DistanceUnit.INCH);
                     slide1.setDirection(DcMotorSimple.Direction.REVERSE);
                     slide1.setPower(0.8);
-                    if (distance<=0.5){
+                    if (distance<=0.6){
                         slide1.setPower(0);
                         break;
                     }
                 }
                 slide1.setPower(0);
                 slide1.setDirection(DcMotorSimple.Direction.FORWARD);
+
                 //slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             }
