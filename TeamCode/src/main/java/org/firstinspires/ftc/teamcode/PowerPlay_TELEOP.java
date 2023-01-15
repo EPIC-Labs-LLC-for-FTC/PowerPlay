@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 
@@ -19,12 +21,14 @@ public class PowerPlay_TELEOP extends LinearOpMode {
     double lefty;
     double leftx;
     double righty;
+    double lefty2;
     double rightx;
+    double distance;
 
     double armGround = 0;
     double armDropping = 0.38;
 
-    double wristGround = 0.4;
+    double wristGround = 0.6;
     double wristDropping = 0.6;
 
 
@@ -37,6 +41,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
     public Servo finger2;
     public Servo wrist1;
     public Servo wrist2;
+    public DistanceSensor distanceSensor;
 
 
     @Override
@@ -49,6 +54,8 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         outtakeArm= hardwareMap.get(Servo.class, "outtakeArm");
         arm1 = hardwareMap.get(Servo.class,"armRight");
         arm2 = hardwareMap.get(Servo.class, "armLeft");
+        distanceSensor = hardwareMap.get(DistanceSensor.class,"distance");
+
 
         wheels.initialize();
         wheels.telemetry = telemetry;
@@ -63,6 +70,21 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
         slide1 = hardwareMap.get(DcMotorEx.class, "slideRight");
 
+//        slide2 = hardwareMap.get(DcMotorEx.class, "slideLeft");
+
+//        slide2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        slide1.setTargetPosition(0);
+
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -70,19 +92,24 @@ public class PowerPlay_TELEOP extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+
         wrist1.setPosition(wristDropping);
         wrist2.setPosition(wristDropping);
 
-//        outtakeArm.setPosition(0.079);
+
         arm1.setPosition(armDropping);
         arm2.setPosition(armDropping);
 
+
+
         waitForStart();
         while(opModeIsActive()){
+            distance = distanceSensor.getDistance(DistanceUnit.INCH);
             lefty = gamepad1.left_stick_y;
             leftx = gamepad1.left_stick_x;
             righty = gamepad1.right_stick_y;
             rightx = -gamepad1.right_stick_x;
+            lefty2 = gamepad2.left_stick_y;
             boolean b = gamepad1.b;
             boolean x = gamepad1.x;
             boolean a = gamepad1.a;
@@ -138,24 +165,20 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(1000);
             }
             if(dpadDown2){
-//                slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+                raiseSlide(0);
+                slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                //while (distance > 0.4){
+                  //  distance = distanceSensor.getDistance(DistanceUnit.INCH);
+                    //slide1.setPower(-1);
+                    //opModeIsActive();
+                //}
+                slide1.setPower(0);
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             }
             if(dpadRight2){
-//
-                arm1.setPosition(armDropping);
-                arm2.setPosition(armDropping);
-                wrist1.setPosition(wristDropping);
-                wrist2.setPosition(wristDropping);
-                sleep(1000);
-                finger1.setPosition(0.16);
-                finger2.setPosition(0.16);
-                sleep(200);
-                raiseSlide(-1750);
-
-            }
-            if(dpadUp2){
                 arm1.setPosition(armDropping);
                 arm2.setPosition(armDropping);
                 wrist1.setPosition(wristDropping);
@@ -165,6 +188,17 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.16);
                 sleep(200);
                 raiseSlide(-700);
+            }
+            if(dpadUp2){
+                slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                while (distance < 7.7){
+                    distance = distanceSensor.getDistance(DistanceUnit.INCH);
+                    slide1.setPower(1);
+                }
+                slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                slide1.setPower(0);
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
             if(dpadLeft2){
                 arm1.setPosition(armDropping);
@@ -176,8 +210,20 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger2.setPosition(0.16);
                 sleep(200);
             }
-            else
-                wheels.move(lefty,righty,leftx,rightx);
+
+            lefty2 = gamepad2.left_stick_y;
+            if(lefty2 != 0){
+                slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide1.setPower(lefty2);
+            } else if (lefty2 == 0){
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+
+            wheels.move(lefty,righty,leftx,rightx);
+            telemetry.addData("distance: ", distance);
+            telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
+//            telemetry.addData("slide 2 current positon:", slide2.getCurrentPosition());
             telemetry.addData("slide 1 current positon:", slide1.getCurrentPosition());
             telemetry.addData("outtake arm position: ", outtakeArm.getPosition());
             telemetry.addData("finger1 position: ", finger1.getPosition());
@@ -186,6 +232,7 @@ public class PowerPlay_TELEOP extends LinearOpMode {
             telemetry.addData("wrist2 position: ", wrist2.getPosition());
             telemetry.addData("arm1 position: ", arm1.getPosition());
             telemetry.addData("arm2 position: ", arm2.getPosition());
+            telemetry.addData("lefty2: ", lefty2);
 
 
             telemetry.update();
@@ -197,10 +244,12 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
     }
     private void raiseSlide(int index){
-        slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slide1.setPower(0.8);
+        slide1.setPower(1);
+//        slide2.setPower(0.8);
         slide1.setTargetPosition(index);
+//        slide2.setTargetPosition(index);
         slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 }
