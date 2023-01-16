@@ -216,10 +216,10 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 sleep(200);
                 slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                while (distance < 9.5){
+                while (distance < 10){
                     distance = distanceSensor.getDistance(DistanceUnit.INCH);
                     slide1.setPower(1);
-                    if (distance>=9.5){
+                    if (distance>=10){
                         slide1.setPower(0);
                         break;
                     }
