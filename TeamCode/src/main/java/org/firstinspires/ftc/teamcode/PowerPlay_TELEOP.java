@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
 
+
 @TeleOp(name = "PowerPlay_TELEOP")
 public class PowerPlay_TELEOP extends LinearOpMode {
     double lefty;
@@ -30,7 +31,6 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
     double wristGround = 0.6;
     double wristDropping = 0.6;
-
 
     public DcMotorEx slide1;
 
@@ -195,15 +195,6 @@ public class PowerPlay_TELEOP extends LinearOpMode {
 
             }
             if(dpadRight2){
-                //arm1.setPosition(armDropping);
-                //arm2.setPosition(armDropping);
-                //wrist1.setPosition(wristDropping);
-                //wrist2.setPosition(wristDropping);
-                //sleep(1000);
-                //finger1.setPosition(0.16);
-                //finger2.setPosition(0.16);
-                //sleep(200);
-                //raiseSlide(-700);
                 slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 distance = distanceSensor.getDistance(DistanceUnit.INCH);
                 arm1.setPosition(armDropping);
@@ -214,19 +205,23 @@ public class PowerPlay_TELEOP extends LinearOpMode {
                 finger1.setPosition(0.16);
                 finger2.setPosition(0.16);
                 sleep(200);
+                raiseSlide(1700);
+
+                /*
                 slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                while (distance < 10){
+                while (distance < 10.2){
                     distance = distanceSensor.getDistance(DistanceUnit.INCH);
                     slide1.setPower(1);
-                    if (distance>=10){
+                    if (distance>=10.2){
                         slide1.setPower(0);
                         break;
                     }
                 }
                 slide1.setPower(0);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                distance = distanceSensor.getDistance(DistanceUnit.INCH);
+                distance = distanceSensor.getDistance(DistanceUnit.INCH);*/
+
             }
             if(dpadUp2){
                 slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
