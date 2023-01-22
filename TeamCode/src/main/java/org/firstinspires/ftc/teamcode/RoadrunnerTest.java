@@ -21,7 +21,9 @@ public class RoadrunnerTest extends LinearOpMode {
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(0)))
                 .forward(30)
-                .splineTo(new Vector2d(40,-6),Math.toRadians(45))
+                .splineTo(new Vector2d(54,3.8),Math.toRadians(45))
+                .setReversed(true)
+                .splineTo(new Vector2d(51,-19.5),Math.toRadians(270 ))
                 .build();
 
         TrajectorySequence cycle =drive.trajectorySequenceBuilder(new Pose2d(30,-6,Math.toRadians(0)))
