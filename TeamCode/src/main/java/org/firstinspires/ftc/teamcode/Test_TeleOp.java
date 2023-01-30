@@ -106,7 +106,7 @@ public class Test_TeleOp extends LinearOpMode {
         wrist1.setPosition(0.42);
         wrist2.setPosition(0.42);
 
-        outtakeArm.setPosition(0.42);
+        outtakeArm.setPosition(0.5);
 
 
         waitForStart();
@@ -253,9 +253,11 @@ public class Test_TeleOp extends LinearOpMode {
 
             }
             if(dpadLeft2){
-                outtakeArmPosition -= 0.1;
-                outtakeArm.setPosition(outtakeArmPosition);
-                sleep(200);
+                arm1.setPosition(0.38);
+                arm2.setPosition(0.38);
+                wrist1.setPosition(0.6);
+                wrist2.setPosition(0.6);
+                sleep(1000);
             }
             if(dpadDown2){
                 wrist1postion -= 0.05;
