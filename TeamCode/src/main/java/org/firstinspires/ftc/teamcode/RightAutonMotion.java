@@ -8,17 +8,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftSlider;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.ScanSleeve;
 
 @Autonomous(name="Right Auton", group="Competition")
-@Disabled
+//@Disabled
 public class RightAutonMotion extends LinearOpMode  {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);
     LazySusan lazy = null;
-    Arm arm = null;
+    LiftSlider arm = null;
     NewClaw claw = null;
     ScanSleeve scanner = null;
     //forward
@@ -55,8 +56,8 @@ public class RightAutonMotion extends LinearOpMode  {
         claw = new NewClaw(hardwareMap);
         claw.telemetry = this.telemetry;
         claw.parent = this;
-        claw.initialize(0.4);
-        arm = new Arm(hardwareMap);
+        claw.initialize(0);
+        arm = new LiftSlider(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
         arm.initialize();
@@ -82,15 +83,15 @@ public class RightAutonMotion extends LinearOpMode  {
        // distance = 28;
 
         //while(opModeIsActive()) {
-            arm.liftEncoder(0.3, 2);
+            arm.liftEncoder(0.3, 4);
             double distance = 40;
             mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
-            lazy.rotate(0.275);
+            lazy.rotate(0.5);
             sleep(1000);
             distance = 4.75;
             //right
             mecanum.encoderDrive(0.4, distance, -distance, -distance, distance, 5);
-        sleep(3000);
+        sleep(500);
             claw.release();
 
         sleep(500);
@@ -116,11 +117,13 @@ public class RightAutonMotion extends LinearOpMode  {
             //right
             //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
         //}
-        lazy.initialize2();
-                sleep(500);
-                arm.liftEncoder(0.3,1);
-                sleep(500);
-        claw.release();
+        lazy.rotate(0.0);
+        arm.liftEncoder(0.3, 0);
+//        lazy.initialize2();
+//                sleep(500);
+//                arm.liftEncoder(0.3,1);
+//                sleep(500);
+//        claw.release();
         scanner.releaseCamera();
         //arm.initialize();
     }

@@ -74,10 +74,10 @@ public class Mecanum_Wheels {
 //            backright.setDirection(DcMotorSimple.Direction.REVERSE);
 
             frontleft.setDirection(DcMotor.Direction.REVERSE);
-            frontright.setDirection(DcMotor.Direction.FORWARD);
+            frontright.setDirection(DcMotor.Direction.REVERSE);
 
-            backright.setDirection(DcMotor.Direction.FORWARD);
-            backleft.setDirection(DcMotor.Direction.REVERSE);
+            backright.setDirection(DcMotor.Direction.REVERSE);
+            backleft.setDirection(DcMotor.Direction.FORWARD);
 
             frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

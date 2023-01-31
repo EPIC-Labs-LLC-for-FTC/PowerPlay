@@ -156,19 +156,19 @@ public class TeleOp extends LinearOpMode {
                 wheelpower = 0.2;
             }
             if(dpadDown2) {
-                arm.liftEncoder(0.2, 1);
+                arm.liftEncoder(0.4, 1);
                 sleep(500);
             }
             else if(dpadRight2) {
-                arm.liftEncoder(0.2, 4);
+                arm.liftEncoder(0.4, 4);
                 sleep(500);
             }
             else if(dpadUp2) {
-                arm.liftEncoder(0.2, 3);
+                arm.liftEncoder(0.4, 3);
                 sleep(500);
             }
             else if(dpadLeft2) {
-                arm.liftEncoder(0.2, 2);
+                arm.liftEncoder(0.4, 2);
                 sleep(500);
             }
             if(x2)
@@ -178,13 +178,13 @@ public class TeleOp extends LinearOpMode {
             else if(y2) {
                 //arm.lift(0.3,500,1);
                 int sliderposition = (int)arm.getCurrentPosition() + 100;
-                arm.extendTicks(0.3,sliderposition);
+                arm.extendTicks(0.4,sliderposition);
             }
             else if(a2) {
                 //arm.lift(0.3,500,-1);
 
                 int sliderposition = (int)arm.getCurrentPosition() - 100;
-                arm.extendTicks(0.3,sliderposition);
+                arm.extendTicks(0.4,sliderposition);
             }
             if(lbumper2){
 

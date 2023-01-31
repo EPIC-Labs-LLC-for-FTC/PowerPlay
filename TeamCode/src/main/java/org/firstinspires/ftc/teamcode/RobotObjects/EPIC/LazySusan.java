@@ -43,7 +43,7 @@ public class LazySusan {
         telemetry.addData("lazySusanStatus", "Initialized");
         telemetry.update();
         //servo.setDirection(Servo.Direction.REVERSE);
-        servo.setPosition(0.27);
+        servo.setPosition(0.75);
         //servo.setDirection(Servo.Direction.FORWARD);
         telemetry.addData("lazyPosistion", zeroAdjustment);
         telemetry.addData("lazyPosistion", servo.getPosition());
