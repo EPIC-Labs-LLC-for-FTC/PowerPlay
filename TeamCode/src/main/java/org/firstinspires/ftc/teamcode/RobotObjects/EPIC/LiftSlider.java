@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -14,19 +15,22 @@ public class LiftSlider {
     public LinearOpMode parent;
     int currentPosition=0;
     public Telemetry telemetry;
+
+
+    private ElapsedTime runtime = new ElapsedTime();
     public LiftSlider(HardwareMap hardwareMap){
         arm = hardwareMap.get(DcMotorEx.class,"slider");
 
     }
 
     public void noEncoderInitialize(){
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }
     //initialize for TeleOp
     public void initialize() {
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -43,7 +47,7 @@ public class LiftSlider {
         //arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
         //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         int currentPosition = arm.getCurrentPosition();
 //        arm.setTargetPosition(1000);
@@ -96,9 +100,11 @@ public class LiftSlider {
     }
 
     public void liftEncoder(double power, int level) {
+        liftEncoder(power,level,2.0);
+    }
+    public void liftEncoder(double power, int level,double timeoutS) {
         int targetPosition = 0;
         //arm.setDirection(direction);
-        arm.setPower(power);
         if(level==1)
             targetPosition = 0;
         else if(level==2)
@@ -113,10 +119,30 @@ public class LiftSlider {
             //parent.sleep(1000);
             targetPosition = 4300;
         }
+
+        else if(level==5) {
+            targetPosition = 400;
+        }
+
+        else if(level==6) {
+            targetPosition = 200;
+        }
         arm.setTargetPosition(targetPosition);
         currentPosition = targetPosition;
-        //parent.sleep(500);
 
+        // reset the timeout time and start motion.
+        runtime.reset();
+        arm.setPower(power);
+
+        while (parent.opModeIsActive() &&
+                (runtime.seconds() < timeoutS) &&
+                (arm.isBusy()))
+        {
+            telemetry.addData("slider position: ",targetPosition);
+            telemetry.update();
+        }
+        //parent.sleep(500);
+        arm.setPower(0);
         telemetry.addData("extendArmPosition", arm.getCurrentPosition());
         telemetry.addData("extendArmtargetPosition", targetPosition);
 

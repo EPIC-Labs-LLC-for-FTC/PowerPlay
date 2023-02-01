@@ -20,7 +20,7 @@ public class TiltSlider {
     }
     //initialize for TeleOp
     public void initialize() {
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

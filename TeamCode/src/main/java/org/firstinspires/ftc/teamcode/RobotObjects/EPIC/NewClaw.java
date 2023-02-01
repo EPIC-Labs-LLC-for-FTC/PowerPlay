@@ -12,7 +12,7 @@ public class NewClaw {
 
     private ElapsedTime runtime = new ElapsedTime();
     private Servo servo;
-    double servoPosition = 0;
+    double servoPosition = 0.0;
     int direction = 1;
     double maxPosition = 0.8;
 

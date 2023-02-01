@@ -3,16 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftArmMotor;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftSlider;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.TiltSlider;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Teleop", group="Competition")
-public class TeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="New Teleop", group="Competition")
+public class NewTeleOp extends LinearOpMode {
     double wheelpower = 0.6;
     double lefty;
     double leftx;
@@ -173,7 +171,7 @@ public class TeleOp extends LinearOpMode {
             }
             if(x2) {
                 claw.grab();
-
+                
             }
             else if(b2) {
                 claw.release();

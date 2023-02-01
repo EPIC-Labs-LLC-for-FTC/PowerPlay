@@ -88,12 +88,12 @@ public class TestNewComponents extends LinearOpMode {
 //                position =0.5;
 //                lazy.rotate(position);
                 panPosition-=100;
-                pankit.extendTicks(0.3,panPosition);
+                pankit.extendTicks(0.6,panPosition);
             }
             else if(leftbumber2){
 
                 panPosition+=100;
-                pankit.extendTicks(0.3,panPosition);
+                pankit.extendTicks(0.6,panPosition);
             }
             else if(dpadDown){
                 position = 0;
@@ -105,7 +105,7 @@ public class TestNewComponents extends LinearOpMode {
             }
             else if (y2){
                 //position += 0.05;
-                pankit.extendTicks(0.3,200);
+                pankit.extendTicks(0.6,200);
             }
             else if(b2){
                 //position +=0.1;

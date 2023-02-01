@@ -16,7 +16,7 @@ public class TestClaw extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private Servo servo;
-    double servoPosition = 0;
+    double servoPosition = 0.0;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
