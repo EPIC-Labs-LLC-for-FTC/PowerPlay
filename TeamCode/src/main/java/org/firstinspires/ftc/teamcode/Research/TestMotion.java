@@ -51,34 +51,37 @@ public class TestMotion extends LinearOpMode {
 
         while(opModeIsActive()) {
 
-            x1 = gamepad1.x;
-            b1 = gamepad1.b;
-            if(x1) {
-                mw.leftErrorAdjustment-=0.025;
-                if(mw.leftErrorAdjustment<0.0)
-                    mw.leftErrorAdjustment = 0;
-                mw.rightErrorAdjustment-=0.025;
-                if(mw.rightErrorAdjustment<0.0)
-                    mw.rightErrorAdjustment = 0;
-            }
-            if(b1) {
-
-                mw.leftErrorAdjustment+=0.025;
-                if(mw.leftErrorAdjustment>1.0)
-                    mw.leftErrorAdjustment = 1;
-                mw.rightErrorAdjustment+=0.025;
-                if(mw.rightErrorAdjustment>1.0)
-                    mw.rightErrorAdjustment = 1;
-            }
-
-            lefty = gamepad1.left_stick_y;
-            leftx = gamepad1.left_stick_x;
-            righty = gamepad1.right_stick_y;
-            rightx = -gamepad1.right_stick_x;
-
-
-
-            mw.move(lefty, righty, leftx, rightx);
+//            x1 = gamepad1.x;
+//            b1 = gamepad1.b;
+//            if(x1) {
+//                mw.leftErrorAdjustment-=0.025;
+//                if(mw.leftErrorAdjustment<0.0)
+//                    mw.leftErrorAdjustment = 0;
+//                mw.rightErrorAdjustment-=0.025;
+//                if(mw.rightErrorAdjustment<0.0)
+//                    mw.rightErrorAdjustment = 0;
+//            }
+//            if(b1) {
+//
+//                mw.leftErrorAdjustment+=0.025;
+//                if(mw.leftErrorAdjustment>1.0)
+//                    mw.leftErrorAdjustment = 1;
+//                mw.rightErrorAdjustment+=0.025;
+//                if(mw.rightErrorAdjustment>1.0)
+//                    mw.rightErrorAdjustment = 1;
+//            }
+//
+//            lefty = gamepad1.left_stick_y;
+//            leftx = gamepad1.left_stick_x;
+//            righty = gamepad1.right_stick_y;
+//            rightx = -gamepad1.right_stick_x;
+//
+//
+//
+//            mw.move(lefty, righty, leftx, rightx);
+            mw.encoderDrive(1,40.5,40.5,0 ,0,2);
+            mw.encoderDrive(1,12,12,-12 ,-12,2);
+            sleep(100000);
 
             telemetry.addData("lefty", lefty);
             telemetry.addData("righty", righty);

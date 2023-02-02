@@ -158,7 +158,7 @@ public class NewTeleOp extends LinearOpMode {
                 sleep(500);
             }
             else if(dpadRight2) {
-                arm.liftEncoder(0.4, 4);
+                arm.liftEncoder(0.6, 4,4);
                 sleep(500);
             }
             else if(dpadUp2) {

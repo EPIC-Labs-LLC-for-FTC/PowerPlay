@@ -86,21 +86,21 @@ public class TestGrid extends LinearOpMode {
             y1 = gamepad1.y;
             a1 = gamepad1.a;
             if(y1) {
-                mw.encoderDrive(1,64,64,64,64,2);
+                mw.encoderDrive(0.8,64,64,64,64,2);
 
                 arm.liftEncoder(1, 4,2.5);
                 //move left
-                mw.encoderDrive(1, -5, 5, 5, -5, 2);
+                mw.encoderDrive(0.6, -4, 4, 4, -4, 2);
                 //sleep(500);
                 lazy.rotate(0.50);
                 sleep(1000);
-                pankit.extendTicks(1,50);
+
                 sleep(1000);
                 claw.release();
-//                sleep(500);
-//
-//                lazy.rotate(0.0);
-//                arm.liftEncoder(1, 5,2.5);
+                sleep(500);
+
+                lazy.rotate(0.0);
+                arm.liftEncoder(1, 5,2.5);
 //                //left turn
 //                mw.encoderDrive(1,-6,-6,6,6, 1.0);
                 //sleep(500);
@@ -113,6 +113,37 @@ public class TestGrid extends LinearOpMode {
             }
             if(a1){
                 mw.encoderDrive(0.6,-24,-24,-24,-24,2);
+
+            }
+            if(b1){
+                arm.liftEncoder(1, 5,2.5);
+                claw.release();
+                mw.encoderDrive(0.8,-42.5,-42.5,0 ,0,2);
+                mw.encoderDrive(0.6,-15,-15,-15,-15,2);
+                claw.grab();
+                sleep(500);
+                arm.liftEncoder(1,2,1);
+//                mw.encoderDrive(1,12,12,-12 ,-12,2);
+            }
+            if(x1){
+                //mw.encoderDrive(0.6,41.5,41.5,12.5,12.5,2);
+                //sleep(500);
+                //mw.encoderDrive(0.6,-20.5,-20.5,-16.5,-16.5,2);
+                mw.encoderDrive(0.6,16.5,16.5,16.5,16.5,2);
+                sleep(1000);
+                mw.encoderDrive(0.6,29,21,4,-4,2);
+                sleep(1000);
+                mw.encoderDrive(0.6,-29,-21,-4,4,2);
+                sleep(1000);
+
+                mw.encoderDrive(0.6,-16.5,-16.5,-16.5,-16.5,2);
+
+//                mw.encoderDrive(0.8,42,42,0 ,0,2);
+//                arm.liftEncoder(1,4,2.5);
+//                claw.release();
+//                arm.liftEncoder(1,2,1);
+
+
             }
 //            if(b1) {
 //
