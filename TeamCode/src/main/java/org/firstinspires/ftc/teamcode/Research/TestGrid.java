@@ -126,17 +126,20 @@ public class TestGrid extends LinearOpMode {
 //                mw.encoderDrive(1,12,12,-12 ,-12,2);
             }
             if(x1){
-                //mw.encoderDrive(0.6,41.5,41.5,12.5,12.5,2);
-                //sleep(500);
-                //mw.encoderDrive(0.6,-20.5,-20.5,-16.5,-16.5,2);
-                mw.encoderDrive(0.6,16.5,16.5,16.5,16.5,2);
-                sleep(1000);
-                mw.encoderDrive(0.6,29,21,4,-4,2);
-                sleep(1000);
-                mw.encoderDrive(0.6,-29,-21,-4,4,2);
-                sleep(1000);
-
-                mw.encoderDrive(0.6,-16.5,-16.5,-16.5,-16.5,2);
+                mw.encoderDrive(0.6,45.5,37.5,20.5,12.5,2);
+                sleep(500);
+                mw.encoderDrive(0.6,-17.5,-17.5,10,10,2);
+                mw.encoderDrive(0.6,-6,5,6,-5,1);
+                mw.encoderDrive(0.6,-24.5,-24.5,-24.5,-24.5,2);
+                //mw.encoderDrive(0.6,-45.5,-37.5,-12.5,-20.5,2);
+//                mw.encoderDrive(0.6,16.5,16.5,16.5,16.5,2);
+//                sleep(1000);
+//                mw.encoderDrive(0.6,29,21,4,-4,2);
+//                sleep(1000);
+//                mw.encoderDrive(0.6,-29,-21,-4,4,2);
+//                sleep(1000);
+//
+//                mw.encoderDrive(0.6,-16.5,-16.5,-16.5,-16.5,2);
 
 //                mw.encoderDrive(0.8,42,42,0 ,0,2);
 //                arm.liftEncoder(1,4,2.5);
