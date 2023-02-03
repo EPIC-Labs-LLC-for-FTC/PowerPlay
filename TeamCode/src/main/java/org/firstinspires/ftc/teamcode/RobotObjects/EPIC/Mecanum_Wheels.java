@@ -22,7 +22,7 @@ public class Mecanum_Wheels {
 
     public double leftErrorAdjustment = 1.0;
     public double rightErrorAdjustment = 1.0;
-    public double ticksAdjustment = 1.00075;
+    public double ticksAdjustment = 0.89546036;
 
     public double mecanumWheelCircumference = 12; //inches
     public double omniWheelCircumference = 12; //inches

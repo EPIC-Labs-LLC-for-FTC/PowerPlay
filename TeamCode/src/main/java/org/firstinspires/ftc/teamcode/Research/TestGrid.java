@@ -86,11 +86,11 @@ public class TestGrid extends LinearOpMode {
             y1 = gamepad1.y;
             a1 = gamepad1.a;
             if(y1) {
-                mw.encoderDrive(0.8,64,64,64,64,2);
+                mw.encoderDrive(0.6, 63, 63, 63, 63, 2);
 
-                arm.liftEncoder(1, 4,2.5);
+                arm.liftEncoder(1, 4, 2.5);
                 //move left
-                mw.encoderDrive(0.6, -4, 4, 4, -4, 2);
+                mw.encoderDrive(0.6, -2, 2, 2, -2, 2);
                 //sleep(500);
                 lazy.rotate(0.50);
                 sleep(1000);
@@ -100,7 +100,7 @@ public class TestGrid extends LinearOpMode {
                 sleep(500);
 
                 lazy.rotate(0.0);
-                arm.liftEncoder(1, 5,2.5);
+                arm.liftEncoder(1, 5, 2.5);
 //                //left turn
 //                mw.encoderDrive(1,-6,-6,6,6, 1.0);
                 //sleep(500);
@@ -111,15 +111,11 @@ public class TestGrid extends LinearOpMode {
 //                if(mw.rightErrorAdjustment<0.0)
 //                    mw.rightErrorAdjustment = 0;
             }
-            if(a1){
-                mw.encoderDrive(0.6,-24,-24,-24,-24,2);
-
-            }
             if(b1){
                 arm.liftEncoder(1, 5,2.5);
                 claw.release();
                 mw.encoderDrive(0.8,-42.5,-42.5,0 ,0,2);
-                mw.encoderDrive(0.6,-15,-15,-15,-15,2);
+                mw.encoderDrive(0.6,-16,-16,-16,-16,2);
                 claw.grab();
                 sleep(500);
                 arm.liftEncoder(1,2,1);
@@ -129,8 +125,13 @@ public class TestGrid extends LinearOpMode {
                 mw.encoderDrive(0.6,45.5,37.5,20.5,12.5,2);
                 sleep(500);
                 mw.encoderDrive(0.6,-17.5,-17.5,10,10,2);
-                mw.encoderDrive(0.6,-6,5,6,-5,1);
-                mw.encoderDrive(0.6,-24.5,-24.5,-24.5,-24.5,2);
+                arm.liftEncoder(1,4,1);
+                sleep(1000);
+                lazy.rotate(0.5);
+                sleep(1000);
+                claw.release();
+//                mw.encoderDrive(0.6,-6,5,6,-5,1);
+//                mw.encoderDrive(0.6,-24.5,-24.5,-24.5,-24.5,2);
                 //mw.encoderDrive(0.6,-45.5,-37.5,-12.5,-20.5,2);
 //                mw.encoderDrive(0.6,16.5,16.5,16.5,16.5,2);
 //                sleep(1000);
@@ -145,6 +146,37 @@ public class TestGrid extends LinearOpMode {
 //                arm.liftEncoder(1,4,2.5);
 //                claw.release();
 //                arm.liftEncoder(1,2,1);
+
+
+            }
+            if(a1){
+                mw.encoderDrive(0.6, 63, 63, 63, 63, 2);
+
+                arm.liftEncoder(1, 4, 2.5);
+                //move left
+                mw.encoderDrive(0.6, -2, 2, 2, -2, 2);
+                //sleep(500);
+                lazy.rotate(0.50);
+                sleep(1000);
+
+                sleep(1000);
+                claw.release();
+                sleep(500);
+
+                lazy.rotate(0.0);
+                arm.liftEncoder(1, 5, 2.5);
+                //start second command
+                mw.encoderDrive(0.8,-42.5,-42.5,0 ,0,2);
+                mw.encoderDrive(0.6,-15,-15,-15,-15,2);
+                claw.grab();
+                sleep(500);
+                arm.liftEncoder(1,2,1);
+                //start third command
+                mw.encoderDrive(0.6,45.5,37.5,20.5,12.5,2);
+                sleep(500);
+                mw.encoderDrive(0.6,-17.5,-17.5,10,10,2);
+                mw.encoderDrive(0.6,-6,5,6,-5,1);
+                mw.encoderDrive(0.6,-24.5,-24.5,-24.5,-24.5,2);
 
 
             }
