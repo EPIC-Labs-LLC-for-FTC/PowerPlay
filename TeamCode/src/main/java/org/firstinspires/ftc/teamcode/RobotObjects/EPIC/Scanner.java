@@ -106,6 +106,7 @@ public class Scanner {
                     if(tagOfInterest == null)
                     {
                         telemetry.addLine("(The tag has never been seen)");
+                        tagOfInterest.id = MIDDLE;
                     }
                     else
                     {

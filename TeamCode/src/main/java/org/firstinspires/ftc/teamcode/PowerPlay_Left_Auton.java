@@ -77,7 +77,7 @@ public class PowerPlay_Left_Auton extends LinearOpMode {
         drive.followTrajectorySequence(traj1);
         slide1.dropCone(0.21,0.25);
         drive.followTrajectorySequence(traj2);
-        slide1.pickUpCone();
+        slide1.pickUpCone(false);
         drive.followTrajectorySequence(traj3);
         sleep(1000);
         slide1.dropCone(0.439,0.64);

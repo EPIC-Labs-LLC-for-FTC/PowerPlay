@@ -153,7 +153,9 @@ public class Slider {
         slider.setPower(-lefty*rightErrorAdjustment); // should work same as above
 
     }
-    public void dropCone(double armRecieving, double wristRecieving){
+    public void dropCone(double armReceiving, double wristReceiving){
+
+
         if (parent.opModeIsActive()) {
             //raise slide
             slider.setTargetPosition(2000);
@@ -192,22 +194,28 @@ public class Slider {
                 telemetry.update();
             }
         }
-        arm1.setPosition(armRecieving);
-        arm2.setPosition(armRecieving);
-        wrist1.setPosition(wristRecieving);
-        wrist2.setPosition(wristRecieving);
+        arm1.setPosition(armReceiving);
+        arm2.setPosition(armReceiving);
+        wrist1.setPosition(wristReceiving);
+        wrist2.setPosition(wristReceiving);
         finger1.setPosition(fingerOpen);
         finger2.setPosition(fingerOpen);
         parent.sleep(800);
     }
-    public void pickUpCone(){
+    public void pickUpCone(boolean autonomous){
+        double outtake_receiving = 0.446;
+        if (autonomous) {
+            outtake_receiving = 0.42;
+        }
+
+        outtakeArm.setPosition(outtake_receiving);
         finger1.setPosition(fingerClose1);
         finger2.setPosition(fingerClose2);
         parent.sleep(750);
         arm1.setPosition(armDropping);
         arm2.setPosition(armDropping);
-        wrist1.setPosition(wristDropping);
-        wrist2.setPosition(wristDropping);
+        wrist1.setPosition(wristDropping+0.1);
+        wrist2.setPosition(wristDropping+0.1);
         parent.sleep(800);
         finger1.setPosition(fingerOpen);
         finger2.setPosition(fingerOpen);

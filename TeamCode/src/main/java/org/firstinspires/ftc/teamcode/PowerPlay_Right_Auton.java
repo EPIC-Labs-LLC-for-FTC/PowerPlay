@@ -47,41 +47,47 @@ public class PowerPlay_Right_Auton extends LinearOpMode {
 
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                .strafeRight(61)
-                .back(4)
+                .strafeRight(59.5)
+                .back(3)
                 .build();
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d(-0.7, -61, Math.toRadians(0)))
-                .forward(3.3)
-                .strafeLeft(11.5)
-                .back(19.75)
+                .forward(2.3)
+                .strafeLeft(11)
+                .back(20)
                 .build();
         TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d(-17, -49.5, Math.toRadians(0)))
-                .forward(18.5)
-                .strafeRight(12)
+                .forward(18.6)
+                .strafeRight(11)
+                .back(3.5)
                 .build();
         TrajectorySequence parkingSpot1 = drive.trajectorySequenceBuilder(new Pose2d(-0.7, -61, Math.toRadians(0)))
-                .strafeLeft(13.15)
+                .strafeLeft(12.15)
                 .back(22)
                 .build();
         TrajectorySequence parkingSpot2 = drive.trajectorySequenceBuilder(new Pose2d(-0.7, -61, Math.toRadians(0)))
                 .strafeLeft(13.15)
                 .build();
         TrajectorySequence parkingSpot3 = drive.trajectorySequenceBuilder(new Pose2d(-0.7, -61, Math.toRadians(0)))
-                .strafeLeft(13.15)
+                .strafeLeft(12)
                 .forward(22)
                 .build();
 
 
 
 
+        ////////////////
+
         waitForStart();
+
         drive.followTrajectorySequence(traj1);
         slide1.dropCone(0.21,0.25);
+        sleep(300);
         drive.followTrajectorySequence(traj2);
-        slide1.pickUpCone();
+        slide1.pickUpCone(true);
         drive.followTrajectorySequence(traj3);
         sleep(1000);
         slide1.dropCone(0.439,0.64);
+
         if(parkingSpot == 1){
             drive.followTrajectorySequence(parkingSpot3);
         }
@@ -93,4 +99,6 @@ public class PowerPlay_Right_Auton extends LinearOpMode {
         }
 
 
-}}
+}
+
+}

@@ -78,7 +78,7 @@ public class POWERPLAY_Right_ParkingAuton extends LinearOpMode {
 
         if(parkingSpot==3){
             //strafe right
-            distance = 46;
+            distance = 32;
             mecanum.encoderDrive(0.8,distance,-distance,-distance,distance,2);
 
         }
@@ -87,23 +87,12 @@ public class POWERPLAY_Right_ParkingAuton extends LinearOpMode {
         }
         if(parkingSpot==1){
             //strafe left
-            distance = 51;
+            distance = 38;
             mecanum.encoderDrive(0.8,-distance,distance,distance,-distance,2);
         }
 
 
 
-
-
-
-
-
-
     }
-    private void raiseSlide(int index){
-        slide1.setPower(0.8);
-        slide1.setTargetPosition(index);
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    }
 }

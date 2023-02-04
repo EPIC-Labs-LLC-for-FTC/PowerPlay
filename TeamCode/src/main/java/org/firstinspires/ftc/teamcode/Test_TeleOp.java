@@ -279,14 +279,14 @@ public class Test_TeleOp extends LinearOpMode {
 //                wrist2.setPosition(0.45);
             }
             if(dpadUp2){
-                wrist1postion += 0.05;
+                /*wrist1postion += 0.05;
                 wrist2postion += 0.05;
                 wrist1.setPosition(wrist1postion);
                 wrist2.setPosition(wrist2postion);
-                sleep(200);
-//                outtakeArmPosition -= 0.1;
-//                outtakeArm.setPosition(outtakeArmPosition);
-//                sleep(1000);
+                sleep(200);*/
+                outtakeArmPosition -= 0.1;
+                outtakeArm.setPosition(outtakeArmPosition);
+                sleep(300);
 
             }
             if(rightBumper1){
