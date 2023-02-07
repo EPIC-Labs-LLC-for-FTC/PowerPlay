@@ -15,6 +15,7 @@ public class LiftSlider {
     public LinearOpMode parent;
     int currentPosition=0;
     public Telemetry telemetry;
+    public boolean mode = false;
 
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -24,8 +25,13 @@ public class LiftSlider {
     }
 
     public void noEncoderInitialize(){
-        arm.setDirection(DcMotorSimple.Direction.REVERSE);
+        arm.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        //arm.setTargetPosition(0);
 
     }
     //initialize for TeleOp
@@ -40,6 +46,17 @@ public class LiftSlider {
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setTargetPosition(0);
         currentPosition = 0;
+
+    }
+
+    public void changeMode()
+    {
+        if(mode){
+            noEncoderInitialize();
+        }
+        else {
+            initialize2();
+        }
 
     }
 
@@ -142,7 +159,7 @@ public class LiftSlider {
             telemetry.update();
         }
         //parent.sleep(500);
-        arm.setPower(0);
+        arm.setPower(0.2);
         telemetry.addData("extendArmPosition", arm.getCurrentPosition());
         telemetry.addData("extendArmtargetPosition", targetPosition);
 

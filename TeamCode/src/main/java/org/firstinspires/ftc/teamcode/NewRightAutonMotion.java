@@ -3,19 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LazySusan;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.LiftSlider;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.ScanSleeve;
 
-@Autonomous(name="Right Auton", group="Competition")
-@Disabled
-public class RightAutonMotion extends LinearOpMode  {
+@Autonomous(name="New Right Auton", group="Competition")
+public class NewRightAutonMotion extends LinearOpMode  {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);
     LazySusan lazy = null;
@@ -44,19 +41,19 @@ public class RightAutonMotion extends LinearOpMode  {
         lazy = new LazySusan(hardwareMap);
         lazy.telemetry = this.telemetry;
         lazy.parent = this;
-        lazy.initialize2();
+        lazy.initialize();
         mecanum = new Mecanum_Wheels(hardwareMap);
         mecanum.IsAutonomous = true;
         mecanum.velocity = 400;
         mecanum.telemetry = this.telemetry;
         mecanum.parent = this;
         mecanum.initialize();
-        mecanum.rightErrorAdjustment=0.95;//0.973*0.973;
+        mecanum.rightErrorAdjustment=1.00;//0.95;//0.973*0.973;
         mecanum.ticksAdjustment = 0.97561*0.976220382;
         claw = new NewClaw(hardwareMap);
         claw.telemetry = this.telemetry;
         claw.parent = this;
-        claw.initialize(0);
+        claw.initialize(0.0);
         arm = new LiftSlider(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
@@ -73,57 +70,57 @@ public class RightAutonMotion extends LinearOpMode  {
 //        }
         scanner.releaseCamera();
         waitForStart();
-//        double distance = 56;
-//        mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
-//        distance = -28;
-//        sleep(500);
-//        mecanum.encoderDrive(0.8,distance,distance,distance,distance,3);
-//
-//        int parkingSpot = 3;
-       // distance = 28;
 
         //while(opModeIsActive()) {
-            arm.liftEncoder(0.3, 4);
-            double distance = 40;
-            mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
-            lazy.rotate(0.5);
-            sleep(1000);
-            distance = 4.75;
-            //right
-            mecanum.encoderDrive(0.4, distance, -distance, -distance, distance, 5);
+        mecanum.encoderDrive(0.6, 60, 60, 60, 60, 2);
+
+        arm.liftEncoder(1, 4, 2.5);
+        //move left
+        mecanum.encoderDrive(0.6, -2, 2, 2, -2, 2);
+        //sleep(500);
+        lazy.rotate(0.50);
+        sleep(1000);
+        claw.release();
         sleep(500);
-            claw.release();
+
+        lazy.rotate(0.0);
+        arm.liftEncoder(1, 5, 2.5);
+
+        claw.release();
+        //second cone pickup drive
+        mecanum.encoderDrive(0.8,-42.5,-42.5,0 ,0,2);
+        mecanum.encoderDrive(0.6,-16,-16,-16,-16,2);
+        claw.grab();
+        sleep(500);
+        arm.liftEncoder(1,2,1);
+
+        //second cone pickup delivery
+
+        mecanum.encoderDrive(0.6,45.5,37.5,20.5,12.5,2);
+        sleep(500);
+        arm.liftEncoder(1,4,1);
+        sleep(1000);
+        lazy.rotate(0.5);
+        sleep(1000);
+        claw.release();
 
         sleep(500);
-            //left
-        mecanum.encoderDrive(0.4, -distance, distance, distance, -distance, 5);
-        sleep(1000);
-            //mecanum.encoderDrive(speed,-40,0,40,40,0,-40, 4.0);
-            //if(parkingSpot ==2){
-                distance = -12.0;
-                mecanum.encoderDrive(0.4, distance, distance, distance, distance, 5);
-                if (parkingSpot==3)
-                {
-                    distance = 28;
-                    //right
-                    mecanum.encoderDrive(0.4, distance, -distance, -distance, distance, 5);
-                }
-                else if(parkingSpot==1){
-                    //left
-                    distance = 28;
-                    mecanum.encoderDrive(0.4, -distance, distance, distance, -distance, 5);
-                }
-            //}
-            //right
-            //mecanum.encoderDrive(speed,24,0,-24,-24,0,24, 3.0);
-        //}
+
         lazy.rotate(0.0);
-        arm.liftEncoder(0.3, 0);
-//        lazy.initialize2();
-//                sleep(500);
-//                arm.liftEncoder(0.3,1);
-//                sleep(500);
-//        claw.release();
+        arm.liftEncoder(1, 5, 2.5);
+        mecanum.encoderDrive(0.6,-17.5,-17.5,10,10,2);
+        mecanum.encoderDrive(0.6,-6,5,6,-5,1);
+        mecanum.encoderDrive(0.6,2,-2,-2,2, 3.0);
+
+        //parking
+
+        if(parkingSpot==2)
+            mecanum.encoderDrive(0.6,2.5,2.5,2.5,2.5,2);
+        else if(parkingSpot==3)
+            mecanum.encoderDrive(0.6,-22.5,-22.5,-22.5,-22.5,2);
+        else if (parkingSpot==1)
+            mecanum.encoderDrive(0.6,24.5,24.5,24.5,24.5,2);
+        //}
         scanner.releaseCamera();
         //arm.initialize();
     }

@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.TiltSlider;
 public class TeleOp extends LinearOpMode {
     double wheelpower = 0.6;
     double lefty;
+    double lefty2;
     double leftx;
     double righty;
     double rightx;
@@ -36,6 +37,8 @@ public class TeleOp extends LinearOpMode {
     boolean dpadDown1 = false;
     boolean dpadRight1 = false;
     boolean dpadLeft1 = false;
+
+    boolean lbumper1 = false;
 
     boolean lbumper2 = false;
     boolean rbumper2 = false;
@@ -121,6 +124,8 @@ public class TeleOp extends LinearOpMode {
             dpadRight2 = gamepad2.dpad_right;
             dpadLeft2 = gamepad2.dpad_left;
 
+            lbumper1 = gamepad1.left_bumper;
+
             lbumper2 = gamepad2.left_bumper;
             rbumper2 = gamepad2.right_bumper;
 //            if(x1) {
@@ -141,10 +146,19 @@ public class TeleOp extends LinearOpMode {
 //                    mw.rightErrorAdjustment = 1;
 //            }
 
+            lefty2 = gamepad2.left_stick_y;
             lefty = gamepad1.left_stick_y;
             leftx = gamepad1.left_stick_x;
             righty = gamepad1.right_stick_y;
             rightx = -gamepad1.right_stick_x;
+
+            if(lbumper1){
+                if(arm.mode)
+                    arm.mode = false;
+                else
+                    arm.mode = true;
+                arm.changeMode();
+            }
 
             if(dpadUp1){
                 wheelpower = 0.6;
@@ -218,7 +232,7 @@ public class TeleOp extends LinearOpMode {
 
             mw.leftErrorAdjustment = wheelpower;
             mw.rightErrorAdjustment= wheelpower;
-
+            arm.setPower(lefty2);
             mw.move(lefty, righty, leftx, rightx);
 
             telemetry.addData("lefty", lefty);
