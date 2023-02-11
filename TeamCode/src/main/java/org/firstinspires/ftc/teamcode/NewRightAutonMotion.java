@@ -124,8 +124,8 @@ public class NewRightAutonMotion extends LinearOpMode  {
         //sleep(1000);// remove this slip when you uncomment the  lift encoder
         sleep(500);
 //
-        lazy.rotate(0.525);
-        sleep(500);
+        lazy.rotate(0.575);
+        sleep(800);
         claw.release();
         sleep(500);
 ////
@@ -141,7 +141,7 @@ public class NewRightAutonMotion extends LinearOpMode  {
         double back2 = distanceSensors.getBack2(unit);
         double diff = back1 - back2;
         mecanum.encoderDrive(0.3,-diff,-diff,diff,diff,2);
-        distance = 3;
+        distance = 4;
         mecanum.encoderDrive(0.6,-distance,distance,distance,-distance,2);
         distance = 18;
         mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,2);
@@ -163,17 +163,35 @@ public class NewRightAutonMotion extends LinearOpMode  {
                         //ldist = distanceSensors.getLeft(unit);
 //                      //4 inches for the drop
                         //ldist = ldist - 4.0;
-                        ldist = 3;
+                        ldist = 2;
                         mecanum.encoderDrive(0.6, -ldist, ldist, ldist, -ldist, 1);
                     } catch (Exception ex) {
                         telemetry.addData("Error: ", "Error occurred in Encoder Drive with distance sensor");
                    }
-            lazy.rotate(0.6);
+            lazy.rotate(0.525);
             sleep(750);
             claw.release();
             sleep(750);
             lazy.rotate(0.0);
             sleep(750);
+            arm.liftEncoder(1, 6, 2.5);
+            mecanum.encoderDrive(0.6, 2, -2, -2, 2, 1);
+            mecanum.encoderDrive(0.6, -38.5, -38.5, -38.5, -38.5, 2);
+            claw.grab();
+            sleep(500);
+            arm.liftEncoder(1, 3, 2.5);
+            mecanum.encoderDrive(0.6, 38.5, 38.5, 38.5, 38.5, 2);
+            mecanum.encoderDrive(0.6, -2, 2, 2, -2, 1);
+            lazy.rotate(0.525);
+            sleep(750);
+            claw.release();
+            sleep(750);
+            lazy.rotate(0.0);
+            sleep(750);
+            arm.liftEncoder(1, 7, 2.5);
+
+
+
             sleep(30000);
 //            //pankit.extendTicks(0.4,0);
 //            if(i<4 || runtime.seconds()<25) {
