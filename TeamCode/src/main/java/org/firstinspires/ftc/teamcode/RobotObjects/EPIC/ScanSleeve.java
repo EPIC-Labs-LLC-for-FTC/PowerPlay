@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.RobotObjects.EPIC;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Research.AprilTagPipe;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -19,6 +21,7 @@ public class ScanSleeve {
     public Telemetry telemetry;
     OpenCvCamera camera;
     AprilTagPipe aprilTagDetectionPipeline;
+    public DistSensor ds = null;
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -178,6 +181,12 @@ public class ScanSleeve {
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+        if(ds!=null) {
+            double bdist = ds.getBack(DistanceUnit.INCH);
+            double bdist2 = ds.getBack2(DistanceUnit.INCH);
+            telemetry.addLine(String.format("Back 1: %.2f inch", bdist));
+            telemetry.addLine(String.format("Back 2: %.2f inch", bdist2));
+        }
     }
 
     public void releaseCamera(){
