@@ -184,8 +184,12 @@ public class ScanSleeve {
         if(ds!=null) {
             double bdist = ds.getBack(DistanceUnit.INCH);
             double bdist2 = ds.getBack2(DistanceUnit.INCH);
+            double rdist = ds.getRight(DistanceUnit.INCH);
+            double ldist = ds.getLeft(DistanceUnit.INCH);
             telemetry.addLine(String.format("Back 1: %.2f inch", bdist));
             telemetry.addLine(String.format("Back 2: %.2f inch", bdist2));
+            telemetry.addLine(String.format("Right: %.2f inch", rdist));
+            telemetry.addLine(String.format("Left: %.2f inch", ldist));
         }
     }
 

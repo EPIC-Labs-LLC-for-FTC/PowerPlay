@@ -56,6 +56,7 @@ public class NewLeftAutonMotion extends LinearOpMode  {
         scanner = new ScanSleeve(hardwareMap);
         scanner.telemetry = this.telemetry;
         scanner.parent = this;
+        scanner.ds = distanceSensors;
         scanner.initialize();
         lazy = new LazySusan(hardwareMap);
         lazy.telemetry = this.telemetry;
@@ -106,129 +107,131 @@ public class NewLeftAutonMotion extends LinearOpMode  {
         fs = new FieldSetup("Blue","Right",distanceSensors,unit);
         mecanum.distanceSensor = distanceSensors;
         mecanum.fs = fs;
-        double distance = 27;
+        double distance = 2;
 
         waitForStart();
         runtime.reset();
-        mecanum.encoderDrive(0.6, distance, -distance, -distance, distance, 2);
-        try {
-            distance = 66;
-            mecanum.encoderDriveWithDistanceSensor(0.6, distance, distance, distance, distance, 4, "x2");
-            distance = 2;
-            mecanum.encoderDrive(0.6, -distance, -distance, -distance, -distance, 1);
-        }
-        catch (Exception ex) {
-            telemetry.addData("Error: ","Error occurred in Encoder Drive with distance sensor");
-        }
-        double ldist = distanceSensors.getLeft(unit);
-        //4 inches for the drop
-        ldist = ldist - 4.0;
-        mecanum.encoderDrive(0.6, -ldist, ldist, ldist, -ldist, 1);
-        telemetry.addData("Back Position in " + unit.name() , distanceSensors.getBack(unit));
-        telemetry.update();
-        //arm.liftEncoder(1, 4, 2.5);
-        sleep(1000);// remove this slip when you uncomment the  lift encoder
-        sleep(500);
-
-        lazy.rotate(0.525);
-        sleep(500);
-        claw.release();
-        sleep(500);
+//        mecanum.encoderDrive(0.6, distance, distance, distance, distance, 2);
+//        distance = 27;
+//        mecanum.encoderDrive(0.6, distance, -distance, -distance, distance, 2);
+//        try {
+//            distance = 64;
+//            mecanum.encoderDriveWithDistanceSensor(0.6, distance, distance, distance, distance, 4, "x2");
+//            distance = 2;
+//            mecanum.encoderDrive(0.6, -distance, -distance, -distance, -distance, 1);
+//        }
+//        catch (Exception ex) {
+//            telemetry.addData("Error: ","Error occurred in Encoder Drive with distance sensor");
+//        }
+//        double ldist = distanceSensors.getLeft(unit);
+//        //4 inches for the drop
+//        ldist = ldist - 4.0;
+//        mecanum.encoderDrive(0.6, -ldist, ldist, ldist, -ldist, 1);
+//        telemetry.addData("Back Position in " + unit.name() , distanceSensors.getBack(unit));
+//        telemetry.update();
+//        arm.liftEncoder(1, 4, 2.5);
+//        //sleep(1000);// remove this slip when you uncomment the  lift encoder
+//        sleep(500);
 //
-        lazy.rotate(0.0);
-        //arm.liftEncoder(1, 5, 2.5);
-        sleep(1000);// remove this slip when you uncomment the  lift encoder
-        claw.release();
-        mecanum.encoderDrive(0.8,0,0,-40.5,-40.5,2);
-        mecanum.encoderDrive(0.6,5,5,-5,-5,2);
-        double back1 = distanceSensors.getBack(unit);
-        double back2 = distanceSensors.getBack2(unit);
-        double diff = back2 - back1;
-        mecanum.encoderDrive(0.3,-diff,-diff,diff,diff,2);
-        mecanum.encoderDrive(0.6,-28,-28,-28,-28,2);
-        //mecanum.encoderDrive(0.6,-6,-6,4,4,2);
-        back1 = distanceSensors.getBack(unit);
-        back2 = distanceSensors.getBack2(unit);
-        while(i<5 || runtime.seconds()<24) {
-            claw.grab();
+//        lazy.rotate(0.525);
+//        sleep(500);
+//        claw.release();
+//        sleep(500);
+////
+//        lazy.rotate(0.0);
+//        arm.liftEncoder(1, 1, 2.5);
+//        //sleep(1000);// remove this slip when you uncomment the  lift encoder
+//        claw.release();
+        distance = 53;
+        mecanum.encoderDrive(0.6,distance,distance,distance,distance,2);
+//        mecanum.encoderDrive(0.8,5,5,-35.5,-35.5,2);
+//        //mecanum.encoderDrive(0.6,5,5,-5,-5,2);
+//        double back1 = distanceSensors.getBack(unit);
+//        double back2 = distanceSensors.getBack2(unit);
+//        double diff = back2 - back1;
+//        mecanum.encoderDrive(0.3,-diff,-diff,diff,diff,2);
+//        distance = 42;
+//        mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,2);
+//        //mecanum.encoderDrive(0.6,-6,-6,4,4,2);
+//        back1 = distanceSensors.getBack(unit);
+//        back2 = distanceSensors.getBack2(unit);
+//        while(i<5 || runtime.seconds()<24) {
+//            claw.grab();
+////            sleep(500);
+////            pankit.extendTicks(0.4,700);
 //            sleep(500);
-//            pankit.extendTicks(0.4,700);
-            sleep(500);
-
-            //arm.liftEncoder(1, 3, 2.5);
-            sleep(1000);// remove this slip when you uncomment the  lift encoder
-                    try {
-                        mecanum.encoderDriveWithDistanceSensor(0.5, 41, 41, 41, 41, 2, "w2");
-                    } catch (Exception ex) {
-                        telemetry.addData("Error: ", "Error occurred in Encoder Drive with distance sensor");
-                    }
-//                    double ldist = distanceSensors.getLeft(unit);
-//                    //4 inches for the drop
-//                    ldist = ldist - 4.0;
-//                    mw.encoderDrive(0.6, -ldist, ldist, ldist, -ldist, 1);
-//                    arm.liftEncoder(1, 3, 2.5);
-                    sleep(500);
-            lazy.rotate(0.65);
-            sleep(750);
-            claw.release();
-            sleep(750);
-            lazy.rotate(0.0);
-            sleep(750);
-            //pankit.extendTicks(0.4,0);
-            if(i<4 || runtime.seconds()<25) {
-                double newback1 = distanceSensors.getBack(unit);
-                double newback2 = distanceSensors.getBack2(unit);
-                double back1diff = newback1 - back1;
-                double back2diff = newback2 - back2;
-                mecanum.encoderDrive(0.3, -back1diff, -back1diff, -back2diff, -back2diff, 2);
-                sleep(500);
-                if (i < 2)
-                    //arm.liftEncoder(1, 6, 2.5);
-                    sleep(1000);// remove this slip when you uncomment the  lift encoder
-                else
-                    //arm.liftEncoder(1, 7, 2.5);
-                    sleep(1000);// remove this slip when you uncomment the  lift encoder
-                //claw.release();
-                sleep(500);
-//                    ldist = distanceSensors.getLeft(unit);
-//                    //4 inches for the drop
-//                    ldist = ldist - 4.0;
-//                    mw.encoderDrive(0.6, ldist, -ldist, -ldist, ldist, 1);
 //
+//            arm.liftEncoder(1, 4, 2.5);
+//            //sleep(1000);// remove this slip when you uncomment the  lift encoder
 //                    try {
-//                        mw.encoderDriveWithDistanceSensor(0.5, -41, -41, -41, -41, 2, "wx0");
+//                        mecanum.encoderDriveWithDistanceSensor(0.5, 41, 41, 41, 41, 2, "w2");
 //                    } catch (Exception ex) {
 //                        telemetry.addData("Error: ", "Error occurred in Encoder Drive with distance sensor");
 //                    }
-            }
-            else{
-                break;
-            }
-            i++;
+////                    double ldist = distanceSensors.getLeft(unit);
+////                    //4 inches for the drop
+////                    ldist = ldist - 4.0;
+////                    mw.encoderDrive(0.6, -ldist, ldist, ldist, -ldist, 1);
+////                    arm.liftEncoder(1, 3, 2.5);
+//                    sleep(500);
+//            lazy.rotate(0.65);
+//            sleep(750);
+//            claw.release();
+//            sleep(750);
+//            lazy.rotate(0.0);
+//            sleep(750);
+//            //pankit.extendTicks(0.4,0);
+//            if(i<4 || runtime.seconds()<25) {
+//                double newback1 = distanceSensors.getBack(unit);
+//                double newback2 = distanceSensors.getBack2(unit);
+//                double back1diff = newback1 - back1;
+//                double back2diff = newback2 - back2;
+//                mecanum.encoderDrive(0.3, -back1diff, -back1diff, -back2diff, -back2diff, 2);
+//                sleep(500);
+//                if (i < 2)
+//                    arm.liftEncoder(1, 6, 2.5);
+//                    //sleep(1000);// remove this slip when you uncomment the  lift encoder
+//                else
+//                    arm.liftEncoder(1, 7, 2.5);
+//                    //sleep(1000);// remove this slip when you uncomment the  lift encoder
+//                //claw.release();
+//                sleep(500);
+////                    ldist = distanceSensors.getLeft(unit);
+////                    //4 inches for the drop
+////                    ldist = ldist - 4.0;
+////                    mw.encoderDrive(0.6, ldist, -ldist, -ldist, ldist, 1);
+////
+////                    try {
+////                        mw.encoderDriveWithDistanceSensor(0.5, -41, -41, -41, -41, 2, "wx0");
+////                    } catch (Exception ex) {
+////                        telemetry.addData("Error: ", "Error occurred in Encoder Drive with distance sensor");
+////                    }
+//            }
+//            else{
+//                break;
+//            }
+//            i++;
+//        }
+//        //parking
+//
+//        double newback1 = distanceSensors.getBack(unit);
+//        double newback2 = distanceSensors.getBack2(unit);
+//
+//        double back1diff = newback1 - 30;
+//        double back2diff = newback2 - 30;
+        if(parkingSpot==3) {
+            distance = 27;
+            mecanum.encoderDrive(0.6,distance,-distance,-distance,distance,2);
+
         }
-        //parking
-
-        double newback1 = distanceSensors.getBack(unit);
-        double newback2 = distanceSensors.getBack2(unit);
-
-        double back1diff = newback1 - 30;
-        double back2diff = newback2 - 30;
-        if(parkingSpot==2) {
-
-
-        }
-        else if(parkingSpot==1){
-
-
-            back1diff = newback1 - 2.5;
-            back2diff = newback2 - 2.5;
+        else if(parkingSpot==2){
         }
         else if (parkingSpot==1) {
-            back1diff = newback1 - 54;
-            back2diff = newback2 - 54;
+            distance = 29;
+            mecanum.encoderDrive(0.6,-distance,distance,distance,-distance,2);
         }
 
-        mecanum.encoderDrive(0.6,back2diff,back2diff,back1diff,back1diff,2);
+        //mecanum.encoderDrive(0.6,back2diff,back2diff,back1diff,back1diff,2);
         //}
         scanner.releaseCamera();
         //arm.initialize();
