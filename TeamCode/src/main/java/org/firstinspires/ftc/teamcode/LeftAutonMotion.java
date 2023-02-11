@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.NewClaw;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.ScanSleeve;
 
 @Autonomous(name="Left Auton", group="Competition")
-
+@Disabled
 public class LeftAutonMotion extends LinearOpMode  {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum_Wheels mecanum = null;//new Mecanum_Wheels(hardwareMap);

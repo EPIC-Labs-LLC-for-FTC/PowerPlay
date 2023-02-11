@@ -126,6 +126,8 @@ public class LiftSlider {
             targetPosition = 0;
         else if(level==2)
             targetPosition = 1300;
+        else if(level==8)
+            targetPosition = 2000;
         else if(level==3)
             targetPosition = 2800;
         else if(level==4) {
@@ -134,7 +136,7 @@ public class LiftSlider {
 //            currentPosition = targetPosition;
 
             //parent.sleep(1000);
-            targetPosition = 4300;
+            targetPosition = 3800;
         }
 
         else if(level==5) {
@@ -142,6 +144,9 @@ public class LiftSlider {
         }
 
         else if(level==6) {
+            targetPosition = 300;
+        }
+        else if(level==7) {
             targetPosition = 200;
         }
         arm.setTargetPosition(targetPosition);

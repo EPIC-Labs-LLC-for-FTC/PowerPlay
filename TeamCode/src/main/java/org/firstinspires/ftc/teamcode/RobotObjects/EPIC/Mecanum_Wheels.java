@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Mecanum_Wheels {
     //Configuration used: 6wheelConfig
@@ -15,8 +19,13 @@ public class Mecanum_Wheels {
     public DcMotorEx frontleft;
     public DcMotorEx backright;
     public DcMotorEx backleft;
-
+    Map<String, Double> distances = null;
     //public DcMotorEx xRail;
+
+    public DistSensor distanceSensor = null;
+    public DistanceUnit unit = DistanceUnit.INCH;
+
+    public FieldSetup fs = null;
 
     public boolean IsAutonomous = false;
 
@@ -97,6 +106,96 @@ public class Mecanum_Wheels {
     }
 
 
+
+
+    public void encoderDriveWithDistanceSensor(double speed,
+                             double frontLeftInches, double backLeftInches, double frontRightInches,
+                             double backRightInches, double timeoutS, String junctionName) throws Exception {
+        if(distanceSensor==null && fs ==null) {
+            throw new Exception("Distance Sensor and Field Setup are null cannot use this method");
+        }
+        else {
+            distances = new HashMap<String, Double>();
+            int new_frontLeftTarget;
+            int new_frontRightTarget;
+            int new_backLeftTarget;
+            int new_backRightTarget;
+            double ticksPerInchMecanum = (537.7 / mecanumWheelCircumference) * ticksAdjustment;
+            int reverseDirection = 1;
+            // Ensure that the opmode is still active
+            if (parent.opModeIsActive()) {
+
+                // Determine new target position, and pass to motor controller
+                new_frontLeftTarget = frontleft.getCurrentPosition() + (int) (frontLeftInches * ticksPerInchMecanum);
+                new_frontRightTarget = frontright.getCurrentPosition() + (int) (frontRightInches * ticksPerInchMecanum);
+
+                new_backLeftTarget = backleft.getCurrentPosition() + (int) (backLeftInches * ticksPerInchMecanum);
+                new_backRightTarget = backright.getCurrentPosition() + (int) (backRightInches * ticksPerInchMecanum);
+                frontleft.setTargetPosition(new_frontLeftTarget * reverseDirection);
+                frontright.setTargetPosition(new_frontRightTarget);
+
+
+                backleft.setTargetPosition(new_backLeftTarget * reverseDirection);
+                backright.setTargetPosition(new_backRightTarget);
+
+                // Turn On RUN_TO_POSITION
+                frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                // reset the timeout time and start motion.
+                runtime.reset();
+                frontleft.setPower(speed * leftErrorAdjustment);
+                frontright.setPower(speed * rightErrorAdjustment);
+
+                backleft.setPower(speed * leftErrorAdjustment);
+                backright.setPower(speed * rightErrorAdjustment);
+                distances = distanceSensor.getDistances(unit);
+                // keep looping while we are still active, and there is time left, and both motors are running.
+                while (parent.opModeIsActive() &&
+                        (runtime.seconds() < timeoutS) &&
+                        (fs.checkPos(junctionName)) &&
+                        (frontleft.isBusy() || frontright.isBusy() || backleft.isBusy() || backright.isBusy())) {
+                    // Display it for the driver.
+
+                    distances = distanceSensor.getDistances(unit);
+                    telemetry.addData("Path1", "Running to %7d  :%7d :%7d :%7d", new_frontLeftTarget, new_frontRightTarget, new_backLeftTarget, new_backRightTarget);
+                    telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
+                            frontleft.getCurrentPosition(),
+                            frontright.getCurrentPosition(),
+
+                            backleft.getCurrentPosition(),
+                            backright.getCurrentPosition());
+
+                    telemetry.addData("Right Position in " + unit.name() , distances.get("Right"));
+                    telemetry.addData("Left Position in " + unit.name() , distances.get("Left"));
+                    telemetry.addData("Back Position in " + unit.name() , distances.get("Back"));
+                    telemetry.addData("Back2 Position in " + unit.name() , distances.get("Back2"));
+
+                    telemetry.update();
+                }
+            }
+            // Stop all motion;
+            frontleft.setPower(0);
+            frontright.setPower(0);
+
+            backleft.setPower(0);
+            backright.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+
     public void encoderDrive(double speed,
                              double frontLeftInches, double backLeftInches, double frontRightInches,
                              double backRightInches, double timeoutS) {
@@ -138,7 +237,6 @@ public class Mecanum_Wheels {
 
             backleft.setPower(speed*leftErrorAdjustment);
             backright.setPower(speed*rightErrorAdjustment);
-
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (parent.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
@@ -151,6 +249,17 @@ public class Mecanum_Wheels {
 
                         backleft.getCurrentPosition(),
                         backright.getCurrentPosition());
+
+
+                if(distanceSensor!=null) {
+                    distances = distanceSensor.getDistances(unit);
+                    telemetry.addData("Right Position in " + unit.name() , distances.get("Right"));
+                    telemetry.addData("Left Position in " + unit.name() , distances.get("Left"));
+                    telemetry.addData("Back Position in " + unit.name() , distances.get("Back"));
+                    telemetry.addData("Back2 Position in " + unit.name() , distances.get("Back2"));
+
+
+                }
                 telemetry.update();
             }
         }

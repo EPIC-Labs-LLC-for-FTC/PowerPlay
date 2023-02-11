@@ -37,6 +37,7 @@ public class NewTeleOp extends LinearOpMode {
     boolean dpadLeft1 = false;
 
     boolean lbumper1 = false;
+    boolean rbumper1 = false;
 
     boolean lbumper2 = false;
     boolean rbumper2 = false;
@@ -83,7 +84,9 @@ public class NewTeleOp extends LinearOpMode {
         arm = new LiftSlider(hardwareMap);
         arm.telemetry = this.telemetry;
         arm.parent = this;
-        arm.initialize2();
+        //arm.initialize2();
+        arm.mode = true;
+        arm.noEncoderInitialize();
 
 
 
@@ -123,6 +126,7 @@ public class NewTeleOp extends LinearOpMode {
             dpadLeft2 = gamepad2.dpad_left;
 
             lbumper1 = gamepad1.left_bumper;
+            rbumper1 = gamepad1.right_bumper;
 
             lbumper2 = gamepad2.left_bumper;
             rbumper2 = gamepad2.right_bumper;
@@ -161,11 +165,11 @@ public class NewTeleOp extends LinearOpMode {
             if(dpadUp1){
                 wheelpower = 0.6;
             }
-            else if(dpadLeft1) {
-                wheelpower = 0.4;
+            else if(b1) {
+                wheelpower = 1.0;
             }
-            else if(dpadDown1) {
-                wheelpower = 0.2;
+            else if(rbumper1) {
+                wheelpower = 0.4;
             }
             if(dpadDown2) {
                 arm.liftEncoder(0.4, 1);
