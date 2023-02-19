@@ -44,6 +44,7 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
                 .turn(Math.toRadians(105.25))
                 .waitSeconds(0.01)
                 .strafeRight(70)
+                .turn(Math.toRadians(10))
                 .waitSeconds(0.01)
                 .strafeLeft(14)
                 .waitSeconds(0.01)
@@ -62,7 +63,7 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
                 .strafeRight(50)
                 .waitSeconds(0.01)
                 .strafeLeft(30)
-                .forward(28)
+                .forward(26)
                 .build();
 
         TrajectorySequence parking2 = drive.trajectorySequenceBuilder(new Pose2d())
@@ -75,6 +76,7 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         TrajectorySequence parking3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .strafeLeft(25)
                 .waitSeconds(0.01)
+                .turn(Math.toRadians(-10))
                 .back(28)
                 .build();
 
@@ -82,15 +84,16 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         waitForStart();
 
         if(isStopRequested()) return;
-
-        sleep(500);
-        armClaw.specificLift(-0.5);
-        sleep(4400);
-        armClaw.stop();
-        sleep(100);
-        armClaw.alignment(0.5);
-        sleep(1200);
-        armClaw.alignment(0);
+//        sleep(500);
+//        armClaw.alignment(0.5);
+//        sleep(750);
+//        armClaw.alignment(0);
+//        armClaw.specificLift(0.5);
+//        sleep(2200);
+//        armClaw.stop();
+//        armClaw.alignment(0.5);
+//        sleep(1200);
+//        armClaw.alignment(0);
 
         drive.followTrajectorySequence(turnAndStrafe);
 
@@ -99,10 +102,10 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 //        drive.followTrajectorySequence(moveForward);
 //
 //        sleep(2500);
-        armClaw.open();
-        sleep(500);
-        armClaw.close();
-        sleep(1);
+//        armClaw.open();
+//        sleep(500);
+//        armClaw.close();
+//        sleep(1);
 
 //        drive.followTrajectorySequence(moveBackward);
 //        sleep(1);
@@ -110,16 +113,20 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
         if (parkingSpot == 1){
             drive.followTrajectorySequence(parking1);
         } else if (parkingSpot == 2) {
-            drive.followTrajectorySequence(parking2);
+//            drive.followTrajectorySequence(parking2);
         } else {
             drive.followTrajectorySequence(parking3);
         }
 
-        armClaw.specificLift(-0.5);
-        sleep(1200);
-        armClaw.specificLift(0);
+
+
+//        armClaw.specificLift(-0.5);
+//        sleep(1200);
+//        armClaw.specificLift(0);
 
         scanner.releaseCamera();
+
+        sleep(100000000);
 
 
     }

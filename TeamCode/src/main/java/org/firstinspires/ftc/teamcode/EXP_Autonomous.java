@@ -27,6 +27,8 @@ public class EXP_Autonomous extends LinearOpMode {
         double speed = 0.2;
         waitForStart();
 
+
+
 //        while(opModeIsActive()){
 //            telemetry.addData("Distance Left: ", distanceLeft.getDistance(DistanceUnit.INCH));
 //            telemetry.addData("Distance Right: ", distanceRight.getDistance(DistanceUnit.INCH));

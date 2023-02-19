@@ -23,7 +23,7 @@ public class Claw {
     public void initialize(){
         claw.setPosition(0);
 //        arm.setPosition(0);
-        arm.setPower(0);
+        arm.setPower(-0.2);
         align.setPower(0);
     }
 
@@ -32,7 +32,7 @@ public class Claw {
     }
 
     public void close(){
-        claw.setPosition(0.5);
+        claw.setPosition(0);
     }
 
     public void lift(int target){

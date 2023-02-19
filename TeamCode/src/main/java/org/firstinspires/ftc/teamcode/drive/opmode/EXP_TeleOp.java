@@ -145,15 +145,22 @@ public class EXP_TeleOp extends LinearOpMode {
 
             if (gamepad2.right_bumper){
                 armClaw.specificLift(lefty2);
-                slider.specificLift(righty2);
             } else if (gamepad2.left_bumper){
                 armClaw.clawControl(lefty2);
             }
 
-            if (gamepad1.dpad_up){
-                armClaw.alignment(-0.8);
-            } else if (gamepad1.dpad_down){
-                armClaw.alignment(0.8);
+            if(gamepad1.right_trigger != 0){
+                slider.specificLift(gamepad1.right_trigger);
+            } else if (gamepad1.left_trigger != 0){
+                slider.specificLift(-gamepad1.left_trigger);
+            } else {
+                slider.specificLift(0);
+            }
+
+            if(gamepad2.left_trigger != 0){
+                armClaw.alignment(gamepad2.left_trigger);
+            } else if (gamepad2.right_trigger != 0){
+                armClaw.alignment(-gamepad2.right_trigger);
             } else {
                 armClaw.alignment(0);
             }
