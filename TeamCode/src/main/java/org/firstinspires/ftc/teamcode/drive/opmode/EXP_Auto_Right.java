@@ -74,8 +74,6 @@ public class EXP_Auto_Right extends LinearOpMode {
 
         if(isStopRequested()) return;
         sleep(500);
-        armClaw.alignment(0.4);
-        sleep(500);
         armClaw.open();
 //        armClaw.alignment(0);
 //        armClaw.specificLift(0.5); // ^

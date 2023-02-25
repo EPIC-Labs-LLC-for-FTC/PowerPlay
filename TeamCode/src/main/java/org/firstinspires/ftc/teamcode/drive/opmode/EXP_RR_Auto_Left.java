@@ -25,35 +25,29 @@ public class EXP_RR_Auto_Left extends LinearOpMode {
         slideControl.initialize();
         armClaw.initialize();
 
-        scanner = new ScanSleeve(hardwareMap);
-        scanner.telemetry = this.telemetry;
-        scanner.parent = this;
-        scanner.initialize();
-
-        int parkingSpot = 0;
-        parkingSpot = scanner.getParkingSpot();
-
-        scanner.releaseCamera();
+//        scanner = new ScanSleeve(hardwareMap);
+//        scanner.telemetry = this.telemetry;
+//        scanner.parent = this;
+//        scanner.initialize();
+//
+//        int parkingSpot = 0;
+//        parkingSpot = scanner.getParkingSpot();
+//
+//        scanner.releaseCamera();
 
 
         waitForStart();
-        TrajectorySequence turnAndStrafe = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(8)
-                .turn(Math.toRadians(-105.25))
-                .waitSeconds(0.5)
-                .strafeLeft(70)
-                .waitSeconds(0.5)
-                .strafeRight(16)
-                .waitSeconds(0.5)
+        TrajectorySequence strafe = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeRight(54)
                 .build();
 
-        TrajectorySequence moveForward = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(8)
-                .build();
+       TrajectorySequence strafeMore = drive.trajectorySequenceBuilder(new Pose2d())
+               .strafeRight(20)
+               .build();
 
-        TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(9)
-                .build();
+//         TrajectorySequence moveBackward = drive.trajectorySequenceBuilder(new Pose2d())
+//                 .back(9)
+//                 .build();
 
 
         TrajectorySequence parking1 = drive.trajectorySequenceBuilder(new Pose2d())
@@ -82,43 +76,34 @@ public class EXP_RR_Auto_Left extends LinearOpMode {
 
         if(isStopRequested()) return;
 
-        sleep(500);
-        armClaw.specificLift(0.5);
-        sleep(4400);
+        armClaw.specificLift(0.4);
+        sleep(1000);
         armClaw.stop();
-        sleep(100);
-        armClaw.alignment(0.5);
-        sleep(1200);
-        armClaw.alignment(0);
-
-        drive.followTrajectorySequence(turnAndStrafe);
-
-        sleep(100);
-
-//        drive.followTrajectorySequence(moveForward);
-//
-//        sleep(2500);
+        drive.followTrajectorySequence(strafe);
         armClaw.open();
         sleep(500);
         armClaw.close();
-        sleep(100);
+        drive.followTrajectorySequence(strafeMore);
+        armClaw.specificLift(-0.4);
+        slideControl.specificLift(0.5);
+        sleep(2000);
+        armClaw.stop();
+        slideControl.stop();
 
-//        drive.followTrajectorySequence(moveBackward);
-//        sleep(500);
+        if(isStopRequested()) return;
 
-        if (parkingSpot == 1){
-            drive.followTrajectorySequence(parking1);
-        } else if (parkingSpot == 2) {
-            drive.followTrajectorySequence(parking2);
-        } else {
-            drive.followTrajectorySequence(parking3);
-        }
 
-        armClaw.specificLift(-0.5);
-        sleep(1200);
-        armClaw.specificLift(0);
 
-        scanner.releaseCamera();
+//        if (parkingSpot == 1){
+//            drive.followTrajectorySequence(parking1);
+//        } else if (parkingSpot == 2) {
+//            drive.followTrajectorySequence(parking2);
+//        } else {
+//            drive.followTrajectorySequence(parking3);
+//        }
+
+
+//        scanner.releaseCamera();
 
 
     }

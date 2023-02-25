@@ -26,19 +26,26 @@ public class Slide_Control {
     }
 
     public void lift(int target) {
-        if (target == 1 && slider.getCurrentPosition() != 500){
-            slider.setTargetPosition(100);
-            slider.setPower(0.7);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if (target == 1){
+            slider.setTargetPosition(500);
+            slider.setPower(1);
         }
 
-        if (target == 2 && slider.getCurrentPosition() != 1000){
-            slider.setTargetPosition(100);
-            slider.setPower(0.7);
+        if (target == 2){
+            slider.setTargetPosition(1000);
+            slider.setPower(1);
         }
 
-        if (target == 3  && slider.getCurrentPosition() != 1500){
+        if (target == 3){
             slider.setTargetPosition(100);
-            slider.setPower(0.7);
+            slider.setPower(1);
+        }
+
+        if (target == 4){
+            slider.setTargetPosition(0);
+            slider.setPower(1);
         }
        
     }
@@ -51,6 +58,12 @@ public class Slide_Control {
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slider.setPower(power);
+    }
+
+    public void stop() {
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slider.setPower(0);
     }
 
 }

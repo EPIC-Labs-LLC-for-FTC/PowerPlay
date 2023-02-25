@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.drive.opmode.ControlClasses;
 
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Claw {
 
@@ -11,20 +14,24 @@ public class Claw {
 
     public Servo claw;
 
-    public CRServo arm, align;
+    public DistanceSensor leftDistance, rightDistance, front2Distance, frontDistance;
+
+    public CRServo arm;
 
     public Claw(HardwareMap hardwareMap){
         claw = hardwareMap.get(Servo.class, "claw");
         arm = hardwareMap.get(CRServo.class, "arm");
-        align = hardwareMap.get(CRServo.class, "clawalign");
+        leftDistance = hardwareMap.get(DistanceSensor.class,"leftDistance");
+        rightDistance = hardwareMap.get(DistanceSensor.class,"rightDistance");
+        front2Distance = hardwareMap.get(DistanceSensor.class,"front2Distance");
+        frontDistance = hardwareMap.get(DistanceSensor.class,"frontDistance");
 
     }
 
     public void initialize(){
         claw.setPosition(0);
 //        arm.setPosition(0);
-        arm.setPower(-0.2);
-        align.setPower(0);
+        arm.setPower(-0.3);
     }
 
     public void open(){
@@ -54,11 +61,14 @@ public class Claw {
 
     public void clawControl(double amount) { claw.setPosition(amount);}
 
-    public void alignment(double amount) {align.setPower(amount);}
 
     public double armPosition(){
 //        return arm.setPosition(0);
         return arm.getPower();
+    }
+
+    public double getDistance(DistanceSensor sensor){
+        return sensor.getDistance(DistanceUnit.INCH);
     }
 
 }

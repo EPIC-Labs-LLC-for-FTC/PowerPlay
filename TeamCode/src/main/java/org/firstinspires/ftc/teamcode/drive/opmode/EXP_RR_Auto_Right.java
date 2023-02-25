@@ -85,15 +85,10 @@ public class EXP_RR_Auto_Right extends LinearOpMode {
 
         if(isStopRequested()) return;
 //        sleep(500);
-//        armClaw.alignment(0.5);
-//        sleep(750);
-//        armClaw.alignment(0);
+//
 //        armClaw.specificLift(0.5);
 //        sleep(2200);
 //        armClaw.stop();
-//        armClaw.alignment(0.5);
-//        sleep(1200);
-//        armClaw.alignment(0);
 
         drive.followTrajectorySequence(turnAndStrafe);
 
