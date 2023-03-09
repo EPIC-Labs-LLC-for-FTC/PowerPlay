@@ -4,15 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Slider;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm2023;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 
 @TeleOp(name = "New_PowerPlay_TELEOP")
 public class New_Powerplay_TeleOp extends LinearOpMode {
@@ -20,30 +17,12 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
     double leftx;
     double righty;
     double rightx;
-
-    public DistanceSensor intake;
-    public TouchSensor intakeHome;
-    public Servo finger;
-    public Servo arm;
-    public Servo outtake;
+    public Claw2023 finger;
+    public Arm2023 arm;
+    public Outtake2023 outtake;
     public DcMotorEx intakeSlide;
     public DcMotorEx outtakeSlide;
-    public Servo turret;
-    //intake sensor values
-    double intakeDistance = 0.0;
-    //finger values
-    double fingerClose = 0.56;
-    double fingerOpen = 0.45;
-    //outtake alues
-    double outtakeDropping = 0.0;
-    double outtakeRecieving = 0.0;
-    //turret values
-    double straightBack = 0.31;
-    double left = 0.0;
-    double right = 1.0;
-    //arm values
-    double armRecieving = 0.0;
-    double armDropping = 0.0;
+    public Turret2023 turret;
     //outtake slide values
     int topJunction = 0;
     int mediumJunction = 0;
@@ -56,14 +35,20 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
 
-        intakeHome = hardwareMap.get(TouchSensor.class,"intakeHome");
-        intake = hardwareMap.get(DistanceSensor.class,"intake");
         intakeSlide = hardwareMap.get(DcMotorEx.class,"intakeSlide");
         outtakeSlide = hardwareMap.get(DcMotorEx.class,"outtakeSlide");
-        finger = hardwareMap.get(Servo.class,"finger");
-        arm = hardwareMap.get(Servo.class, "arm");
-        outtake = hardwareMap.get(Servo.class, "outtake");
-        turret = hardwareMap.get(Servo.class, "turret");
+        finger = new Claw2023(hardwareMap);
+        finger.telemetry = telemetry;
+        finger.parent = this;
+        arm = new Arm2023(hardwareMap);
+        arm.telemetry = telemetry;
+        arm.parent = this;
+        outtake = new Outtake2023(hardwareMap);
+        outtake.telemetry = telemetry;
+        outtake.parent = this;
+        turret = new Turret2023(hardwareMap);
+        turret.telemetry = telemetry;
+        turret.parent = this;
 
         wheels.initialize();
         wheels.telemetry = telemetry;
@@ -80,6 +65,7 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
+        while(opModeIsActive()){
         lefty = gamepad1.left_stick_y;
         leftx = gamepad1.left_stick_x;
         righty = gamepad1.right_stick_y;
@@ -89,6 +75,7 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         boolean right_bumper = gamepad1.right_bumper;
         boolean left_bumper = gamepad1.left_bumper;
         boolean x = gamepad1.x;
+        boolean y = gamepad1.y;
         boolean a = gamepad1.a;
         boolean b = gamepad1.b;
         boolean b2 = gamepad2.b;
@@ -104,107 +91,92 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         float left_trigger2 = gamepad2.left_trigger;
 
         if(rightTrigger > 0){
-            intakeSlidePosition += 50;
+            intakeSlidePosition += 5;
             intakeSlide.setPower(0.8);
             intakeSlide.setTargetPosition(intakeSlidePosition);
             intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         if(leftTrigger > 0){
-            intakeSlidePosition -= 50;
+            if(intakeSlide.getCurrentPosition() >=5){
+            intakeSlidePosition -= 5;
             intakeSlide.setPower(0.8);
             intakeSlide.setTargetPosition(intakeSlidePosition);
             intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        }}
         if(right_bumper){
-            intakeDistance = intake.getDistance(DistanceUnit.INCH);
-            while(intakeDistance > 2.1){
-                intakeDistance = intake.getDistance(DistanceUnit.INCH);
-                intakeSlide.setPower(0.8);
-                intakeDistance = intake.getDistance(DistanceUnit.INCH);
-                if(intakeDistance < 2.2){
-                    intakeSlide.setPower(0);
-                }
-            }
-            arm.setPosition(armRecieving);
+            intakeSlide.setPower(0.8);
+            intakeSlide.setTargetPosition(-1400);
+            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.ground();
         }
         if(left_bumper){
-            while(!intakeHome.isPressed()){
-                intakeSlide.setPower(0.8);
-                if(intakeHome.isPressed()){
-                    intakeSlide.setPower(0);
-                }
-            }
-
-            arm.setPosition(armDropping);
+            intakeSlide.setPower(0.8);
+            intakeSlide.setTargetPosition(50);
+            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.ground();
+            arm.dropping();
         }
         if(x){
-            if(finger.getPosition() < (fingerClose + 0.1) && finger.getPosition() >(fingerClose - 0.1)){
-                finger.setPosition(fingerOpen);
-            }
-            if(finger.getPosition() < (fingerOpen + 0.1) && finger.getPosition() >(fingerOpen - 0.1)){
-                finger.setPosition(fingerClose);
-            }
+            finger.release();
+        }
+        if(y){
+            finger.grab();
         }
         if(a){
-            arm.setPosition(armRecieving);
+            arm.ground();
         }
         if(b){
-            arm.setPosition(armDropping);
+            arm.dropping();
         }
         if(dpadUp2){
-            outtakeSlide.setPower(0.8);
-            outtakeSlide.setTargetPosition(topJunction);
-            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            outtake.recieve();
         }
         if(dpadLeft2){
-            outtakeSlide.setPower(0.8);
-            outtakeSlide.setTargetPosition(mediumJunction);
-            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            outtake.recieve();
         }
         if(dpadRight2){
-            outtakeSlide.setPower(0.8);
-            outtakeSlide.setTargetPosition(outtakeSlideHome);
-            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            outtake.setPosition(outtakeRecieving);
+            outtake.recieve();
         }
         if(a2){
-            if(outtake.getPosition() < (outtakeRecieving + 0.1) && outtake.getPosition() >(outtakeRecieving - 0.1)){
-                outtake.setPosition(outtakeDropping);
-            }
-            if(outtake.getPosition() < (outtakeDropping + 0.1) && outtake.getPosition() >(outtakeDropping - 0.1)){
-                outtake.setPosition(outtakeRecieving);
+            int outtakePosition = (int) outtake.getPosition();
+            switch (outtakePosition){
+                case 0:
+                    outtake.drop(); break;
+                case 1:
+                    outtake.recieve(); break;
             }
         }
         if(y2){
-            turret.setPosition(straightBack);
+            turret.home();
         }
         if(x2){
-            turret.setPosition(left);
+            turret.left();
         }
         if(b2){
-            turret.setPosition(right);
+            turret.right();
         }
         if(rightBumper2){
-            outtakeSlidePosition += 50;
+            outtakeSlidePosition += 5;
             outtakeSlide.setPower(0.8);
-            outtakeSlide.setTargetPosition(intakeSlidePosition);
+            outtakeSlide.setTargetPosition(outtakeSlidePosition);
             outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         if(leftBumper2){
-            outtakeSlidePosition -= 50;
+            outtakeSlidePosition -= 5;
             outtakeSlide.setPower(0.8);
-            outtakeSlide.setTargetPosition(intakeSlidePosition);
+            outtakeSlide.setTargetPosition(outtakeSlidePosition);
             outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if(rightTrigger > 0){
-            turretPosition = turret.getPosition() + 0.1;
-            turret.setPosition(turretPosition);
+        if(right_trigger2 > 0){
+            turret.incrementer=true;
+            turret.turretIncrease();
         }
-        if(leftTrigger > 0){
-            turretPosition = turret.getPosition() - 0.1;
-            turret.setPosition(turretPosition);
+        if(left_trigger2 > 0){
+            turret.incrementer=true;
+            turret.turretDecrease();
         }
         wheels.move(lefty,righty,leftx,rightx);
-
+        telemetry.addData("outtake ", outtake.getPosition());
+        telemetry.update();
     }
-}
+}}

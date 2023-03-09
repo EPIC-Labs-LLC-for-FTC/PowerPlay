@@ -40,6 +40,7 @@ public class newTestTeleOp extends LinearOpMode{
         arm = hardwareMap.get(Servo.class, "arm");
         outtake = hardwareMap.get(Servo.class, "outtake");
         turret = hardwareMap.get(Servo.class, "turret");
+        turret.setDirection(Servo.Direction.REVERSE);
 
         wheels.initialize();
         wheels.telemetry = telemetry;
@@ -55,7 +56,9 @@ public class newTestTeleOp extends LinearOpMode{
         intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        arm.setPosition(0.5);
+//        arm.setPosition(0.5);
+//        finger.setPosition(0.45);
+        outtake.setPosition(1);
 
         waitForStart();
         while(opModeIsActive()){
@@ -83,17 +86,19 @@ public class newTestTeleOp extends LinearOpMode{
         boolean leftBumper1 = gamepad1.left_bumper;
         boolean rightBumper2 = gamepad2.right_bumper;
         boolean leftBumper2 = gamepad2.left_bumper;
+        turret.setPosition(0.01);
 
         if(b){
             intakeSlidePosition += 50;
-            intakeSlide.setPower(0.8);
-            sleep(1000);
+            intakeSlide.setPower(0.2);
+            sleep(500);
 //            intakeSlide.setTargetPosition(intakeSlidePosition);
 //            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else if(x){
             intakeSlidePosition -= 50;
-            intakeSlide.setPower(-0.8);
+            intakeSlide.setPower(-0.2);
+            sleep(500);
 //            intakeSlide.setTargetPosition(intakeSlidePosition);
 //            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
