@@ -145,8 +145,8 @@ public class NewRightAutonMotion extends LinearOpMode  {
         mecanum.encoderDrive(0.3,-diff,-diff,diff,diff,2);
         distance = 4;
         mecanum.encoderDrive(0.6,-distance,distance,distance,-distance,2);
-        distance = 18;
-        mecanum.encoderDrive(0.6,-distance,-distance,-distance,-distance,2);
+        distance = 17;
+        mecanum.encoderDrive(0.4,-distance,-distance,-distance,-distance,3);
 
 //        //mecanum.encoderDrive(0.6,-6,-6,4,4,2);
         back1 = distanceSensors.getBack(unit);
