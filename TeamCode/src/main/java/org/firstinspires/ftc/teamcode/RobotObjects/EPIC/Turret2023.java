@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.RobotObjects.EPIC;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Turret2023 {
     //Configuration used: 6wheelConfig
-    public Servo turret;
+    public ServoImplEx turret;
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
@@ -20,7 +21,7 @@ public class Turret2023 {
 
 
     public Turret2023(HardwareMap hardwareMap) {
-        turret = hardwareMap.get(Servo.class,"turret");
+        turret = hardwareMap.get(ServoImplEx.class,"turret");
         turret.setDirection(Servo.Direction.FORWARD);
 
     }

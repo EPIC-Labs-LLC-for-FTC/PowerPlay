@@ -7,10 +7,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Claw2023 {
     //Configuration used: 6wheelConfig
-    public Servo finger;
+    public ServoImplEx finger;
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
@@ -20,7 +21,7 @@ public class Claw2023 {
     public boolean isReleased = false;
 
     public Claw2023(HardwareMap hardwareMap) {
-        finger = hardwareMap.get(Servo.class,"finger");
+        finger = hardwareMap.get(ServoImplEx.class,"finger");
         //arm = hardwareMap.get(DcMotorEx.class,"arm");
         //arm.setDirection(DcMotor.Direction.REVERSE);
 

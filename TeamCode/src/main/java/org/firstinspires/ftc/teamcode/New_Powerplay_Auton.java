@@ -47,86 +47,86 @@ public class New_Powerplay_Auton extends LinearOpMode {
         parkingSpot = scanner.getParkingSpot();
         scanner.releaseCamera();
         waitForStart();
-            wheels.encoderDrive(0.8,   -30, 30, 30, -30, 3);
-
-            turret.left();
-            sleep(500);
-            //preload
-            slide.outtakeSet(20);
-            outtake.drop();
-            sleep(1500);
-            outtake.recieve();
-            slide.outtakeSet(0);
-            sleep(1000);
-            //first cycle
-            arm.level5();
-            slide.intakeSet(35);
-            sleep(1000);
-            finger.grab();
-            sleep(600);
-            arm.dropping();
-            slide.intakeSet(0);
-            sleep(1000);
-            slide.outtakeSet(20);
-            outtake.drop();
-            sleep(1500);
-            outtake.recieve();
-            slide.outtakeSet(0);
-            sleep(1000);
-            //second cycle
-            arm.level4();
-            slide.intakeSet(35);
-            sleep(1000);
-            finger.grab();
-            sleep(600);
-            arm.dropping();
-            slide.intakeSet(0);
-            sleep(1000);
-            slide.outtakeSet(20);
-            outtake.drop();
-            sleep(1500);
-            outtake.recieve();
-            slide.outtakeSet(0);
-            sleep(1000);
-            //third cycle
-            arm.level3();
-            slide.intakeSet(35);
-            sleep(1000);
-            finger.grab();
-            sleep(600);
-            arm.dropping();
-            slide.intakeSet(0);
-            sleep(1000);
-            slide.outtakeSet(20);
-            outtake.drop();
-            sleep(1500);
-            outtake.recieve();
-            slide.outtakeSet(0);
-            sleep(1000);
-            //fourth cycle
-            arm.level2();
-            slide.intakeSet(35);
-            sleep(1000);
-            finger.grab();
-            sleep(600);
-            arm.dropping();
-            slide.intakeSet(0);
-            sleep(1000);
-            slide.outtakeSet(20);
-            outtake.drop();
-            sleep(1500);
-            outtake.recieve();
-            slide.outtakeSet(0);
-            sleep(1000);
-            //last cycle
-            arm.ground();
-            slide.intakeSet(35);
-            sleep(1000);
-            finger.grab();
-            sleep(600);
-            arm.dropping();
-            slide.intakeSet(0);
-            sleep(1000);
+//            wheels.encoderDrive(0.8,   -30, 30, 30, -30, 3);
+//
+//            turret.left();
+//            sleep(500);
+//            //preload
+//            slide.outtakeSet(20);
+//            outtake.drop();
+//            sleep(1500);
+//            outtake.recieve();
+//            slide.outtakeSet(0);
+//            sleep(1000);
+//            //first cycle
+//            arm.level5();
+//            slide.intakeSet(35);
+//            sleep(1000);
+//            finger.grab();
+//            sleep(600);
+//            arm.dropping();
+//            slide.intakeSet(0);
+//            sleep(1000);
+//            slide.outtakeSet(20);
+//            outtake.drop();
+//            sleep(1500);
+//            outtake.recieve();
+//            slide.outtakeSet(0);
+//            sleep(1000);
+//            //second cycle
+//            arm.level4();
+//            slide.intakeSet(35);
+//            sleep(1000);
+//            finger.grab();
+//            sleep(600);
+//            arm.dropping();
+//            slide.intakeSet(0);
+//            sleep(1000);
+//            slide.outtakeSet(20);
+//            outtake.drop();
+//            sleep(1500);
+//            outtake.recieve();
+//            slide.outtakeSet(0);
+//            sleep(1000);
+//            //third cycle
+//            arm.level3();
+//            slide.intakeSet(35);
+//            sleep(1000);
+//            finger.grab();
+//            sleep(600);
+//            arm.dropping();
+//            slide.intakeSet(0);
+//            sleep(1000);
+//            slide.outtakeSet(20);
+//            outtake.drop();
+//            sleep(1500);
+//            outtake.recieve();
+//            slide.outtakeSet(0);
+//            sleep(1000);
+//            //fourth cycle
+//            arm.level2();
+//            slide.intakeSet(35);
+//            sleep(1000);
+//            finger.grab();
+//            sleep(600);
+//            arm.dropping();
+//            slide.intakeSet(0);
+//            sleep(1000);
+//            slide.outtakeSet(20);
+//            outtake.drop();
+//            sleep(1500);
+//            outtake.recieve();
+//            slide.outtakeSet(0);
+//            sleep(1000);
+//            //last cycle
+//            arm.ground();
+//            slide.intakeSet(35);
+//            sleep(1000);
+//            finger.grab();
+//            sleep(600);
+//            arm.dropping();
+//            slide.intakeSet(0);
+//            sleep(1000);
 
 
         }

@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Outtake2023 {
     //Configuration used: 6wheelConfig
-    public Servo outtake;
+    public ServoImplEx outtake;
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
@@ -18,7 +19,7 @@ public class Outtake2023 {
     public boolean isRecieved = true;
 
     public Outtake2023(HardwareMap hardwareMap) {
-        outtake = hardwareMap.get(Servo.class,"outtake");
+        outtake = hardwareMap.get(ServoImplEx.class,"outtake");
 
     }
 

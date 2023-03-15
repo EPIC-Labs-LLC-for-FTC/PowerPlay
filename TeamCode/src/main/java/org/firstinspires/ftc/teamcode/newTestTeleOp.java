@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 @TeleOp(name = "New_Test_TeleOp")
 public class newTestTeleOp extends LinearOpMode{
@@ -16,14 +17,15 @@ public class newTestTeleOp extends LinearOpMode{
     double righty;
     double rightx;
 
-    public Servo finger;
-    public Servo arm;
-    public Servo outtake;
-    public DcMotorEx intakeSlide;
+    public ServoImplEx finger;
+    public ServoImplEx arm;
+    public ServoImplEx outtake;
+    public ServoImplEx intakeSlide1;
+    public ServoImplEx intakeSlide2;
     public DcMotorEx outtakeSlide;
-    public Servo turret;
+    public ServoImplEx turret;
 
-    int intakeSlidePosition = 0;
+    double intakeSlidePosition = 0;
     int outtakeSlidePosition = 0;
     double turretPosition = 0;
     double outtakePosition = 0;
@@ -34,13 +36,13 @@ public class newTestTeleOp extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
 
-        intakeSlide = hardwareMap.get(DcMotorEx.class,"intakeSlide");
+        intakeSlide1 = hardwareMap.get(ServoImplEx.class,"intakeSlide1");
+        intakeSlide2 = hardwareMap.get(ServoImplEx.class,"intakeSlide2");
         outtakeSlide = hardwareMap.get(DcMotorEx.class,"outtakeSlide");
-        finger = hardwareMap.get(Servo.class,"finger");
-        arm = hardwareMap.get(Servo.class, "arm");
-        outtake = hardwareMap.get(Servo.class, "outtake");
-        turret = hardwareMap.get(Servo.class, "turret");
-        turret.setDirection(Servo.Direction.REVERSE);
+        finger = hardwareMap.get(ServoImplEx.class,"finger");
+        arm = hardwareMap.get(ServoImplEx.class, "arm");
+        outtake = hardwareMap.get(ServoImplEx.class, "outtake");
+        turret = hardwareMap.get(ServoImplEx.class, "turret");
 
         wheels.initialize();
         wheels.telemetry = telemetry;
@@ -48,17 +50,12 @@ public class newTestTeleOp extends LinearOpMode{
         wheels.leftErrorAdjustment = 0.72;
         wheels.rightErrorAdjustment = 0.72;
 
-        intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         outtakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        intakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-//        arm.setPosition(0.5);
-//        finger.setPosition(0.45);
-        outtake.setPosition(1);
 
         waitForStart();
         while(opModeIsActive()){
@@ -89,18 +86,16 @@ public class newTestTeleOp extends LinearOpMode{
         turret.setPosition(0.01);
 
         if(b){
-            intakeSlidePosition += 50;
-            intakeSlide.setPower(0.2);
+            intakeSlidePosition = intakeSlide1.getPosition() + 0.01;
+            intakeSlide1.setPosition(intakeSlidePosition);
+            intakeSlide2.setPosition(intakeSlidePosition);
             sleep(500);
-//            intakeSlide.setTargetPosition(intakeSlidePosition);
-//            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else if(x){
-            intakeSlidePosition -= 50;
-            intakeSlide.setPower(-0.2);
+            intakeSlidePosition = intakeSlide1.getPosition() - 0.01;
+            intakeSlide1.setPosition(intakeSlidePosition);
+            intakeSlide2.setPosition(intakeSlidePosition);
             sleep(500);
-//            intakeSlide.setTargetPosition(intakeSlidePosition);
-//            intakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else if(y){
             outtakeSlidePosition += 50;
@@ -115,7 +110,6 @@ public class newTestTeleOp extends LinearOpMode{
             outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         else {
-            intakeSlide.setPower(0.0);
             outtakeSlide.setPower(0.0);
         }
         if(dpadUp){
@@ -153,7 +147,8 @@ public class newTestTeleOp extends LinearOpMode{
 
         wheels.move(lefty,righty,leftx,rightx);
 
-        telemetry.addData("intake slide position: ", intakeSlide.getCurrentPosition());
+        telemetry.addData("intake slide 1 position: ", intakeSlide1.getPosition());
+        telemetry.addData("intake slide 2 position: ", intakeSlide2.getPosition());
         telemetry.addData("outtake slide position: ", outtakeSlide.getCurrentPosition());
         telemetry.addData("turret position: ", turret.getPosition());
         telemetry.addData("outtake position: ", outtake.getPosition());

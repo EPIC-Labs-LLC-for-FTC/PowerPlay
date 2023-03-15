@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Arm2023 {
     //Configuration used: 6wheelConfig
-    public Servo arm;
+    public ServoImplEx arm;
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
@@ -20,7 +21,7 @@ public class Arm2023 {
     public double ground = 0.7;
 
     public Arm2023(HardwareMap hardwareMap) {
-        arm = hardwareMap.get(Servo.class,"arm");
+        arm = hardwareMap.get(ServoImplEx.class,"arm");
 
     }
 
