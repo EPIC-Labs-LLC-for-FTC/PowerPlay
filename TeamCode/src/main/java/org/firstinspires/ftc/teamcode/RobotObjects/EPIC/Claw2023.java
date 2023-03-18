@@ -15,8 +15,8 @@ public class Claw2023 {
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    public double fingerMin = 0.4;
-    public double fingerMax = 0.6;
+    public double fingerMin = 0.475;
+    public double fingerMax = 0.525;
     public boolean isGrabbed = false;
     public boolean isReleased = false;
 

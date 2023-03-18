@@ -13,8 +13,8 @@ public class Outtake2023 {
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    public double dropping = 0;
-    public double recieving = 1;
+    public double dropping = 0.81;
+    public double recieving = 0;
     public boolean isDropped = false;
     public boolean isRecieved = true;
 
@@ -38,6 +38,9 @@ public class Outtake2023 {
         telemetry.update();
         isDropped = false;
         isRecieved = true;
+    }
+    public void setPosition(double position){
+        outtake.setPosition(position);
     }
     public double getPosition(){
         return outtake.getPosition();

@@ -18,10 +18,18 @@ public class TestArm extends LinearOpMode{
         arm.ground();
         waitForStart();
         while(opModeIsActive()){
-        arm.ground();
-        sleep(2000);
-        arm.dropping();
-        sleep(2000);
+            arm.ground();
+            sleep(2000);
+            arm.level2();
+            sleep(2000);
+            arm.level3();
+            sleep(2000);
+            arm.level4();
+            sleep(2000);
+            arm.level5();
+            sleep(2000);
+            arm.dropping();
+            sleep(2000);
 
     }
 }}

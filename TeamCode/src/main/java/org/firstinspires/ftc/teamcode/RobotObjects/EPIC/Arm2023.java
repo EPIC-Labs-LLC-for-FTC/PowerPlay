@@ -13,12 +13,12 @@ public class Arm2023 {
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    public double dropping = 0.175;
-    public double level5 = 0.4;
-    public double level4 = 0.55;
-    public double level3 = 0.58;
-    public double level2 = 0.605;
-    public double ground = 0.7;
+    public double dropping = 0.4;
+    public double level5 = 0.84;
+    public double level4 = 0.87;
+    public double level3 = 0.90;
+    public double level2 = 0.93;
+    public double ground = 0.96;
 
     public Arm2023(HardwareMap hardwareMap) {
         arm = hardwareMap.get(ServoImplEx.class,"arm");

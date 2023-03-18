@@ -13,9 +13,9 @@ public class Turret2023 {
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    public double front = 0.31;
-    public double left  = 0.15;
-    public double right  = 0.8;
+    public double front = 0.4;
+    public double left  = 0;
+    public double right  = 1;
     public double turretPosition = 0;
     public boolean incrementer = false;
 
@@ -25,7 +25,9 @@ public class Turret2023 {
         turret.setDirection(Servo.Direction.FORWARD);
 
     }
-
+    public void setPosition(double position){
+        turret.setPosition(position);
+    }
     public void home()
     {
         turret.setPosition(front);

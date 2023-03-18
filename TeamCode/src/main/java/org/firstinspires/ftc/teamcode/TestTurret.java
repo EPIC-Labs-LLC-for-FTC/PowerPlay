@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 public class TestTurret extends LinearOpMode{
 
     public Turret2023 turret;
+    double position;
 
 
     @Override
@@ -17,21 +18,39 @@ public class TestTurret extends LinearOpMode{
         turret = new Turret2023(hardwareMap);
         turret.telemetry = telemetry;
         turret.parent = this;
-        turret.home();
+        position = turret.turret.getPosition();
         waitForStart();
-        while (opModeIsActive()) {
-            turret.turretIncrease();
-            sleep(2000);
-            turret.turretIncrease();
-            sleep(2000);
-            turret.turretIncrease();
-            sleep(2000);
-            turret.turretDecrease();
-            sleep(2000);
-            turret.turretDecrease();
-            sleep(2000);
-            turret.turretDecrease();
-            turret.home();
-            sleep(2000);
+        while (opModeIsActive()){
+            boolean x = gamepad1.x;
+            boolean y = gamepad1.y;
+            boolean a = gamepad1.a;
+            boolean b = gamepad1.b;
+            if(x){
+                position += 0.005;
+                turret.setPosition(position);
+                telemetry.addData("Outtake position:", turret.turret.getPosition());
+                telemetry.update();
+            }
+            if(b){
+                position -= 0.005;
+                turret.setPosition(position);
+                telemetry.addData("Outtake position:",turret.turret.getPosition());
+                telemetry.update();
+            }
+            telemetry.addData("Outtake position:", turret.turret.getPosition());
+            telemetry.update();
+//            turret.turretIncrease();
+//            sleep(2000);
+//            turret.turretIncrease();
+//            sleep(2000);
+//            turret.turretIncrease();
+//            sleep(2000);
+//            turret.turretDecrease();
+//            sleep(2000);
+//            turret.turretDecrease();
+//            sleep(2000);
+//            turret.turretDecrease();
+//            turret.home();
+//            sleep(2000);
         }
     }}
