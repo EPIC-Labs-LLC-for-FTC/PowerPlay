@@ -31,24 +31,27 @@ public class TestSlider extends LinearOpMode{
         outtakeSlide = new OuttakeSlide2023(hardwareMap);
         outtakeSlide.telemetry = telemetry;
         outtakeSlide.parent = this;
+//        slide.in();
+//        arm.dropping();
         waitForStart();
         while(opModeIsActive()){
             boolean x = gamepad1.x;
             boolean y = gamepad1.y;
             boolean a = gamepad1.a;
             boolean b = gamepad1.b;
-            slide.in();
-            sleep(1000);
-            slide.out();
-            sleep(1000);
-            slide.in();
-            sleep(1000);
-            slide.out();
-            sleep(1000);
-            slide.in();
-            sleep(1000);
-            slide.out();
-            sleep(1000);
+//            arm.level3();
+//            slide.in();
+//            sleep(1000);
+//            slide.out();
+//            sleep(1000);
+//            slide.in();
+//            sleep(1000);
+//            slide.out();
+//            sleep(1000);
+//            slide.in();
+//            sleep(1000);
+//            slide.out();
+//            sleep(1000);
 
             if(x){
                 outtakePosition += 20;

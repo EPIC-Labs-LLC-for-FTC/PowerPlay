@@ -13,55 +13,72 @@ public class Arm2023 {
     //public DcMotorEx liftMotor;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    public double dropping = 0.4;
-    public double level5 = 0.84;
-    public double level4 = 0.87;
-    public double level3 = 0.90;
-    public double level2 = 0.93;
-    public double ground = 0.96;
+    public double dropping = 0.2;
+    public double transition = 0.5;
+    public double initialize = 0.45;
+    public double level5 = 0.82;
+    public double level4 = 0.79;
+    public double level3 = 0.82;
+    public double level2 = 0.87;
+    public double ground = 0.88;
 
     public Arm2023(HardwareMap hardwareMap) {
         arm = hardwareMap.get(ServoImplEx.class,"arm");
 
     }
 
-    public void dropping()
+    public void doDropping()
     {
         arm.setPosition(dropping);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm Claw 1:%d", arm.getPosition());
         telemetry.update();
     }
-    public void level5()
+    public void doLevel5()
     {
         arm.setPosition(level5);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm Claw 1:%d", arm.getPosition());
         telemetry.update();
     }
-    public void level4()
+    public void doLevel4()
     {
         arm.setPosition(level4);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm Claw 1:%d", arm.getPosition());
         telemetry.update();
     }
-    public void level3()
+    public void doLevel3()
     {
         arm.setPosition(level3);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm Claw 1:%d", arm.getPosition());
         telemetry.update();
     }
-    public void level2()
+    public void doLevel2()
     {
         arm.setPosition(level2);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm Claw 1:%d", arm.getPosition());
         telemetry.update();
     }
-    public void ground()
+    public void doTransition(){
+        arm.setPosition(transition);
+        telemetry.addData("arm 1:%d", arm.getPosition());
+        telemetry.update();
+
+    }
+    public void doInitialize()
+    {
+        arm.setPosition(initialize);
+        telemetry.addData("arm  1:%d", arm.getPosition());
+        telemetry.update();
+    }
+    public void doGround()
     {
         arm.setPosition(ground);
-        telemetry.addData("Finger Claw 1:%d", arm.getPosition());
+        telemetry.addData("arm 1:%d", arm.getPosition());
         telemetry.update();
     }
     public double getPosition(){
         return arm.getPosition();
+    }
+    public void armset(double position ){
+        arm.setPosition(arm.getPosition()+position);
     }
 }

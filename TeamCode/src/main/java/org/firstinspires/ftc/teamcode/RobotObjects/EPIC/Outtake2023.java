@@ -25,7 +25,7 @@ public class Outtake2023 {
 
     public void drop()
     {
-        outtake.setPosition(.9);
+        outtake.setPosition(.875);
         telemetry.addData("Finger Claw 1:%d", outtake.getPosition());
         telemetry.update();
         isDropped = true;

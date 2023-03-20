@@ -18,6 +18,7 @@ public class Turret2023 {
     public double right  = 1;
     public double turretPosition = 0;
     public boolean incrementer = false;
+    public double autonLeft = 0.22;
 
 
     public Turret2023(HardwareMap hardwareMap) {
@@ -31,6 +32,13 @@ public class Turret2023 {
     public void home()
     {
         turret.setPosition(front);
+        telemetry.addData("Finger Claw 1:%d", turret.getPosition());
+
+        telemetry.update();
+    }
+    public void leftAuton()
+    {
+        turret.setPosition(autonLeft);
         telemetry.addData("Finger Claw 1:%d", turret.getPosition());
 
         telemetry.update();

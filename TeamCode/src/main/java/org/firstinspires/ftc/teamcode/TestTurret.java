@@ -26,16 +26,18 @@ public class TestTurret extends LinearOpMode{
             boolean a = gamepad1.a;
             boolean b = gamepad1.b;
             if(x){
-                position += 0.005;
+                position += 0.01;
                 turret.setPosition(position);
                 telemetry.addData("Outtake position:", turret.turret.getPosition());
                 telemetry.update();
+                sleep(700);
             }
             if(b){
-                position -= 0.005;
+                position -= 0.01;
                 turret.setPosition(position);
                 telemetry.addData("Outtake position:",turret.turret.getPosition());
                 telemetry.update();
+                sleep(700);
             }
             telemetry.addData("Outtake position:", turret.turret.getPosition());
             telemetry.update();

@@ -10,43 +10,49 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Scanner;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Slide2023;
+import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.IntakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 import org.openftc.easyopencv.OpenCvCamera;
 
 @Autonomous(name = "new_Powerplay_Auton")
 public class New_Powerplay_Auton extends LinearOpMode {
-    OpenCvCamera webcam;
-    Scanner scanner;
+//    OpenCvCamera webcam;
+//    Scanner scanner;
     public Claw2023 finger;
     public Arm2023 arm;
     public Outtake2023 outtake;
     public Turret2023 turret;
-    public Slide2023 slide;
-    public DistanceSensor backDistance;
-    public DistanceSensor rightDistance;
+    public IntakeSlide2023 slide;
+//    public DistanceSensor backDistance;
+//    public DistanceSensor rightDistance;
     @Override
     public void runOpMode() throws InterruptedException {
-        scanner = new Scanner(hardwareMap);
-        scanner.telemetry = this.telemetry;
-        scanner.parent = this;
-        scanner.initialize();
+//        scanner = new Scanner(hardwareMap);
+//        scanner.telemetry = this.telemetry;
+//        scanner.parent = this;
+//        scanner.initialize();
         Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
         wheels.parent = this;
         wheels.IsAutonomous = true;
         wheels.telemetry = this.telemetry;
         wheels.initialize();
 
-        backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
-        rightDistance = hardwareMap.get(DistanceSensor.class, "rightDistance");
-        slide = new Slide2023(hardwareMap);
+//        backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
+//        rightDistance = hardwareMap.get(DistanceSensor.class, "rightDistance");
+        slide = new IntakeSlide2023(hardwareMap);
         finger = new Claw2023(hardwareMap);
         arm = new Arm2023(hardwareMap);
         outtake = new Outtake2023(hardwareMap);
         turret = new Turret2023(hardwareMap);
-        int parkingSpot = 0;
-        parkingSpot = scanner.getParkingSpot();
-        scanner.releaseCamera();
+//        int parkingSpot = 0;
+//        parkingSpot = scanner.getParkingSpot();
+//        scanner.releaseCamera();
         waitForStart();
+        while(opModeIsActive()){
+            wheels.encoderDrive(0.4,   -46, 46, 46, -46, 3);
+            sleep(10000);
+
+        }
 //            wheels.encoderDrive(0.8,   -30, 30, 30, -30, 3);
 //
 //            turret.left();

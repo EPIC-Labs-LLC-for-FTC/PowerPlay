@@ -19,14 +19,14 @@ public class OuttakeSlide2023 {
 
     public OuttakeSlide2023(HardwareMap hardwareMap){
         outtakeSlide = hardwareMap.get(DcMotorEx.class,"outtakeSlide");
-        outtakeSlide.setDirection(DcMotorSimple.Direction.REVERSE);
+        outtakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         outtakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public void set(int position){
         outtakeSlide.setTargetPosition(position);
-        outtakeSlide.setPower(0.8);
+        outtakeSlide.setPower(0.9);
         outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

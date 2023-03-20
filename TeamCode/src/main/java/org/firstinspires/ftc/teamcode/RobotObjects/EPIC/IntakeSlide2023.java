@@ -12,13 +12,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class IntakeSlide2023 {
     public ServoImplEx intakeSlide1;
     public ServoImplEx intakeSlide2;
-    public DcMotorEx outtakeSlide;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    private double extended1 = 1;
-    private double extended2 = 0;
-    private double home1 = 0.2;
-    private double home2 = 0.8;
+    private double extended1 = 0;
+    private double extended2 = 1;
+    private double extendedAuton1 = 0.08;
+    private double extendedAuton2 = 0.92;
+    private double home1 = 0.9;
+    private double home2 = 0.1;
 
 
     public IntakeSlide2023(HardwareMap hardwareMap){
@@ -35,4 +36,13 @@ public class IntakeSlide2023 {
         intakeSlide1.setPosition(home1);
         intakeSlide2.setPosition(home2);
     }
+    public void intakeSet(double position){
+        intakeSlide1.setPosition(intakeSlide1.getPosition()-position);
+        intakeSlide2.setPosition(intakeSlide2.getPosition()+position);
+    }
+    public void outAuton(){
+        intakeSlide1.setPosition(extendedAuton1);
+        intakeSlide2.setPosition(extendedAuton2);
+    }
+
 }
