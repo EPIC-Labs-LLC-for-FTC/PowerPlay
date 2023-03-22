@@ -23,6 +23,8 @@ public class Mecanum_Wheels {
 
     public double leftErrorAdjustment = 1.0;
     public double rightErrorAdjustment = 1.0;
+    public double backRightAdjustment = 1.0;
+    public double backLeftAdjustment = 1.0;
 
     public double mecanumWheelCircumference = 12; //inches
     public double omniWheelCircumference = 12; //inches
@@ -124,8 +126,8 @@ public class Mecanum_Wheels {
             frontleft.setPower(speed*leftErrorAdjustment);
             frontright.setPower(speed*rightErrorAdjustment);
 
-            backleft.setPower(speed*leftErrorAdjustment);
-            backright.setPower(speed*rightErrorAdjustment);
+            backleft.setPower(speed*leftErrorAdjustment*backLeftAdjustment);
+            backright.setPower(speed*rightErrorAdjustment*backRightAdjustment);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (parent.opModeIsActive() &&

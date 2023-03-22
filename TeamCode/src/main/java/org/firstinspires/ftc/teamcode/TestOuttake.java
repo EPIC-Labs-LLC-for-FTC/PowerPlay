@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 
-@TeleOp(name = "TestOuttake")
+@TeleOp(name = "TestOuttake",group = "test")
 public class TestOuttake extends LinearOpMode{
 
     public Outtake2023 outtake;

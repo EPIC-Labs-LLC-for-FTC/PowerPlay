@@ -16,8 +16,8 @@ public class IntakeSlide2023 {
     public LinearOpMode parent;
     private double extended1 = 0;
     private double extended2 = 1;
-    private double extendedAuton1 = 0.08;
-    private double extendedAuton2 = 0.92;
+    private double extendedAuton1 = 0.07;
+    private double extendedAuton2 = 0.93;
     private double home1 = 0.9;
     private double home2 = 0.1;
 
@@ -32,9 +32,25 @@ public class IntakeSlide2023 {
         intakeSlide1.setPosition(extended1);
         intakeSlide2.setPosition(extended2);
     }
+
+    public void out(boolean op){
+        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=extended1 || intakeSlide2.getPosition()!=extended2)) {
+            intakeSlide1.setPosition(extended1);
+            intakeSlide2.setPosition(extended2);
+        }
+    }
     public void in(){
-        intakeSlide1.setPosition(home1);
-        intakeSlide2.setPosition(home2);
+        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=home1 || intakeSlide2.getPosition()!=home2)){
+            intakeSlide1.setPosition(home1);
+            intakeSlide2.setPosition(home2);
+        }
+    }
+
+    public void in(boolean op){
+        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=home1 || intakeSlide2.getPosition()!=home2)){
+            intakeSlide1.setPosition(home1);
+            intakeSlide2.setPosition(home2);
+        }
     }
     public void intakeSet(double position){
         intakeSlide1.setPosition(intakeSlide1.getPosition()-position);
@@ -43,6 +59,12 @@ public class IntakeSlide2023 {
     public void outAuton(){
         intakeSlide1.setPosition(extendedAuton1);
         intakeSlide2.setPosition(extendedAuton2);
+    }
+    public void outAuton(boolean op){
+        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=extendedAuton1 || intakeSlide2.getPosition()!=extendedAuton2)) {
+            intakeSlide1.setPosition(extendedAuton1);
+            intakeSlide2.setPosition(extendedAuton2);
+        }
     }
 
 }

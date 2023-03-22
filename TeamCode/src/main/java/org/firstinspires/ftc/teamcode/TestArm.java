@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
 
-@TeleOp(name = "TestArm")
+@TeleOp(name = "TestArm",group = "test")
 public class TestArm extends LinearOpMode{
 
     public Arm2023 arm;

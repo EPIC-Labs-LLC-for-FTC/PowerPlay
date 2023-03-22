@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Scanner;
 import org.openftc.easyopencv.OpenCvCamera;
 
 @Autonomous(name = "PowerPlayParkingAuton")
+@Disabled
 public class POWERPLAY_Right_ParkingAuton extends LinearOpMode {
     OpenCvCamera webcam;
     Scanner scanner;

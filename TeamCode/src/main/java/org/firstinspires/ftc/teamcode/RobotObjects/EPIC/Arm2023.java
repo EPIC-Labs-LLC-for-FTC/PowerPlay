@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Arm2023 {
@@ -16,7 +18,7 @@ public class Arm2023 {
     public double dropping = 0.2;
     public double transition = 0.5;
     public double initialize = 0.45;
-    public double level5 = 0.82;
+    public double level5 = 0.75;
     public double level4 = 0.79;
     public double level3 = 0.82;
     public double level2 = 0.87;
@@ -24,7 +26,7 @@ public class Arm2023 {
 
     public Arm2023(HardwareMap hardwareMap) {
         arm = hardwareMap.get(ServoImplEx.class,"arm");
-
+        //arm.isPwmEnabled()
     }
 
     public void doDropping()

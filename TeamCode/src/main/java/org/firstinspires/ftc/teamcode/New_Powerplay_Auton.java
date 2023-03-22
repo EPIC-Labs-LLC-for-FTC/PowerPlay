@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 import org.openftc.easyopencv.OpenCvCamera;
 
 @Autonomous(name = "new_Powerplay_Auton")
+@Disabled
 public class New_Powerplay_Auton extends LinearOpMode {
 //    OpenCvCamera webcam;
 //    Scanner scanner;

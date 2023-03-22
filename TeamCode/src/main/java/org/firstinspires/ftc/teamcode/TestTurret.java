@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 
-@TeleOp(name = "TestTurret")
+@TeleOp(name = "TestTurret",group = "test")
 public class TestTurret extends LinearOpMode{
 
     public Turret2023 turret;
@@ -40,6 +40,7 @@ public class TestTurret extends LinearOpMode{
                 sleep(700);
             }
             telemetry.addData("Outtake position:", turret.turret.getPosition());
+            telemetry.addData("pole position:", turret.getPoleDist());
             telemetry.update();
 //            turret.turretIncrease();
 //            sleep(2000);

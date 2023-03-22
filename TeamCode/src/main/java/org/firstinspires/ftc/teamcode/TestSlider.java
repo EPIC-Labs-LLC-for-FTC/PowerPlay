@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.IntakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.OuttakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Slide2023;
 
-@TeleOp(name = "Test Claw Slide")
+@TeleOp(name = "Test Claw Slide",group = "test")
 public class TestSlider extends LinearOpMode{
 
     public IntakeSlide2023 slide;

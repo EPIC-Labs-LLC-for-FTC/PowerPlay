@@ -101,7 +101,7 @@ public class new_Test_Auton extends LinearOpMode {
 
 
             if(x1){
-                outtakeSlide.set(3000);
+                outtakeSlide.set(2800);
                 sleep(2000);
 
             }
@@ -181,6 +181,8 @@ public class new_Test_Auton extends LinearOpMode {
             telemetry.addData("armpos",arm.getPosition());
             telemetry.addData("intakeslide1pos", slide.intakeSlide1.getPosition());
             telemetry.addData("intakeslide2pos", slide.intakeSlide2.getPosition());
+            telemetry.addData("outtake slide pos", outtakeSlide.getPosition());
+            telemetry.addData("outtake slide target pos", outtakeSlide.getTargetPosition());
             telemetry.update();
         }
 

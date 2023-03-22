@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 
-@TeleOp(name = "TestNewClaw")
+@TeleOp(name = "TestNewClaw",group = "test")
 public class TestNewClaw extends LinearOpMode{
 
     public Claw2023 finger;

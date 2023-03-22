@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.DistanceSensor2023;
 
-@TeleOp(name = "Test Distances")
+@TeleOp(name = "Test Distances",group = "test")
 public class TestDistances extends LinearOpMode{
 
     public DistanceSensor2023 distances;

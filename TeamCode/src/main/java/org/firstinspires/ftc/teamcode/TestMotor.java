@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Scanner;
 import org.openftc.easyopencv.OpenCvCamera;
 @Autonomous(name = "TestMotor")
+@Disabled
 public class TestMotor extends LinearOpMode {
 //
     @Override
