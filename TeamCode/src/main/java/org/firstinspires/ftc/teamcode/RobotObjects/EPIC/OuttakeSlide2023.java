@@ -11,11 +11,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class OuttakeSlide2023 {
-    public DcMotorEx outtakeSlide;
+    public static DcMotorEx outtakeSlide;
     public Telemetry telemetry;
     public LinearOpMode parent;
-    private double extended = 1;
-    private double home = 0.2;
+    private int min = 0;
+    private int max = 2800;
 
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -26,16 +26,30 @@ public class OuttakeSlide2023 {
         outtakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         outtakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public void set(int position){
-        outtakeSlide.setTargetPosition(position);
-        outtakeSlide.setPower(0.9);
+        if(position<=min){
+            outtakeSlide.setTargetPosition(min);
+            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            outtakeSlide.setPower(0.9);
+        }
+        else if(position>=max){
+            outtakeSlide.setTargetPosition(max);
+            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            outtakeSlide.setPower(0.9);
+        }
+        else{
+            outtakeSlide.setTargetPosition(position);
+            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            outtakeSlide.setPower(0.9);
+        }
+
+
     }
     public void set(int position,double timeoutS){
         outtakeSlide.setTargetPosition(position);
-        //outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         runtime.reset();
         outtakeSlide.setPower(0.9);
         while (parent.opModeIsActive() &&

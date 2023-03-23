@@ -93,7 +93,7 @@ int outtakeTicks = 500;
 //        leftBackDistance = ds.getLeftBackDistance();
 //        rightBackDistance = ds.getRightBackDistance();
 //        diff = (leftBackDistance - rightBackDistance);
-        diff = 3.5;
+        diff = 4;
 //        //correction rotation
 //        while((leftBackDistance>32 || rightBackDistance>32) ) {
 //            diff = 2*diff;

@@ -56,6 +56,14 @@ public class IntakeSlide2023 {
         intakeSlide1.setPosition(intakeSlide1.getPosition()-position);
         intakeSlide2.setPosition(intakeSlide2.getPosition()+position);
     }
+    public void intakeIncrease(){
+        intakeSlide1.setPosition(intakeSlide1.getPosition() - 0.1);
+        intakeSlide2.setPosition(intakeSlide2.getPosition() + 0.1);
+    }
+    public void intakeDecrease(){
+        intakeSlide1.setPosition(intakeSlide1.getPosition() + 0.1);
+        intakeSlide2.setPosition(intakeSlide2.getPosition() - 0.1);
+    }
     public void outAuton(){
         intakeSlide1.setPosition(extendedAuton1);
         intakeSlide2.setPosition(extendedAuton2);

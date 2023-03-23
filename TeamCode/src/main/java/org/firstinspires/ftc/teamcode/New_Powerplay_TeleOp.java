@@ -65,7 +65,10 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
 //        outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        slide.in();
+        arm.doInitialize();
+        outtake.recieve();
+        turret.setPosition(0.15);
         waitForStart();
         while(opModeIsActive()){
         lefty = gamepad1.left_stick_y;
@@ -93,13 +96,11 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         float left_trigger2 = gamepad2.left_trigger;
 
         if(rightTrigger > 0){
-            intakeSlidePosition += 0.01;
-            slide.intakeSet(intakeSlidePosition);
+            slide.intakeIncrease();
             sleep(500);
         }
         if(leftTrigger > 0){
-            intakeSlidePosition -= 0.01;
-            slide.intakeSet(intakeSlidePosition);
+            slide.intakeDecrease();
             sleep(500);
         }
         if(right_bumper){
@@ -140,6 +141,7 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
                 outtake.drop();
                 isDropped = true;
             }
+            sleep(500);
         }
         if(y2){
             turret.home();
@@ -167,7 +169,9 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
             turret.turretDecrease();
         }
         wheels.move(lefty,righty,leftx,rightx);
-//        telemetry.addData("outtake ", outtake.getPosition());
-//        telemetry.update();
+        telemetry.addData("turret ", turret.turret.getPosition());
+        telemetry.addData("outtake slide ", OuttakeSlide2023.outtakeSlide.getCurrentPosition());
+        telemetry.update();
+        //for tall junction, slide value : 1480, turret value: 0.75
     }
 }}

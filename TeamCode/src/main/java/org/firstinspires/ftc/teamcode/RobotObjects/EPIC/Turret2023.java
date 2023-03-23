@@ -61,7 +61,7 @@ public class Turret2023 {
     }
     public void turretIncrease(){
         if(incrementer) {
-            turretPosition = turret.getPosition() + 0.05;
+            turretPosition = turret.getPosition() + 0.1;
             turret.setPosition(turretPosition);
             parent.sleep(1000);
             incrementer=false;
@@ -69,7 +69,7 @@ public class Turret2023 {
     }
     public void turretDecrease(){
         if(incrementer) {
-            turretPosition = turret.getPosition() - 0.05;
+            turretPosition = turret.getPosition() - 0.1;
             turret.setPosition(turretPosition);
             parent.sleep(1000);
             incrementer=false;
