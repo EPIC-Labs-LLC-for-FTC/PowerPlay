@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.IntakeSlide2023;
-
+@Disabled
 @TeleOp(name = "new_Test_Values")
 public class new_Test_Values extends LinearOpMode {
     //    OpenCvCamera webcam;

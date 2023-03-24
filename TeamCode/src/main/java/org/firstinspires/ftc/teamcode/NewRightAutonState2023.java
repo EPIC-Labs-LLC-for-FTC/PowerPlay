@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.OuttakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
 
-@Autonomous(name = "New Left Auton State 2023",group = "Competition")
-public class NewLeftAutonState2023 extends LinearOpMode {
+@Autonomous(name = "New Right Auton State 2023",group = "Competition")
+public class NewRightAutonState2023 extends LinearOpMode {
     OpenCvCamera webcam;
     Scanner scanner;
     public Claw2023 finger;
@@ -68,7 +68,7 @@ int outtakeTicks = 1000;
         turret = new Turret2023(hardwareMap);
         turret.parent = this;
         turret.telemetry = telemetry;
-        turret.setPosition(1.0);
+        turret.setPosition(0.7);
         ds = new DistanceSensor2023(hardwareMap);
         ds.parent = this;
         ds.telemetry = telemetry;
@@ -93,7 +93,7 @@ int outtakeTicks = 1000;
         wheels.leftErrorAdjustment = 0.75;
         double diff = 0;
 //        //Left Straf
-        wheels.encoderDrive(0.6,   -distance, distance, distance, -distance, 2);
+        wheels.encoderDrive(0.6,   distance, -distance, -distance, distance, 2);
 //
 ////        leftBackDistance = ds.getLeftBackDistance();
 ////        rightBackDistance = ds.getRightBackDistance();
@@ -102,7 +102,7 @@ int outtakeTicks = 1000;
 ////        //correction rotation
 ////        while((leftBackDistance>32 || rightBackDistance>32) ) {
 ////            diff = 2*diff;
-            wheels.encoderDrive(0.6, -diff, -diff, diff, diff, 1);
+            wheels.encoderDrive(0.6, diff, diff, -diff, -diff, 1);
 ////            leftBackDistance = ds.getLeftBackDistance();
 ////            rightBackDistance = ds.getRightBackDistance();
 ////            diff = (leftBackDistance - rightBackDistance);
@@ -119,7 +119,7 @@ int outtakeTicks = 1000;
 //////        //forward
 ////        wheels.encoderDrive(0.5,   leftBackDistance, leftBackDistance, rightBackDistance, rightBackDistance, 1);
 ////        //turret.alignPole();
-        turret.setPosition(0.08);
+        turret.setPosition(0.7);
 //        //sleep(servoSleep);
 
         arm.doInitialize();
@@ -228,12 +228,12 @@ int outtakeTicks = 1000;
         //slide.outAuton();
         sleep(servoSleep);
         //arm.doLevel2();
-            if(parkingSpot==1) {
+            if(parkingSpot==3) {
                     distance = -24;
                                 wheels.encoderDrive(0.8,distance,distance*0.65,distance,distance*0.65,2);
 
             }
-            else if(parkingSpot==3) {
+            else if(parkingSpot==1) {
                     distance = 24;
                                 wheels.encoderDrive(0.8,distance,distance*0.65,distance,distance*0.65,2);
 

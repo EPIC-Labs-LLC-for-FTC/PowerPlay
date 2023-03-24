@@ -16,7 +16,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-
 @Autonomous(name = "POWERPLAY_Auton")
 @Disabled
 public class FinalAutonPowerplay extends LinearOpMode {

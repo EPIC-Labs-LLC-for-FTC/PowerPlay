@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Claw2023 {
     //Configuration used: 6wheelConfig
     public ServoImplEx finger;
@@ -19,6 +22,7 @@ public class Claw2023 {
     public double fingerMax = 0.4;
     public boolean isGrabbed = false;
     public boolean isReleased = false;
+    public int servoTimeMS = 750;
 
     public Claw2023(HardwareMap hardwareMap) {
         finger = hardwareMap.get(ServoImplEx.class,"finger");
@@ -35,20 +39,37 @@ public class Claw2023 {
 
     public void grab()
     {
-        finger.setPosition(fingerMin);
-        parent.sleep(1000);
-        telemetry.addData("Finger Claw 1:%d", finger.getPosition());
-        telemetry.update();
-        isReleased = false;
-        isGrabbed = true;
+//        Timer t = new Timer();
+//        TimerTask tt = new TimerTask() {
+//            @Override
+//            public void run() {
+                finger.setPosition(fingerMin);
+                //parent.sleep(1000);
+                telemetry.addData("Finger Claw 1:%d", finger.getPosition());
+                telemetry.update();
+                isReleased = false;
+                isGrabbed = true;
+
+//            }
+//        };
+//        t.schedule(tt,servoTimeMS);
+
     }
 
     public void release() {
-        finger.setPosition(fingerMax);
-        parent.sleep(1000);
-        telemetry.addData("Finger Claw 1:%d", finger.getPosition());
-        telemetry.update();
-        isReleased = true;
-        isGrabbed = false;
+        //Timer t = new Timer();
+        //TimerTask tt = new TimerTask() {
+          //  @Override
+            //public void run() {
+                finger.setPosition(fingerMax);
+                //parent.sleep(1000);
+                telemetry.addData("Finger Claw 1:%d", finger.getPosition());
+                telemetry.update();
+                isReleased = true;
+                isGrabbed = false;
+
+           // }
+        //};
+        //t.schedule(tt,servoTimeMS);
     }
 }

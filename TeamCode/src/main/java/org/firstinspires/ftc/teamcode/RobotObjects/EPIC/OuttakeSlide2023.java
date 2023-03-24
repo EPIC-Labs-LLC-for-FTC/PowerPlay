@@ -30,9 +30,7 @@ public class OuttakeSlide2023 {
     }
     public void set(int position){
         if(position<=min){
-            outtakeSlide.setTargetPosition(min);
-            outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            outtakeSlide.setPower(0.9);
+
         }
         else if(position>=max){
             outtakeSlide.setTargetPosition(max);
@@ -51,7 +49,7 @@ public class OuttakeSlide2023 {
         outtakeSlide.setTargetPosition(position);
         outtakeSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         runtime.reset();
-        outtakeSlide.setPower(0.9);
+        outtakeSlide.setPower(1);
         while (parent.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
                 (outtakeSlide.isBusy())) {

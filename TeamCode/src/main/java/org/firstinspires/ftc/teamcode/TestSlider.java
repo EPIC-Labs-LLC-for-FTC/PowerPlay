@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.IntakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.OuttakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Slide2023;
-
+@Disabled
 @TeleOp(name = "Test Claw Slide",group = "test")
 public class TestSlider extends LinearOpMode{
 

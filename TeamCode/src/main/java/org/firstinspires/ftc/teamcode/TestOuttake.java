@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
-
+@Disabled
 @TeleOp(name = "TestOuttake",group = "test")
 public class TestOuttake extends LinearOpMode{
 

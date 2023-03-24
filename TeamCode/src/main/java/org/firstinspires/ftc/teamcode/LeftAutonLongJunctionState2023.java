@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Scanner;
-import org.openftc.easyopencv.OpenCvCamera;
 
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Arm2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Claw2023;
@@ -13,11 +12,11 @@ import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Mecanum_Wheels;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Outtake2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.OuttakeSlide2023;
 import org.firstinspires.ftc.teamcode.RobotObjects.EPIC.Turret2023;
-
-@Autonomous(name = "New Left Auton State 2023",group = "Competition")
-public class NewLeftAutonState2023 extends LinearOpMode {
-    OpenCvCamera webcam;
-    Scanner scanner;
+@Disabled
+@Autonomous(name = "Long Junction Left Auton State 2023",group = "Competition")
+public class LeftAutonLongJunctionState2023 extends LinearOpMode {
+//    OpenCvCamera webcam;
+//    Scanner scanner;
     public Claw2023 finger;
     public Arm2023 arm;
     public Outtake2023 outtake;
@@ -29,10 +28,10 @@ public class NewLeftAutonState2023 extends LinearOpMode {
 //    public DistanceSensor rightDistance;
     @Override
     public void runOpMode() throws InterruptedException {
-        scanner = new Scanner(hardwareMap);
-        scanner.telemetry = this.telemetry;
-        scanner.parent = this;
-        scanner.initialize();
+//        scanner = new Scanner(hardwareMap);
+//        scanner.telemetry = this.telemetry;
+//        scanner.parent = this;
+//        scanner.initialize();
         Mecanum_Wheels wheels = new Mecanum_Wheels(hardwareMap);
         wheels.parent = this;
         wheels.IsAutonomous = true;
@@ -40,11 +39,11 @@ public class NewLeftAutonState2023 extends LinearOpMode {
         //wheels.backLeftAdjustment = 0.95;
         //wheels.backRightAdjustment = 0.95;
         wheels.initialize();
-int servoSleep = 650;
-int intakesleep = 400;
+int servoSleep = 500;
 int motorSleepMs = 2000;
 double motorSleepS = 0.5;
-int outtakeTicks = 1000;
+//int outtakeTicks = 500; //mid junction
+            int outtakeTicks = 1480;
 //        backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
 //        rightDistance = hardwareMap.get(DistanceSensor.class, "rightDistance");
         slide = new IntakeSlide2023(hardwareMap);
@@ -68,20 +67,18 @@ int outtakeTicks = 1000;
         turret = new Turret2023(hardwareMap);
         turret.parent = this;
         turret.telemetry = telemetry;
-        turret.setPosition(1.0);
+        turret.setPosition(0.80);
         ds = new DistanceSensor2023(hardwareMap);
         ds.parent = this;
         ds.telemetry = telemetry;
-        int parkingSpot = 1;
-        parkingSpot = scanner.getParkingSpot();
-        scanner.releaseCamera();
+        int parkingSpot = 3;
+//        parkingSpot = scanner.getParkingSpot();
+//        scanner.releaseCamera();
         double leftDist = ds.getLeftDistance();
         double rightDist = ds.getRightDistance();
         double leftBackDistance = ds.getLeftBackDistance();
         double rightBackDistance = ds.getRightBackDistance();
         double poleDist = turret.getPoleDist();
-
-        finger.release();
         telemetry.addData("leftDist:",leftDist);
         telemetry.addData("rightDist:",rightDist);
         telemetry.addData("leftBackDistance:",leftBackDistance);
@@ -92,37 +89,37 @@ int outtakeTicks = 1000;
         double distance = 48;
         wheels.leftErrorAdjustment = 0.75;
         double diff = 0;
-//        //Left Straf
+        //Left Straf
         wheels.encoderDrive(0.6,   -distance, distance, distance, -distance, 2);
-//
-////        leftBackDistance = ds.getLeftBackDistance();
-////        rightBackDistance = ds.getRightBackDistance();
-////        diff = (leftBackDistance - rightBackDistance);
-        diff = 3.5;
-////        //correction rotation
-////        while((leftBackDistance>32 || rightBackDistance>32) ) {
-////            diff = 2*diff;
-            wheels.encoderDrive(0.6, -diff, -diff, diff, diff, 1);
-////            leftBackDistance = ds.getLeftBackDistance();
-////            rightBackDistance = ds.getRightBackDistance();
-////            diff = (leftBackDistance - rightBackDistance);
-////            if(leftBackDistance<32 && rightBackDistance<32 && diff>1)
-////                break;
-////        }
-////        //sleep(10000);
-////        //distance = 6.0;
-//      //  leftBackDistance = ds.getLeftBackDistance();
-//      //  rightBackDistance = ds.getRightBackDistance();
-////
-////        leftBackDistance = 32.5-leftBackDistance;
-////        rightBackDistance = 32.5-rightBackDistance;
-//////        //forward
-////        wheels.encoderDrive(0.5,   leftBackDistance, leftBackDistance, rightBackDistance, rightBackDistance, 1);
-////        //turret.alignPole();
-        turret.setPosition(0.08);
-//        //sleep(servoSleep);
 
-        arm.doInitialize();
+//        leftBackDistance = ds.getLeftBackDistance();
+//        rightBackDistance = ds.getRightBackDistance();
+//        diff = (leftBackDistance - rightBackDistance);
+        diff = 4;
+//        //correction rotation
+//        while((leftBackDistance>32 || rightBackDistance>32) ) {
+//            diff = 2*diff;
+            wheels.encoderDrive(0.6, -diff, -diff, diff, diff, 1);
+//            leftBackDistance = ds.getLeftBackDistance();
+//            rightBackDistance = ds.getRightBackDistance();
+//            diff = (leftBackDistance - rightBackDistance);
+//            if(leftBackDistance<32 && rightBackDistance<32 && diff>1)
+//                break;
+//        }
+//        //sleep(10000);
+//        //distance = 6.0;
+        leftBackDistance = ds.getLeftBackDistance();
+        rightBackDistance = ds.getRightBackDistance();
+//
+        leftBackDistance = 32.5-leftBackDistance;
+        rightBackDistance = 32.5-rightBackDistance;
+//        //forward
+        wheels.encoderDrive(0.5,   leftBackDistance, leftBackDistance, rightBackDistance, rightBackDistance, 1);
+//        //turret.alignPole();
+        turret.setPosition(0.73);
+        //sleep(servoSleep);
+
+        arm.doTransition();
         sleep(servoSleep);
         outtakeSlide.set(outtakeTicks,motorSleepS);
         //sleep(1500);
@@ -131,16 +128,15 @@ int outtakeTicks = 1000;
         outtake.recieve();
         outtakeSlide.set(0,motorSleepS);
         slide.outAuton();
-        sleep(intakesleep);
-        arm.doLevel5();
         sleep(servoSleep);
+        arm.doLevel5();
+        //sleep(500);
         finger.grab();
-        //sleep(40000);
         sleep(servoSleep);
         arm.doTransition();
         sleep(servoSleep);
         slide.in();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doDropping();
         sleep(servoSleep);
         finger.release();
@@ -151,10 +147,9 @@ int outtakeTicks = 1000;
         outtake.drop();
         sleep(servoSleep);
         outtake.recieve();
-        outtakeSlide.set(0,motorSleepS);
-        //Second cycle
+        outtakeSlide.set(0);
         slide.outAuton();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doLevel4();
 
         sleep(servoSleep);
@@ -163,7 +158,7 @@ int outtakeTicks = 1000;
         arm.doTransition();
         sleep(servoSleep);
         slide.in();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doDropping();
         sleep(servoSleep);
         finger.release();
@@ -175,9 +170,8 @@ int outtakeTicks = 1000;
         sleep(servoSleep);
         outtake.recieve();
         outtakeSlide.set(0,motorSleepS);
-        //Third Cycle
         slide.outAuton();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doLevel3();
 
         sleep(servoSleep);
@@ -186,7 +180,7 @@ int outtakeTicks = 1000;
         arm.doTransition();
         sleep(servoSleep);
         slide.in();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doDropping();
         sleep(servoSleep);
         finger.release();
@@ -198,72 +192,15 @@ int outtakeTicks = 1000;
         sleep(servoSleep);
         outtake.recieve();
         outtakeSlide.set(0,motorSleepS);
-        //fourth cycle
-        slide.outAuton();
-        sleep(intakesleep);
-        arm.doLevel2();
-
-        sleep(servoSleep);
-        finger.grab();
-        sleep(servoSleep);
-        arm.doTransition();
-        sleep(servoSleep);
         slide.in();
-        sleep(intakesleep);
+        sleep(servoSleep);
         arm.doDropping();
-        sleep(servoSleep);
-        finger.release();
-        sleep(servoSleep);
-        arm.doTransition();
-        outtakeSlide.set(outtakeTicks,motorSleepS);
-        //sleep(1000);
-        outtake.drop();
-        sleep(servoSleep);
-        outtake.recieve();
-        outtakeSlide.set(0,motorSleepS);
-        //fifth cycle
-        slide.in();
-        sleep(intakesleep);
-        arm.doInitialize();
         //slide.outAuton();
         sleep(servoSleep);
         //arm.doLevel2();
-            if(parkingSpot==1) {
-                    distance = -24;
-                                wheels.encoderDrive(0.8,distance,distance*0.65,distance,distance*0.65,2);
-
-            }
-            else if(parkingSpot==3) {
-                    distance = 24;
-                                wheels.encoderDrive(0.8,distance,distance*0.65,distance,distance*0.65,2);
-
-            }
-//            else {
-//                    //fourth cycle
-//                    slide.outAuton();
-//                    sleep(intakesleep);
-//                    arm.doGround();
-//
-//                    sleep(servoSleep);
-//                    finger.grab();
-//                    sleep(servoSleep);
-//                    arm.doTransition();
-//                    sleep(servoSleep);
-//                    slide.in();
-//                    sleep(intakesleep);
-//                    arm.doDropping();
-//                    sleep(servoSleep);
-//                    finger.release();
-//                    sleep(servoSleep);
-//                    arm.doTransition();
-//                    outtakeSlide.set(outtakeTicks,motorSleepS);
-//                    //sleep(1000);
-//                    outtake.drop();
-//                    sleep(servoSleep);
-//                    outtake.recieve();
-//                    outtakeSlide.set(0,motorSleepS);
-//            }
-//            wheels.encoderDrive(0.8,distance,distance*0.65,distance,distance*0.65,2);
+            if(parkingSpot==3)
+                    distance = -23;
+            wheels.encoderDrive(0.8,distance,distance*0.75,distance,distance*0.75,2);
         while(opModeIsActive()){
             poleDist = turret.getPoleDist();
             leftDist = ds.getLeftDistance();
@@ -276,7 +213,7 @@ int outtakeTicks = 1000;
             telemetry.addData("leftBackDistance:",leftBackDistance);
             telemetry.addData("rightBackDistance:",rightBackDistance);
             telemetry.update();
-            //sleep(2000);
+            sleep(2000);
 
         }
 //            wheels.encoderDrive(0.8,   -30, 30, 30, -30, 3);

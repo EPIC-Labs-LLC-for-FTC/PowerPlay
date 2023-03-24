@@ -58,23 +58,7 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         wheels.leftErrorAdjustment = 0.72;
         wheels.rightErrorAdjustment = 0.72;
 
-//        intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        outtakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//
-//        intakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slide.in();
-        arm.doInitialize();
-        outtake.recieve();
-        turret.setPosition(0.15);
-        waitForStart();
-        while(opModeIsActive()){
-        lefty = gamepad1.left_stick_y;
-        leftx = gamepad1.left_stick_x;
-        righty = gamepad1.right_stick_y;
-        rightx = -gamepad1.right_stick_x;
+
         float rightTrigger = gamepad1.right_trigger;
         float leftTrigger = gamepad1.left_trigger;
         boolean right_bumper = gamepad1.right_bumper;
@@ -95,83 +79,139 @@ public class New_Powerplay_TeleOp extends LinearOpMode {
         float right_trigger2 = gamepad2.right_trigger;
         float left_trigger2 = gamepad2.left_trigger;
 
-        if(rightTrigger > 0){
-            slide.intakeIncrease();
-            sleep(500);
-        }
-        if(leftTrigger > 0){
-            slide.intakeDecrease();
-            sleep(500);
-        }
-        if(right_bumper){
-            slide.out();
-            arm.doGround();
-        }
-        if(left_bumper){
-            slide.in();
-            arm.doDropping();
-        }
-        if(x){
-            finger.release();
-        }
-        if(y){
-            finger.grab();
-        }
-        if(a){
-            arm.doGround();;
-        }
-        if(b){
-            arm.doDropping();
-        }
-        if(dpadUp2){
-            outtake.recieve();
-        }
-        if(dpadLeft2){
-            outtake.recieve();
-        }
-        if(dpadRight2){
-            outtake.recieve();
-        }
-        if(a2){
-            if(isDropped){
+//        intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        outtakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        intakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        outtakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        outtakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide.in();
+        arm.doInitialize();
+        outtake.recieve();
+        turret.setPosition(0.15);
+        waitForStart();
+        while (opModeIsActive()) {
+            lefty = gamepad1.left_stick_y;
+            leftx = gamepad1.left_stick_x;
+            righty = gamepad1.right_stick_y;
+            rightx = -gamepad1.right_stick_x;
+            rightTrigger = gamepad1.right_trigger;
+            leftTrigger = gamepad1.left_trigger;
+            right_bumper = gamepad1.right_bumper;
+            left_bumper = gamepad1.left_bumper;
+            x = gamepad1.x;
+            y = gamepad1.y;
+            a = gamepad1.a;
+            b = gamepad1.b;
+            b2 = gamepad2.b;
+            x2 = gamepad2.x;
+            a2 = gamepad2.a;
+            y2 = gamepad2.y;
+            dpadUp2 = gamepad2.dpad_up;
+            dpadRight2 = gamepad2.dpad_right;
+            dpadLeft2 = gamepad2.dpad_left;
+            rightBumper2 = gamepad2.right_bumper;
+            leftBumper2 = gamepad2.left_bumper;
+            right_trigger2 = gamepad2.right_trigger;
+            left_trigger2 = gamepad2.left_trigger;
+
+            if (rightTrigger > 0) {
+                slide.intakeIncrease();
+                sleep(500);
+            }
+            else if (leftTrigger > 0) {
+                slide.intakeDecrease();
+                sleep(500);
+            }
+            else if (right_bumper) {
+                slide.out();
+                arm.doGround();
+            }
+            else if (left_bumper) {
+                slide.in();
+                arm.doDropping();
+            }
+            else if (x) {
+                finger.grab();
+            }
+            else if (y) {
+                finger.release();
+            }
+            else if (a) {
+                arm.doLevel4();
+            }
+            else if (b) {
+                arm.doDropping();
+            }
+            if (dpadUp2) {
+                finger.grab();
+                sleep(500);
+                slide.in();
+                arm.doDropping();
+                sleep(900);
+                finger.release();
+                sleep(1200);
+                arm.doInitialize();
+                sleep(500);
+                outtakeSlide.set(1900);
+            }
+            else if (dpadLeft2) {
+                finger.grab();
+                sleep(500);
+                slide.in();
+                arm.doDropping();
+                sleep(900);
+                finger.release();
+                sleep(900);
+                arm.doInitialize();
+                outtakeSlide.set(700);
+            }
+            else if (dpadRight2) {
+                outtakeSlide.set(0);
                 outtake.recieve();
-                isDropped = false;
             }
-            else{
-                outtake.drop();
-                isDropped = true;
+            else if (a2) {
+                if (isDropped) {
+                    outtake.recieve();
+                    isDropped = false;
+                } else {
+                    outtake.drop();
+                    isDropped = true;
+                }
+                sleep(500);
             }
-            sleep(500);
+            else if (y2) {
+                turret.home();
+            }
+            else if (x2) {
+                turret.right();
+            }
+            else if (b2) {
+                turret.left();
+            }
+            else if (rightBumper2) {
+                outtakeSlidePosition += 5;
+                outtakeSlide.set(outtakeSlidePosition);
+            }
+            else if (leftBumper2) {
+                outtakeSlidePosition -= 5;
+                outtakeSlide.set(outtakeSlidePosition);
+            }
+            else if (right_trigger2 > 0) {
+                turret.incrementer = true;
+                turret.turretDecrease();
+            }
+            else if (left_trigger2 > 0) {
+                turret.incrementer = true;
+                turret.turretIncrease();
+            }
+            wheels.move(lefty, righty, leftx, rightx);
+            telemetry.addData("turret ", turret.turret.getPosition());
+            telemetry.addData("outtake slide ", OuttakeSlide2023.outtakeSlide.getCurrentPosition());
+
+            telemetry.update();
+            //for tall junction, slide value : 1480, turret value: 0.75
         }
-        if(y2){
-            turret.home();
-        }
-        if(x2){
-            turret.left();
-        }
-        if(b2){
-            turret.right();
-        }
-        if(rightBumper2){
-            outtakeSlidePosition += 5;
-            outtakeSlide.set(outtakeSlidePosition);
-        }
-        if(leftBumper2){
-            outtakeSlidePosition -= 5;
-            outtakeSlide.set(outtakeSlidePosition);
-        }
-        if(right_trigger2 > 0){
-            turret.incrementer=true;
-            turret.turretIncrease();
-        }
-        if(left_trigger2 > 0){
-            turret.incrementer=true;
-            turret.turretDecrease();
-        }
-        wheels.move(lefty,righty,leftx,rightx);
-        telemetry.addData("turret ", turret.turret.getPosition());
-        telemetry.addData("outtake slide ", OuttakeSlide2023.outtakeSlide.getCurrentPosition());
-        telemetry.update();
-        //for tall junction, slide value : 1480, turret value: 0.75
     }
-}}
+}

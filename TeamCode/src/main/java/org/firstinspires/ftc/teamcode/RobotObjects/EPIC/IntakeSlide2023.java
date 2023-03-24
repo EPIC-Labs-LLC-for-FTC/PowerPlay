@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class IntakeSlide2023 {
     public ServoImplEx intakeSlide1;
     public ServoImplEx intakeSlide2;
@@ -16,10 +19,11 @@ public class IntakeSlide2023 {
     public LinearOpMode parent;
     private double extended1 = 0;
     private double extended2 = 1;
-    private double extendedAuton1 = 0.07;
-    private double extendedAuton2 = 0.93;
+    private double extendedAuton1 = 0.3;
+    private double extendedAuton2 = 0.7;
     private double home1 = 0.9;
     private double home2 = 0.1;
+    public int servoTimeMS = 500;
 
 
     public IntakeSlide2023(HardwareMap hardwareMap){
@@ -47,10 +51,19 @@ public class IntakeSlide2023 {
     }
 
     public void in(boolean op){
-        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=home1 || intakeSlide2.getPosition()!=home2)){
+        Timer t = new Timer();
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+        //while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=home1 || intakeSlide2.getPosition()!=home2)){
             intakeSlide1.setPosition(home1);
             intakeSlide2.setPosition(home2);
-        }
+        //}
+
+
+            }
+        };
+        t.schedule(tt,servoTimeMS);
     }
     public void intakeSet(double position){
         intakeSlide1.setPosition(intakeSlide1.getPosition()-position);
@@ -69,10 +82,19 @@ public class IntakeSlide2023 {
         intakeSlide2.setPosition(extendedAuton2);
     }
     public void outAuton(boolean op){
-        while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=extendedAuton1 || intakeSlide2.getPosition()!=extendedAuton2)) {
+        Timer t = new Timer();
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+        //while(parent.opModeIsActive() && (intakeSlide1.getPosition()!=extendedAuton1 || intakeSlide2.getPosition()!=extendedAuton2)) {
             intakeSlide1.setPosition(extendedAuton1);
             intakeSlide2.setPosition(extendedAuton2);
-        }
+        //}
+
+
+            }
+        };
+        t.schedule(tt,servoTimeMS);
     }
 
 }
